@@ -1,0 +1,28 @@
+# The offline tests, on every push and pull request to main.
+#
+# No API key is set. Every Anthropic client in the tests is the scripted
+# stub in tests/stubs.py. The conversation file is fetched from the pinned
+# ABCD commit and sha256-checked before the tests run.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Fetch ABCD
+        run: python scripts/fetch_data.py
+      - name: Test
+        run: python -m pytest -q tests/
