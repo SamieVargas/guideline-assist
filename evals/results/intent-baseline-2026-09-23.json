@@ -1,0 +1,2405 @@
+{
+ "generated": "2026-09-23T21:13:17+00:00",
+ "records": [
+  {
+   "conv": "126",
+   "gold": "manage_change_name",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "159",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "215",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "276",
+   "gold": "status_shipping_question",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "281",
+   "gold": "manage_upgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "295",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "312",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "351",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "363",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "367",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "379",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "399",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "459",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "485",
+   "gold": "manage_change_name",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "533",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "568",
+   "gold": "status_active",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "739",
+   "gold": "status_service_added",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "770",
+   "gold": "manage_downgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "777",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "799",
+   "gold": "status_quantity",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "813",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "955",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "968",
+   "gold": "refund_update",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1008",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1021",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1028",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1037",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1087",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1100",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1129",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1164",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1179",
+   "gold": "return_stain",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1208",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1213",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1229",
+   "gold": "return_stain",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1246",
+   "gold": "manage_change_phone",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1341",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1351",
+   "gold": "out_of_stock_one_item",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1352",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1394",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1466",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1473",
+   "gold": "status_service_removed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1526",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1560",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1601",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1655",
+   "gold": "bad_price_competitor",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1656",
+   "gold": "shopping_cart",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1738",
+   "gold": "status_due_amount",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1814",
+   "gold": "status_due_date",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1876",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1904",
+   "gold": "status_payment_method",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1941",
+   "gold": "manage_change_phone",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "1976",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2000",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2003",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2049",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2206",
+   "gold": "manage_pay_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2212",
+   "gold": "manage_dispute_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2237",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2244",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2334",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2392",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2472",
+   "gold": "manage_pay_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2498",
+   "gold": "status_quantity",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2556",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2565",
+   "gold": "status_delivery_time",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2579",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2599",
+   "gold": "return_stain",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2623",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2627",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2660",
+   "gold": "manage_change_phone",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2690",
+   "gold": "out_of_stock_one_item",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2712",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2723",
+   "gold": "promo_code_invalid",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2732",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2805",
+   "gold": "status_due_date",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2844",
+   "gold": "bad_price_competitor",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2914",
+   "gold": "status_payment_method",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2915",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "2947",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3007",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3013",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3168",
+   "gold": "manage_downgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3176",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3179",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3192",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3266",
+   "gold": "manage_dispute_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3276",
+   "gold": "manage_cancel",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3293",
+   "gold": "status_credit_missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3325",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3342",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3369",
+   "gold": "status_credit_missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3388",
+   "gold": "manage_create",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3425",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3450",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3500",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3521",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3538",
+   "gold": "refund_update",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3548",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3572",
+   "gold": "bad_price_yesterday",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3585",
+   "gold": "promo_code_invalid",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3644",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3662",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3707",
+   "gold": "manage_downgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3723",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3743",
+   "gold": "mistimed_billing_never_bought",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3792",
+   "gold": "manage_create",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3839",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "3862",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4038",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4061",
+   "gold": "mistimed_billing_never_bought",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4107",
+   "gold": "status_delivery_time",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4120",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4160",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4164",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4170",
+   "gold": "status_payment_method",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4188",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4195",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4200",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4215",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4297",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4329",
+   "gold": "status_due_date",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4358",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4454",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4551",
+   "gold": "mistimed_billing_never_bought",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4552",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4562",
+   "gold": "mistimed_billing_already_returned",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4588",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4593",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4595",
+   "gold": "manage_downgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4652",
+   "gold": "status_quantity",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4660",
+   "gold": "manage_cancel",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4665",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4730",
+   "gold": "status_shipping_question",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4822",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4827",
+   "gold": "bad_price_yesterday",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4834",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4862",
+   "gold": "cost",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4897",
+   "gold": "manage_dispute_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4907",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4947",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4972",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4982",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "4984",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5011",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5033",
+   "gold": "promo_code_invalid",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5054",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5151",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5161",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5228",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5237",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5362",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5372",
+   "gold": "out_of_stock_one_item",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5374",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5376",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5381",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5384",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5397",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5433",
+   "gold": "out_of_stock_one_item",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5436",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5463",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5483",
+   "gold": "status_service_removed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5485",
+   "gold": "shopping_cart",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5531",
+   "gold": "refund_update",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5539",
+   "gold": "manage_upgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5691",
+   "gold": "mistimed_billing_already_returned",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5700",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5714",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5735",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5788",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5796",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5806",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5869",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5879",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5933",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "5951",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6044",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6069",
+   "gold": "return_stain",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6071",
+   "gold": "bad_price_yesterday",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6104",
+   "gold": "mistimed_billing_already_returned",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6177",
+   "gold": "bad_price_yesterday",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6214",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6233",
+   "gold": "promo_code_invalid",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6255",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6274",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6290",
+   "gold": "status_service_added",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6292",
+   "gold": "manage_create",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6348",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6370",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6435",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6444",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6457",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6500",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6507",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6513",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6572",
+   "gold": "status_credit_missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6587",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6605",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6626",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6657",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6834",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6855",
+   "gold": "status_mystery_fee",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6868",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6886",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6947",
+   "gold": "jacket",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "6997",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7049",
+   "gold": "mistimed_billing_never_bought",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7091",
+   "gold": "mistimed_billing_never_bought",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7138",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7185",
+   "gold": "cost",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7232",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7269",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7301",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7331",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7333",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7387",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7423",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7462",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7530",
+   "gold": "status_shipping_question",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7555",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7595",
+   "gold": "status_shipping_question",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7628",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7644",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7688",
+   "gold": "status_mystery_fee",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7749",
+   "gold": "timing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7782",
+   "gold": "refund_update",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7818",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7865",
+   "gold": "status_credit_missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7910",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7951",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7954",
+   "gold": "manage_upgrade",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7967",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7989",
+   "gold": "status_due_amount",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "7996",
+   "gold": "manage_dispute_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8068",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8197",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8210",
+   "gold": "jeans",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8241",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8256",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8264",
+   "gold": "cost",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8271",
+   "gold": "refund_status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8285",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8314",
+   "gold": "status_mystery_fee",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8331",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8352",
+   "gold": "mistimed_billing_already_returned",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8532",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8580",
+   "gold": "return_stain",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8614",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8623",
+   "gold": "status_due_amount",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8628",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8644",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8654",
+   "gold": "bad_price_yesterday",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8697",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8786",
+   "gold": "status_credit_missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8807",
+   "gold": "pricing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8904",
+   "gold": "status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8930",
+   "gold": "manage_dispute_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8946",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8976",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "8984",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9010",
+   "gold": "recover_password",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9025",
+   "gold": "shopping_cart",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9121",
+   "gold": "refund_update",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9127",
+   "gold": "status_service_added",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9156",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9178",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9181",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9196",
+   "gold": "reset_2fa",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9220",
+   "gold": "refund_status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9266",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9268",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9310",
+   "gold": "refund_status",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9353",
+   "gold": "boots",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9426",
+   "gold": "manage_pay_bill",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9453",
+   "gold": "out_of_stock_general",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9530",
+   "gold": "missing",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9577",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9625",
+   "gold": "slow_speed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9636",
+   "gold": "status_quantity",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9641",
+   "gold": "status_service_added",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9651",
+   "gold": "status_delivery_time",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9667",
+   "gold": "cost",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9737",
+   "gold": "refund_initiate",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9805",
+   "gold": "search_results",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9879",
+   "gold": "policy",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9880",
+   "gold": "return_color",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9943",
+   "gold": "promo_code_out_of_date",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "9989",
+   "gold": "shopping_cart",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10014",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10065",
+   "gold": "recover_username",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10091",
+   "gold": "manage",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10110",
+   "gold": "shirt",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10124",
+   "gold": "return_size",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10165",
+   "gold": "status_service_added",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10362",
+   "gold": "membership",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10365",
+   "gold": "status_due_date",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10391",
+   "gold": "status_mystery_fee",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10395",
+   "gold": "manage_extension",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10424",
+   "gold": "credit_card",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  },
+  {
+   "conv": "10549",
+   "gold": "status_service_removed",
+   "pred": "recover_username",
+   "valid": true,
+   "latency_ms": 0,
+   "cost_usd": 0.0
+  }
+ ]
+}

@@ -1,0 +1,2265 @@
+{
+ "generated": "2026-09-23T21:16:03+00:00",
+ "records": [
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 3,
+   "human": "search-faq",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 5,
+   "human": "log-out-in",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 7,
+   "human": "instructions",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 11,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "1579470985",
+    "17399"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "albert sanders"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 18,
+   "human": "record-reason",
+   "human_values": [
+    "email"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 20,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "777",
+   "subflow": "credit_card",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "rodriguez domingo"
+   ],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "777",
+   "subflow": "credit_card",
+   "i": 14,
+   "human": "validate-purchase",
+   "human_values": [
+    "rodriguezdomingo525@email.com",
+    "rodriguezdomingo525",
+    "n/a"
+   ],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "777",
+   "subflow": "credit_card",
+   "i": 15,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 3,
+   "human": "pull-up-account",
+   "human_values": [
+    "albert sanders"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 9,
+   "human": "verify-identity",
+   "human_values": [
+    "albert sanders",
+    "rutm9qszml",
+    "3044561205"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 10,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 18,
+   "human": "shipping-status",
+   "human_values": [
+    "order received"
+   ],
+   "assist": "shipping-status",
+   "assist_values": [],
+   "expected": "shipping-status",
+   "category": "agree"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 19,
+   "human": "update-order",
+   "human_values": [
+    ""
+   ],
+   "assist": "update-order",
+   "assist_values": [],
+   "expected": "update-order",
+   "category": "agree"
+  },
+  {
+   "conv": "812",
+   "subflow": "status_delivery_time",
+   "i": 20,
+   "human": "update-order",
+   "human_values": [
+    "evening"
+   ],
+   "assist": "none_yet",
+   "assist_values": [],
+   "expected": null,
+   "category": "both_off"
+  },
+  {
+   "conv": "1054",
+   "subflow": "manage_upgrade",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "joyce wu"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "1054",
+   "subflow": "manage_upgrade",
+   "i": 6,
+   "human": "verify-identity",
+   "human_values": [
+    "joyce wu",
+    "5mgnlajhyh",
+    "1816957848"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "1054",
+   "subflow": "manage_upgrade",
+   "i": 10,
+   "human": "shipping-status",
+   "human_values": [
+    "in transit"
+   ],
+   "assist": "shipping-status",
+   "assist_values": [],
+   "expected": "shipping-status",
+   "category": "agree"
+  },
+  {
+   "conv": "1352",
+   "subflow": "out_of_stock_general",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "sanya afzal"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "1352",
+   "subflow": "out_of_stock_general",
+   "i": 6,
+   "human": "notify-team",
+   "human_values": [
+    "purchasing department"
+   ],
+   "assist": "notify-team",
+   "assist_values": [],
+   "expected": "notify-team",
+   "category": "agree"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 11,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "4999350902",
+    "ktgagxdzbn"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 14,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "ktgagxdzbn",
+    "4999350902"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 18,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 20,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "1913",
+   "subflow": "manage_dispute_bill",
+   "i": 27,
+   "human": "offer-refund",
+   "human_values": [
+    "20"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "2058",
+   "subflow": "status_delivery_time",
+   "i": 10,
+   "human": "pull-up-account",
+   "human_values": [
+    "joseph banter"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "2058",
+   "subflow": "status_delivery_time",
+   "i": 15,
+   "human": "verify-identity",
+   "human_values": [
+    "joseph banter",
+    "6scezplv8z",
+    "7354099143"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "2058",
+   "subflow": "status_delivery_time",
+   "i": 16,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "2202",
+   "subflow": "boots",
+   "i": 5,
+   "human": "search-faq",
+   "human_values": [],
+   "assist": "search-faq",
+   "assist_values": [],
+   "expected": "search-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "2202",
+   "subflow": "boots",
+   "i": 6,
+   "human": "search-boots",
+   "human_values": [],
+   "assist": "search-boots",
+   "assist_values": [],
+   "expected": "search-boots",
+   "category": "agree"
+  },
+  {
+   "conv": "2650",
+   "subflow": "manage_cancel",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "albert sanders"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "2650",
+   "subflow": "manage_cancel",
+   "i": 11,
+   "human": "verify-identity",
+   "human_values": [
+    "albert sanders",
+    "uhdinbskkd",
+    "8303368963"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "2650",
+   "subflow": "manage_cancel",
+   "i": 14,
+   "human": "shipping-status",
+   "human_values": [
+    "order received"
+   ],
+   "assist": "shipping-status",
+   "assist_values": [],
+   "expected": "shipping-status",
+   "category": "agree"
+  },
+  {
+   "conv": "2650",
+   "subflow": "manage_cancel",
+   "i": 17,
+   "human": "offer-refund",
+   "human_values": [
+    "49"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "chloe zhang"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 10,
+   "human": "verify-identity",
+   "human_values": [
+    "chloe zhang",
+    "bv2kdueyjy",
+    "3272518742"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 12,
+   "human": "subscription-status",
+   "human_values": [],
+   "assist": "subscription-status",
+   "assist_values": [],
+   "expected": "subscription-status",
+   "category": "agree"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 15,
+   "human": "send-link",
+   "human_values": [],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "agree"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 19,
+   "human": "enter-details",
+   "human_values": [
+    "14"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "2808",
+   "subflow": "status_due_amount",
+   "i": 20,
+   "human": "update-account",
+   "human_values": [
+    "extend subscription"
+   ],
+   "assist": "none_yet",
+   "assist_values": [],
+   "expected": null,
+   "category": "both_off"
+  },
+  {
+   "conv": "2811",
+   "subflow": "status_service_removed",
+   "i": 9,
+   "human": "pull-up-account",
+   "human_values": [
+    "domingo rodriguez"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "2811",
+   "subflow": "status_service_removed",
+   "i": 13,
+   "human": "record-reason",
+   "human_values": [
+    "spouse"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "2811",
+   "subflow": "status_service_removed",
+   "i": 16,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "2844",
+   "subflow": "bad_price_competitor",
+   "i": 8,
+   "human": "pull-up-account",
+   "human_values": [
+    "chloe zhang"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "2844",
+   "subflow": "bad_price_competitor",
+   "i": 11,
+   "human": "record-reason",
+   "human_values": [
+    "competitor"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "2844",
+   "subflow": "bad_price_competitor",
+   "i": 13,
+   "human": "verify-identity",
+   "human_values": [
+    "chloe zhang",
+    "51bpnwiwwd",
+    "0988234608"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "3119",
+   "subflow": "jacket",
+   "i": 9,
+   "human": "search-faq",
+   "human_values": [],
+   "assist": "search-faq",
+   "assist_values": [],
+   "expected": "search-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "3119",
+   "subflow": "jacket",
+   "i": 10,
+   "human": "search-jacket",
+   "human_values": [],
+   "assist": "search-jacket",
+   "assist_values": [],
+   "expected": "search-jacket",
+   "category": "agree"
+  },
+  {
+   "conv": "3119",
+   "subflow": "jacket",
+   "i": 11,
+   "human": "select-faq",
+   "human_values": [
+    "jacket_other_2"
+   ],
+   "assist": "select-faq",
+   "assist_values": [],
+   "expected": "select-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "3294",
+   "subflow": "return_size",
+   "i": 8,
+   "human": "pull-up-account",
+   "human_values": [
+    "norman bouchard"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3294",
+   "subflow": "return_size",
+   "i": 12,
+   "human": "validate-purchase",
+   "human_values": [
+    "nbouchard826",
+    "nbouchard826@email.com",
+    "9004044286"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "3294",
+   "subflow": "return_size",
+   "i": 20,
+   "human": "enter-details",
+   "human_values": [
+    "8020 primrose ave brighton, wa 69883"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "3294",
+   "subflow": "return_size",
+   "i": 23,
+   "human": "update-order",
+   "human_values": [
+    "by mail"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "3398",
+   "subflow": "manage_pay_bill",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "rodriguez domingo"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3398",
+   "subflow": "manage_pay_bill",
+   "i": 14,
+   "human": "verify-identity",
+   "human_values": [
+    "rodriguez domingo",
+    "4iqmzql1vz",
+    "6957770370"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "3398",
+   "subflow": "manage_pay_bill",
+   "i": 16,
+   "human": "subscription-status",
+   "human_values": [],
+   "assist": "subscription-status",
+   "assist_values": [],
+   "expected": "subscription-status",
+   "category": "agree"
+  },
+  {
+   "conv": "3398",
+   "subflow": "manage_pay_bill",
+   "i": 24,
+   "human": "enter-details",
+   "human_values": [
+    "99"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "3398",
+   "subflow": "manage_pay_bill",
+   "i": 28,
+   "human": "update-account",
+   "human_values": [
+    "renew subscription"
+   ],
+   "assist": "update-account",
+   "assist_values": [],
+   "expected": "update-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3639",
+   "subflow": "manage",
+   "i": 2,
+   "human": "pull-up-account",
+   "human_values": [
+    "sanya afzal"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3639",
+   "subflow": "manage",
+   "i": 8,
+   "human": "shipping-status",
+   "human_values": [
+    "in transit"
+   ],
+   "assist": "shipping-status",
+   "assist_values": [],
+   "expected": "shipping-status",
+   "category": "agree"
+  },
+  {
+   "conv": "3639",
+   "subflow": "manage",
+   "i": 13,
+   "human": "validate-purchase",
+   "human_values": [
+    "sanyaa78",
+    "sanyaa78@email.com",
+    "5685236641"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "3639",
+   "subflow": "manage",
+   "i": 14,
+   "human": "update-order",
+   "human_values": [
+    "change order"
+   ],
+   "assist": "update-order",
+   "assist_values": [],
+   "expected": "update-order",
+   "category": "agree"
+  },
+  {
+   "conv": "3660",
+   "subflow": "bad_price_yesterday",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "joyce wu"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3660",
+   "subflow": "bad_price_yesterday",
+   "i": 7,
+   "human": "record-reason",
+   "human_values": [
+    "yesterday"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "3660",
+   "subflow": "bad_price_yesterday",
+   "i": 11,
+   "human": "verify-identity",
+   "human_values": [
+    "joyce wu",
+    "lnrahbbme2",
+    "9610845994"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "3660",
+   "subflow": "bad_price_yesterday",
+   "i": 19,
+   "human": "promo-code",
+   "human_values": [],
+   "assist": "promo-code",
+   "assist_values": [],
+   "expected": "promo-code",
+   "category": "agree"
+  },
+  {
+   "conv": "3792",
+   "subflow": "manage_create",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "sanya afzal"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "3792",
+   "subflow": "manage_create",
+   "i": 8,
+   "human": "verify-identity",
+   "human_values": [
+    "sanya afzal",
+    "tsqok9c6nf",
+    "1443247495"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "4539",
+   "subflow": "out_of_stock_general",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "norman bouchard"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "4539",
+   "subflow": "out_of_stock_general",
+   "i": 8,
+   "human": "record-reason",
+   "human_values": [
+    "guess shirt"
+   ],
+   "assist": "notify-team",
+   "assist_values": [],
+   "expected": "notify-team",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4539",
+   "subflow": "out_of_stock_general",
+   "i": 11,
+   "human": "notify-team",
+   "human_values": [
+    "purchasing department"
+   ],
+   "assist": "notify-team",
+   "assist_values": [],
+   "expected": "notify-team",
+   "category": "agree"
+  },
+  {
+   "conv": "4539",
+   "subflow": "out_of_stock_general",
+   "i": 15,
+   "human": "make-purchase",
+   "human_values": [
+    "guess shirt"
+   ],
+   "assist": "promo-code",
+   "assist_values": [],
+   "expected": "promo-code",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4618",
+   "subflow": "manage_dispute_bill",
+   "i": 8,
+   "human": "verify-identity",
+   "human_values": [
+    "joseph banter",
+    "ffigk2lojd",
+    "7282098354"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4618",
+   "subflow": "manage_dispute_bill",
+   "i": 13,
+   "human": "offer-refund",
+   "human_values": [
+    "10"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4618",
+   "subflow": "manage_dispute_bill",
+   "i": 14,
+   "human": "offer-refund",
+   "human_values": [
+    "100"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4889",
+   "subflow": "search_results",
+   "i": 8,
+   "human": "log-out-in",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4889",
+   "subflow": "search_results",
+   "i": 11,
+   "human": "instructions",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4961",
+   "subflow": "refund_initiate",
+   "i": 10,
+   "human": "pull-up-account",
+   "human_values": [
+    "crystal minh"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "4961",
+   "subflow": "refund_initiate",
+   "i": 14,
+   "human": "validate-purchase",
+   "human_values": [
+    "cminh193",
+    "cminh193@email.com",
+    "1804364370"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "4961",
+   "subflow": "refund_initiate",
+   "i": 22,
+   "human": "enter-details",
+   "human_values": [
+    "0u7fv9eiwd"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4961",
+   "subflow": "refund_initiate",
+   "i": 24,
+   "human": "offer-refund",
+   "human_values": [
+    "59"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "4972",
+   "subflow": "search_results",
+   "i": 6,
+   "human": "try-again",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "agree"
+  },
+  {
+   "conv": "4972",
+   "subflow": "search_results",
+   "i": 10,
+   "human": "log-out-in",
+   "human_values": [],
+   "assist": "log-out-in",
+   "assist_values": [],
+   "expected": "log-out-in",
+   "category": "agree"
+  },
+  {
+   "conv": "5397",
+   "subflow": "recover_password",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "david williams"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "5397",
+   "subflow": "recover_password",
+   "i": 14,
+   "human": "verify-identity",
+   "human_values": [
+    "david williams",
+    "67392",
+    "188-480-7838"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "5397",
+   "subflow": "recover_password",
+   "i": 17,
+   "human": "enter-details",
+   "human_values": [
+    "dwilliams1"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "5397",
+   "subflow": "recover_password",
+   "i": 23,
+   "human": "make-password",
+   "human_values": [],
+   "assist": "make-password",
+   "assist_values": [],
+   "expected": "make-password",
+   "category": "agree"
+  },
+  {
+   "conv": "5492",
+   "subflow": "mistimed_billing_already_returned",
+   "i": 9,
+   "human": "pull-up-account",
+   "human_values": [
+    "chloe zhang"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "5492",
+   "subflow": "mistimed_billing_already_returned",
+   "i": 13,
+   "human": "validate-purchase",
+   "human_values": [
+    "czhang28",
+    "czhang28@email.com",
+    "2269137343"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "5492",
+   "subflow": "mistimed_billing_already_returned",
+   "i": 14,
+   "human": "record-reason",
+   "human_values": [
+    "more than 7 days"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "5492",
+   "subflow": "mistimed_billing_already_returned",
+   "i": 15,
+   "human": "update-order",
+   "human_values": [
+    "give credit"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "5514",
+   "subflow": "recover_password",
+   "i": 9,
+   "human": "pull-up-account",
+   "human_values": [
+    "crystal minh"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "5514",
+   "subflow": "recover_password",
+   "i": 10,
+   "human": "enter-details",
+   "human_values": [
+    "crystalm686"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "5514",
+   "subflow": "recover_password",
+   "i": 14,
+   "human": "make-password",
+   "human_values": [],
+   "assist": "make-password",
+   "assist_values": [],
+   "expected": "make-password",
+   "category": "agree"
+  },
+  {
+   "conv": "5566",
+   "subflow": "reset_2fa",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "joyce wu"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "5566",
+   "subflow": "reset_2fa",
+   "i": 11,
+   "human": "enter-details",
+   "human_values": [
+    "joycewu4@email.com"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "5566",
+   "subflow": "reset_2fa",
+   "i": 13,
+   "human": "send-link",
+   "human_values": [],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "agree"
+  },
+  {
+   "conv": "5780",
+   "subflow": "manage_dispute_bill",
+   "i": 9,
+   "human": "pull-up-account",
+   "human_values": [
+    "yeq8cecvsu"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "5780",
+   "subflow": "manage_dispute_bill",
+   "i": 13,
+   "human": "verify-identity",
+   "human_values": [
+    "joyce wu",
+    "yeq8cecvsu",
+    "9060671343"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "5780",
+   "subflow": "manage_dispute_bill",
+   "i": 17,
+   "human": "membership",
+   "human_values": [
+    "bronze"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "agree"
+  },
+  {
+   "conv": "5780",
+   "subflow": "manage_dispute_bill",
+   "i": 18,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "6071",
+   "subflow": "bad_price_yesterday",
+   "i": 2,
+   "human": "record-reason",
+   "human_values": [
+    "yesterday"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6071",
+   "subflow": "bad_price_yesterday",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "albert sanders"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "6071",
+   "subflow": "bad_price_yesterday",
+   "i": 8,
+   "human": "verify-identity",
+   "human_values": [
+    "albert sanders",
+    "nb7ritws7r",
+    "5919039311"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "6071",
+   "subflow": "bad_price_yesterday",
+   "i": 14,
+   "human": "promo-code",
+   "human_values": [],
+   "assist": "promo-code",
+   "assist_values": [],
+   "expected": "promo-code",
+   "category": "agree"
+  },
+  {
+   "conv": "6156",
+   "subflow": "status_due_date",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "6156",
+   "subflow": "status_due_date",
+   "i": 5,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "ak3cc44kji",
+    "0386320588"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "6156",
+   "subflow": "status_due_date",
+   "i": 6,
+   "human": "subscription-status",
+   "human_values": [],
+   "assist": "subscription-status",
+   "assist_values": [],
+   "expected": "subscription-status",
+   "category": "agree"
+  },
+  {
+   "conv": "6156",
+   "subflow": "status_due_date",
+   "i": 10,
+   "human": "enter-details",
+   "human_values": [
+    "49"
+   ],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6156",
+   "subflow": "status_due_date",
+   "i": 11,
+   "human": "update-account",
+   "human_values": [
+    "extend subscription"
+   ],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6507",
+   "subflow": "credit_card",
+   "i": 4,
+   "human": "try-again",
+   "human_values": [],
+   "assist": "try-again",
+   "assist_values": [],
+   "expected": "try-again",
+   "category": "agree"
+  },
+  {
+   "conv": "6507",
+   "subflow": "credit_card",
+   "i": 7,
+   "human": "log-out-in",
+   "human_values": [],
+   "assist": "log-out-in",
+   "assist_values": [],
+   "expected": "log-out-in",
+   "category": "agree"
+  },
+  {
+   "conv": "6686",
+   "subflow": "status_due_amount",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "6686",
+   "subflow": "status_due_amount",
+   "i": 9,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "2qijal64u8",
+    "4536144857"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "6686",
+   "subflow": "status_due_amount",
+   "i": 11,
+   "human": "subscription-status",
+   "human_values": [],
+   "assist": "subscription-status",
+   "assist_values": [],
+   "expected": "subscription-status",
+   "category": "agree"
+  },
+  {
+   "conv": "6686",
+   "subflow": "status_due_amount",
+   "i": 15,
+   "human": "enter-details",
+   "human_values": [
+    "14"
+   ],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6686",
+   "subflow": "status_due_amount",
+   "i": 18,
+   "human": "send-link",
+   "human_values": [],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "agree"
+  },
+  {
+   "conv": "6834",
+   "subflow": "reset_2fa",
+   "i": 7,
+   "human": "pull-up-account",
+   "human_values": [
+    "sanya afzal"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "6834",
+   "subflow": "reset_2fa",
+   "i": 13,
+   "human": "enter-details",
+   "human_values": [
+    "livingston"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "6834",
+   "subflow": "reset_2fa",
+   "i": 15,
+   "human": "send-link",
+   "human_values": [],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "agree"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "crystal minh"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 9,
+   "human": "validate-purchase",
+   "human_values": [
+    "crystalm926",
+    "crystalm926@email.com",
+    "5177461168"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 12,
+   "human": "record-reason",
+   "human_values": [
+    "micheal kors boots"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 16,
+   "human": "membership",
+   "human_values": [
+    "gold"
+   ],
+   "assist": "offer-refund",
+   "assist_values": [],
+   "expected": "offer-refund",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 21,
+   "human": "enter-details",
+   "human_values": [
+    "9171 woodshore st baltimore, mi 39021"
+   ],
+   "assist": "offer-refund",
+   "assist_values": [],
+   "expected": "offer-refund",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "6957",
+   "subflow": "refund_update",
+   "i": 22,
+   "human": "update-order",
+   "human_values": [
+    "by mail"
+   ],
+   "assist": "offer-refund",
+   "assist_values": [],
+   "expected": "offer-refund",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "7049",
+   "subflow": "mistimed_billing_never_bought",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "norman bouchard"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7049",
+   "subflow": "mistimed_billing_never_bought",
+   "i": 9,
+   "human": "validate-purchase",
+   "human_values": [
+    "nbouchard277",
+    "nbouchard277@email.com",
+    "1467659531"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "7049",
+   "subflow": "mistimed_billing_never_bought",
+   "i": 11,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "7049",
+   "subflow": "mistimed_billing_never_bought",
+   "i": 13,
+   "human": "update-order",
+   "human_values": [
+    "give credit"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "7066",
+   "subflow": "manage_extension",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "norman bouchard"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7066",
+   "subflow": "manage_extension",
+   "i": 9,
+   "human": "verify-identity",
+   "human_values": [
+    "norman bouchard",
+    "hg8i1327o2",
+    "5149429097"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "7066",
+   "subflow": "manage_extension",
+   "i": 10,
+   "human": "update-account",
+   "human_values": [
+    "extend subscription"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "7066",
+   "subflow": "manage_extension",
+   "i": 11,
+   "human": "update-account",
+   "human_values": [
+    "extend subscription"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "7232",
+   "subflow": "recover_username",
+   "i": 8,
+   "human": "pull-up-account",
+   "human_values": [
+    "joyce wu"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7232",
+   "subflow": "recover_username",
+   "i": 11,
+   "human": "verify-identity",
+   "human_values": [
+    "joyce wu",
+    "94358",
+    "jwu28332@email.com"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "7530",
+   "subflow": "status_shipping_question",
+   "i": 9,
+   "human": "pull-up-account",
+   "human_values": [
+    "norman bouchard"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7530",
+   "subflow": "status_shipping_question",
+   "i": 10,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "7951",
+   "subflow": "reset_2fa",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "david williams"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7951",
+   "subflow": "reset_2fa",
+   "i": 11,
+   "human": "enter-details",
+   "human_values": [
+    "788481"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "rodriguez domingo"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 14,
+   "human": "verify-identity",
+   "human_values": [
+    "rodriguez domingo",
+    "e0zyjxlbgx",
+    "4205439943"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 16,
+   "human": "subscription-status",
+   "human_values": [],
+   "assist": "subscription-status",
+   "assist_values": [],
+   "expected": "subscription-status",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 20,
+   "human": "send-link",
+   "human_values": [],
+   "assist": "send-link",
+   "assist_values": [],
+   "expected": "send-link",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 27,
+   "human": "enter-details",
+   "human_values": [
+    "55"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "7989",
+   "subflow": "status_due_amount",
+   "i": 28,
+   "human": "update-account",
+   "human_values": [
+    "extend subscription"
+   ],
+   "assist": "none_yet",
+   "assist_values": [],
+   "expected": null,
+   "category": "both_off"
+  },
+  {
+   "conv": "8137",
+   "subflow": "promo_code_invalid",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "david williams"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "8137",
+   "subflow": "promo_code_invalid",
+   "i": 12,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "8137",
+   "subflow": "promo_code_invalid",
+   "i": 13,
+   "human": "promo-code",
+   "human_values": [],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "8141",
+   "subflow": "return_size",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "8141",
+   "subflow": "return_size",
+   "i": 9,
+   "human": "validate-purchase",
+   "human_values": [
+    "alessandrop176",
+    "alessandrop176@email.com",
+    "4223520702"
+   ],
+   "assist": "validate-purchase",
+   "assist_values": [],
+   "expected": "validate-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "8141",
+   "subflow": "return_size",
+   "i": 13,
+   "human": "membership",
+   "human_values": [
+    "gold"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "agree"
+  },
+  {
+   "conv": "8141",
+   "subflow": "return_size",
+   "i": 16,
+   "human": "enter-details",
+   "human_values": [
+    "2164 lincoln ave newark, ca 35691"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "8141",
+   "subflow": "return_size",
+   "i": 19,
+   "human": "enter-details",
+   "human_values": [
+    "drop off center"
+   ],
+   "assist": "update-order",
+   "assist_values": [],
+   "expected": "update-order",
+   "category": "human_deviated"
+  },
+  {
+   "conv": "8210",
+   "subflow": "jeans",
+   "i": 4,
+   "human": "search-faq",
+   "human_values": [],
+   "assist": "search-faq",
+   "assist_values": [],
+   "expected": "search-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "8210",
+   "subflow": "jeans",
+   "i": 5,
+   "human": "search-jeans",
+   "human_values": [],
+   "assist": "search-jeans",
+   "assist_values": [],
+   "expected": "search-jeans",
+   "category": "agree"
+  },
+  {
+   "conv": "8210",
+   "subflow": "jeans",
+   "i": 9,
+   "human": "select-faq",
+   "human_values": [
+    "jeans_other_3"
+   ],
+   "assist": "select-faq",
+   "assist_values": [],
+   "expected": "select-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "8460",
+   "subflow": "out_of_stock_one_item",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "joseph banter"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "8460",
+   "subflow": "out_of_stock_one_item",
+   "i": 6,
+   "human": "record-reason",
+   "human_values": [
+    "michael kors jacket"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "8460",
+   "subflow": "out_of_stock_one_item",
+   "i": 8,
+   "human": "notify-team",
+   "human_values": [
+    "purchasing department"
+   ],
+   "assist": "notify-team",
+   "assist_values": [],
+   "expected": "notify-team",
+   "category": "agree"
+  },
+  {
+   "conv": "8460",
+   "subflow": "out_of_stock_one_item",
+   "i": 15,
+   "human": "make-purchase",
+   "human_values": [
+    "michael kors jacket"
+   ],
+   "assist": "make-purchase",
+   "assist_values": [],
+   "expected": "make-purchase",
+   "category": "agree"
+  },
+  {
+   "conv": "8574",
+   "subflow": "recover_password",
+   "i": 6,
+   "human": "pull-up-account",
+   "human_values": [
+    "albert sanders"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "8574",
+   "subflow": "recover_password",
+   "i": 9,
+   "human": "enter-details",
+   "human_values": [
+    "asanders293"
+   ],
+   "assist": "enter-details",
+   "assist_values": [],
+   "expected": "enter-details",
+   "category": "agree"
+  },
+  {
+   "conv": "8574",
+   "subflow": "recover_password",
+   "i": 18,
+   "human": "make-password",
+   "human_values": [],
+   "assist": "make-password",
+   "assist_values": [],
+   "expected": "make-password",
+   "category": "agree"
+  },
+  {
+   "conv": "9354",
+   "subflow": "manage_dispute_bill",
+   "i": 5,
+   "human": "pull-up-account",
+   "human_values": [
+    "rodriguez domingo"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "9354",
+   "subflow": "manage_dispute_bill",
+   "i": 12,
+   "human": "verify-identity",
+   "human_values": [
+    "rodriguez domingo",
+    "rx3mwksqe7",
+    "5779093850"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  },
+  {
+   "conv": "9354",
+   "subflow": "manage_dispute_bill",
+   "i": 18,
+   "human": "membership",
+   "human_values": [
+    "guest"
+   ],
+   "assist": "membership",
+   "assist_values": [],
+   "expected": "membership",
+   "category": "agree"
+  },
+  {
+   "conv": "9354",
+   "subflow": "manage_dispute_bill",
+   "i": 19,
+   "human": "ask-the-oracle",
+   "human_values": [],
+   "assist": "ask-the-oracle",
+   "assist_values": [],
+   "expected": "ask-the-oracle",
+   "category": "agree"
+  },
+  {
+   "conv": "9879",
+   "subflow": "policy",
+   "i": 3,
+   "human": "search-faq",
+   "human_values": [],
+   "assist": "search-faq",
+   "assist_values": [],
+   "expected": "search-faq",
+   "category": "agree"
+  },
+  {
+   "conv": "9879",
+   "subflow": "policy",
+   "i": 5,
+   "human": "search-policy",
+   "human_values": [],
+   "assist": "search-policy",
+   "assist_values": [],
+   "expected": "search-policy",
+   "category": "agree"
+  },
+  {
+   "conv": "10394",
+   "subflow": "bad_price_competitor",
+   "i": 4,
+   "human": "pull-up-account",
+   "human_values": [
+    "alessandro phoenix"
+   ],
+   "assist": "pull-up-account",
+   "assist_values": [],
+   "expected": "pull-up-account",
+   "category": "agree"
+  },
+  {
+   "conv": "10394",
+   "subflow": "bad_price_competitor",
+   "i": 5,
+   "human": "record-reason",
+   "human_values": [
+    "competitor"
+   ],
+   "assist": "record-reason",
+   "assist_values": [],
+   "expected": "record-reason",
+   "category": "agree"
+  },
+  {
+   "conv": "10394",
+   "subflow": "bad_price_competitor",
+   "i": 8,
+   "human": "verify-identity",
+   "human_values": [
+    "alessandro phoenix",
+    "angwrk5pm3",
+    "8967969572"
+   ],
+   "assist": "verify-identity",
+   "assist_values": [],
+   "expected": "verify-identity",
+   "category": "agree"
+  }
+ ]
+}

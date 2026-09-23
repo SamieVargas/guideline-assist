@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+# The 37 MB conversation file is fetched by scripts/fetch_data.py, not committed.
+data/abcd/abcd_v1.1.json.gz
+# Model responses cached on disk so a rerun does not pay twice; local only.
+.cache/
