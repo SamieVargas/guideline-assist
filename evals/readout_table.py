@@ -38,24 +38,27 @@ def main() -> int:
     def add(metric, source, value, path):
         rows.append(f"| {metric} | {source} | {value} | {Path(path).name if path else 'not run yet'} |")
 
+    from core.data import by_id, load_split
+    test = by_id(load_split("test"))
     a = newest("assist")
     if a:
         groups = {}
         for r in records(a):
             groups.setdefault((r["arm"], r["model"]), []).append(r)
         for (arm, model), recs in groups.items():
-            s = score_assist(recs)
+            s = score_assist(recs, test)
             tag = f"arm {arm} · {model} · n={s['n_points']}"
             add("Adherence: next action = gold next action", tag, pct(s["next_action"]), a)
             add("Time to correct intent (turn index, median; never)", tag, f"{s['turns_to_stable']['median']}; never {s['turns_to_stable']['never']}/{s['turns_to_stable']['n']}", a)
             add("Latency budget: p50 / p95 per turn", tag, f"{s['latency_p50']:.0f} / {s['latency_p95']:.0f} ms", a)
-            add("False suggestions when nothing is due", tag, pct(s["false_alarm"]), a)
+            add("False suggestions when nothing is due (of which early: the agent's next action)", tag,
+                f"{pct(s['false_alarm'])} ({pct(s['false_alarm_early'])})", a)
             add("Cost per 1,000 conversations", tag, f"${s['cost_per_1000_conversations']:,.2f} ({TRIGGERS_PER_CONVERSATION:.2f} triggers/conv)", a)
     else:
         add("Adherence, time to intent, latency, cost", "Parts 3–4", "not run yet", None)
     b = newest("assist", baseline=True)
     if b:
-        s = score_assist(records(b))
+        s = score_assist(records(b), test)
         add("Floor: guideline-order baseline, gold intent given", f"no model · n={s['n_points']}", f"next action {pct(s['next_action'])}", b)
 
     sh = newest("shadow")
@@ -86,7 +89,14 @@ def main() -> int:
         add("QA false-flag rate (model)", "Part 6", "not run yet", None)
 
     ag = newest("qa-agreement")
-    add("QA agreement with Samie's 20", "Part 7", "see file" if ag else "not labeled yet", ag)
+    if ag:
+        add("QA agreement with Samie's 20", "Part 7", "see file", ag)
+    else:
+        import csv
+        from labeling.make_kit import LABELS
+        with open(LABELS, encoding="utf-8") as f:
+            done = all(r["status"].strip() for r in csv.DictReader(f))
+        add("QA agreement with Samie's 20", "Part 7", "labels done; needs a keyed QA run" if done else "not labeled yet", None)
     inj = newest("injection")
     if inj:
         recs = records(inj)

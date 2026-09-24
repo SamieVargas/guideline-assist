@@ -2,9 +2,17 @@
 
 Where the build departs from the brief, or from what a reader might expect, and why. The code wins where the two disagree; this is the record.
 
-## No keyed run has been made yet
+## Keyed runs are made on Samie's machine
 
-The session that built this repo had no Anthropic API key, so every model table is still to be produced. What exists now: the ingest report, the frozen samples, the frozen injection fixtures, the labeling kit, the no-model baselines for Parts 4, 5, 6 and 8, the cost estimate for every keyed run, and tests that drive each keyed path end to end with a stub client. The first keyed run should be `python evals/run_assist.py --arms A --models haiku --limit 5` to check real token counts against the estimate before the full run.
+The session that built this repo had no Anthropic API key, so the model runs are made locally and their result files committed. A 5-conversation smoke run (`--limit 5`, 2026-09-24) checked real token counts first; `--limit` runs get their own file name so the readout never quotes one as a headline.
+
+## The cost estimator is calibrated on the first full run
+
+The first-draft estimator assumed 4 characters per token for every model and estimated Parts 3–4 at $12.63; the run billed $19.70. The two tokenizers differ (the library is 27,563 tokens on Haiku 4.5 and 37,708 on Sonnet 5), a call with no cached prefix bills ~830–1,070 tokens beyond its prompt text, and retries add calls. `core/estimate.py` now carries those measurements per model; re-estimated, the same run comes to $20.29.
+
+## False alarms are split into early and wrong
+
+A no-action point allows nothing before the customer speaks again, which is strict: the most common "false alarm" is the action the agent took right after the customer's reply. The Part 4 table reports the false-alarm rate and, separately, the share of those that were the agent's next action. Neither number is dropped.
 
 ## The intent label is `targets[0]`, not `scenario.subflow`
 

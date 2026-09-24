@@ -9,7 +9,7 @@ shadow table and the readout. A record is one call point:
 from collections import defaultdict
 
 from core.metrics import mean, percentile, rate
-from core.points import value_recall, values_match
+from core.points import next_gold_action, value_recall, values_match
 
 POSITION_BUCKETS = ((0, 4, "turns 0–4"), (5, 9, "5–9"), (10, 14, "10–14"), (15, 10**6, "15+"))
 
@@ -36,7 +36,10 @@ def turns_to_stable(recs):
     return stable
 
 
-def score(records) -> dict:
+def score(records, convs=None) -> dict:
+    """convs: conversation id -> conversation, used to split false alarms
+    into "early" (the action the agent took next, once the customer had
+    replied) and the rest. Without it, that split is None."""
     act = [r for r in records if r["kind"] == "action"]
     noact = [r for r in records if r["kind"] == "no_action"]
     by_conv = defaultdict(list)
@@ -60,6 +63,7 @@ def score(records) -> dict:
         "slot_exact": rate(sum(values_match(r["pred"]["slot_values"], r["gold_values"]) for r in named), len(named)),
         "slot_value_recall": mean([value_recall(r["pred"]["slot_values"], r["gold_values"]) for r in named]),
         "false_alarm": rate(sum(r["pred"]["next_action"] != "none_yet" for r in noact), len(noact)),
+        "false_alarm_early": None,
         "citation_valid": rate(sum(bool(r["citation_valid"]) for r in records), len(records)),
         "validator_pass": rate(sum(bool(r["valid"]) for r in records), len(records)),
         "retries": sum(r.get("retries", 0) for r in records),
@@ -74,6 +78,9 @@ def score(records) -> dict:
         "calls": sum(r.get("calls", 1) for r in records),
         "from_cache": sum(1 for r in records if r.get("from_cache")),
     }
+    if convs is not None:
+        fa = [r for r in noact if r["pred"]["next_action"] != "none_yet"]
+        out["false_alarm_early"] = rate(sum(r["pred"]["next_action"] == next_gold_action(convs[r["conv"]], r["i"]) for r in fa), len(fa))
     total_in = sum(u["input_tokens"] + u["cache_creation_input_tokens"] + u["cache_read_input_tokens"] for u in usage)
     out["cache_read_share"] = round(out["cache_read_total"] / total_in, 4) if total_in else None
     return out

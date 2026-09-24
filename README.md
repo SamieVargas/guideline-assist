@@ -8,14 +8,14 @@ Plain Anthropic Python SDK, no framework. The assist proposes; nothing in this r
 
 ## Status
 
-No keyed (model) run has been made yet; the tables below that need a model say so. Every no-model number is real and in `evals/results/`.
+Parts 3 and 4 have run in full ([results](evals/results/assist-2026-09-24.md), 4,130 calls, $19.70). The other model runs are still to come. Every number is in `evals/results/`.
 
 | Part | What | Script | State |
 | --- | --- | --- | --- |
 | 1 | Loader, guideline library with stable section ids, enums generated from the ontology, ingest report | `evals/ingest.py` | done, [ingest table](evals/results/ingest-2026-09-23.md) |
 | 2 | Live-assist contract, native structured output with parser fallback, validator with one reject-and-retry | `core/assist.py`, `core/validate.py`, `core/llm.py` | done, tested with a stub client |
-| 3 | Context ablation: arm A (full library, cached) vs arm B (intent call, then one section) | `evals/run_assist.py` | ready; estimate ~$12.60 for both arms × both models |
-| 4 | Turn-level assist evals on 100 frozen test conversations (349 action points, 344 no-action points) | `evals/run_assist.py` | ready; [guideline-order baseline](evals/results/assist-baseline-2026-09-23.md) measured |
+| 3 | Context ablation: arm A (full library, cached) vs arm B (intent call, then one section) | `evals/run_assist.py` | done 2026-09-24: arm A is cheaper and faster on both models |
+| 4 | Turn-level assist evals on 100 frozen test conversations (349 action points, 344 no-action points) | `evals/run_assist.py` | done 2026-09-24; [guideline-order baseline](evals/results/assist-baseline-2026-09-23.md) alongside |
 | 5 | Conversation-level intent on 300 frozen test conversations | `evals/run_intent.py` | ready; ~$1.04 both models; [majority baseline](evals/results/intent-baseline-2026-09-23.md) |
 | 6 | Post-call QA on 100 untouched + 258 perturbed copies (remove 100, swap 99, value 59) | `evals/run_qa.py` | ready; ~$2.03 on Sonnet; [rule baseline](evals/results/qa-baseline-2026-09-23.md) |
 | 7 | QA agreement with Samie's hand labels on 20 blind items | `evals/labeling/`, `evals/qa_agreement.py` | kit built, waiting on labels |
@@ -24,6 +24,19 @@ No keyed (model) run has been made yet; the tables below that need a model say s
 | 10 | Deployment readout | `docs/deployment-readout.md`, `evals/readout_table.py` | skeleton and number table built; prose is Samie's |
 | 11 | Replay viewer | `evals/export_viewer.py` | data export only; the page goes in samievargas.com after the tables exist |
 | 12–14 | Streaming, concurrency sweep, fine-tuning | | not built (optional) |
+
+## What the Parts 3–4 run says (100 test conversations, 2026-09-24)
+
+| Arm · model | Next action | Intent | p50 / p95 per turn | Cost / 1,000 conversations |
+| --- | --- | --- | --- | --- |
+| A · Haiku 4.5 | 50.1% | 79.9% | 1.6 / 2.7 s | $48 |
+| B · Haiku 4.5 | 53.3% | 74.2% | 2.7 / 4.3 s | $55 |
+| A · Sonnet 5 | 73.9% | 88.0% | 2.1 / 3.2 s | $122 |
+| B · Sonnet 5 | 72.8% | 75.9% | 3.7 / 5.8 s | $148 |
+
+- Caching the whole 27,563-token library (arm A) is cheaper and faster than retrieving one section (arm B) on both models, because a cache read costs a tenth of fresh input and arm B spends a second call on intent. Arm B's intent is also worse. Arm A wins the ablation.
+- Sonnet 5 on arm A gets the next action right 73.9% of the time without being told the intent, level with the guideline-order baseline that is told it (73.4%). Haiku is 24 points behind for 40% of the cost.
+- Half of the "false alarms" (suggesting an action when nothing is due until the customer replies) are the action the agent took next: 64% of Sonnet A's. They are early rather than wrong; the table reports both.
 
 ## What the no-model numbers already say
 

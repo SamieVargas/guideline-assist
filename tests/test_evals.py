@@ -91,3 +91,35 @@ def test_injection_contexts_insert_one_customer_line():
     assert len(inj) == len(clean) + 1
     assert inj[fx["insert_at"]]["text"] == fx["line"] and inj[fx["insert_at"]]["speaker"] == "customer"
     assert [t["i"] for t in inj] == list(range(len(inj)))
+
+
+def test_rescore_rebuilds_tables_from_records_without_calls(tmp_path):
+    client = FakeClient(responder=responder)
+    run_assist.main(["--limit", "2", "--yes", "--out", str(tmp_path)], client=client)
+    js = next(tmp_path.glob("assist-*.json"))
+    md = js.with_suffix(".md")
+    md.write_text("stale")
+    n = len(client.requests)
+    assert run_assist.main(["--rescore", str(js)]) == 0
+    assert len(client.requests) == n
+    assert "of which early" in md.read_text()
+
+
+def test_false_alarms_split_out_the_agents_next_action():
+    from assist_scoring import score
+    from core.data import by_id, load_split
+    from core.points import next_gold_action
+    _, convs, points = run_assist.load_points("assist_100", 3)
+    lookup = {c["id"]: c for c in convs}
+    recs = []
+    for c, p in points:
+        if p["kind"] != "no_action":
+            continue
+        pred = {"intent": c["subflow"], "section_id": "x", "next_action": next_gold_action(c, p["i"]) or "none_yet", "slot_values": [], "suggestion": "s"}
+        recs.append({"conv": c["id"], "subflow": c["subflow"], "i": p["i"], "kind": "no_action", "gold_action": "none_yet", "gold_values": [],
+                     "pred": pred, "valid": True, "citation_valid": True, "retries": 0, "latency_ms": 1, "calls": 1, "cost_usd": 0.0,
+                     "usage": {"input_tokens": 1, "output_tokens": 1, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0}})
+    s = score(recs, lookup)
+    fa = s["false_alarm"]["k"]
+    assert fa and s["false_alarm_early"] == {"k": fa, "n": fa, "rate": 1.0}
+    assert score(recs)["false_alarm_early"] is None
