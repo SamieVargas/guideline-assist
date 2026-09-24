@@ -1,0 +1,1309 @@
+{
+ "generated": "2026-09-24T21:08:18+00:00",
+ "records": [
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 24,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [
+     "albertsanders531@email.com"
+    ],
+    "suggestion": "Send reset code link to customer's email, then confirm they received it."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 11803.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 387,
+    "output_tokens": 72,
+    "cache_creation_input_tokens": 27563,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.03520075,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 31,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Confirm customer can access account. Ask if they need anything else before ending."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2142.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 495,
+    "output_tokens": 64,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0035713,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 33,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Confirm the reset is permanent and ask if they need anything else."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1859.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 536,
+    "output_tokens": 62,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036023,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 37,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Customer issue resolved. Confirm they need nothing else and wrap up politely."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1582.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 595,
+    "output_tokens": 64,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036713,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 39,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "albert sanders",
+    "n/a",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Conversation complete. Customer successfully reset 2FA and regained account access."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2323.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 617,
+    "output_tokens": 57,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036583,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 40,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "livingston"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Conversation complete. Customer successfully reset 2FA and accessed account. Ready to end."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2917.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 644,
+    "output_tokens": 66,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0037303,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 41,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "ahmed"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Conversation complete. Customer successfully reset 2FA and regained account access."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1560.1,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 668,
+    "output_tokens": 57,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0037093,
+   "from_cache": false
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 42,
+   "kind": "action",
+   "gold_action": "send-link",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [
+     "albertsanders531@email.com"
+    ],
+    "suggestion": "Customer successfully reset 2FA and regained access. Complete flow with security best practices link."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1736.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 694,
+    "output_tokens": 76,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0038303,
+   "from_cache": false
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 3,
+   "kind": "action",
+   "gold_action": "search-faq",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Customer reports search not working for specific boots. Follow troubleshoot_site/search_results flow instead."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1726.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 111,
+    "output_tokens": 70,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032173,
+   "from_cache": false
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 5,
+   "kind": "action",
+   "gold_action": "log-out-in",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask customer if they'd like to search for boots via FAQ or try other troubleshooting steps."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2155.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 158,
+    "output_tokens": 59,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032093,
+   "from_cache": false
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 7,
+   "kind": "action",
+   "gold_action": "instructions",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "try-again",
+    "slot_values": [],
+    "suggestion": "Ask customer to try visiting another website first to verify if it's a connection issue."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1586.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 204,
+    "output_tokens": 65,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032853,
+   "from_cache": false
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 9,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Wrap up: ask if customer needs anything else, then end conversation."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1670.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 239,
+    "output_tokens": 56,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032753,
+   "from_cache": false
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 11,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Conversation complete. Thank customer and end chat politely."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1526.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 286,
+    "output_tokens": 43,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032573,
+   "from_cache": false
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 2,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "recover_username",
+    "section_id": "account_access/recover_username",
+    "next_action": "pull-up-account",
+    "slot_values": [],
+    "suggestion": "Ask for customer's full name or account ID to pull up their account."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2066.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 58,
+    "output_tokens": 63,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0031293,
+   "from_cache": false
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 7,
+   "kind": "action",
+   "gold_action": "pull-up-account",
+   "gold_values": [
+    "alessandro phoenix"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "recover_username",
+    "section_id": "account_access/recover_username",
+    "next_action": "verify-identity",
+    "slot_values": [
+     "Alessandro Phoenix"
+    ],
+    "suggestion": "Ask for 3 of 4 verification items: zip code, phone, email, or full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1588.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 136,
+    "output_tokens": 72,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032523,
+   "from_cache": false
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 8,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "recover_username",
+    "section_id": "account_access/recover_username",
+    "next_action": "verify-identity",
+    "slot_values": [
+     "Alessandro Phoenix"
+    ],
+    "suggestion": "Ask for 3 of 4 identity verification items: zip code, phone, email, or full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1656.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 160,
+    "output_tokens": 73,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032813,
+   "from_cache": false
+  },
+  {
+   "conv": "428",
+   "subflow": "recover_username",
+   "i": 11,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "alessandro phoenix",
+    "1579470985",
+    "17399"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "recover_username",
+    "section_id": "account_access/recover_username",
+    "next_action": "verify-identity",
+    "slot_values": [
+     "Alessandro Phoenix",
+     "1579470985",
+     "17399"
+    ],
+    "suggestion": "Verify identity with phone and zip code, then generate username japhoenix1."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1749.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 203,
+    "output_tokens": 77,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0033443,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 1,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Greet customer and ask how you can help them today."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1335.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 29,
+    "output_tokens": 44,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0030053,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 3,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask the customer to describe their order issue in detail."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1407.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 60,
+    "output_tokens": 42,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0030263,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 6,
+   "kind": "action",
+   "gold_action": "pull-up-account",
+   "gold_values": [
+    "chloe zhang"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask what specific issue they're experiencing with their order."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1406.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 123,
+    "output_tokens": 42,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0030893,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 7,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "chloe zhang",
+    "chloez73",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask what specific issue with the order - status, shipping, refund, billing, or something else?"
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1381.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 147,
+    "output_tokens": 59,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0031983,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 8,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask what specific issue the customer has with their order to determine the right flow."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1445.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 177,
+    "output_tokens": 54,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032033,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 11,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "chloe zhang",
+    "chloez73",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_mystery_fee",
+    "section_id": "order_issue/status_mystery_fee",
+    "next_action": "ask-the-oracle",
+    "slot_values": [],
+    "suggestion": "Ask Oracle to verify if company made error on the charge."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1659.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 230,
+    "output_tokens": 64,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0033063,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 12,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_mystery_fee",
+    "section_id": "order_issue/status_mystery_fee",
+    "next_action": "ask-the-oracle",
+    "slot_values": [],
+    "suggestion": "Ask the Oracle to determine if this is a valid billing error on the order."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1639.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 260,
+    "output_tokens": 68,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0033563,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 16,
+   "kind": "action",
+   "gold_action": "search-faq",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Clarify customer's primary issue: website search problem or order amount problem first."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1504.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 349,
+    "output_tokens": 55,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0033803,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 17,
+   "kind": "action",
+   "gold_action": "instructions",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Search bar issue isn't about speed. This is actually search_results flow - clarify before proceeding."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [
+    "section_id 'troubleshoot_site/search_results' is not the section for intent 'slow_speed' (troubleshoot_site/slow_speed)"
+   ],
+   "citation_valid": true,
+   "retries": 1,
+   "latency_ms": 3243.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 850,
+    "output_tokens": 122,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 55126
+   },
+   "cost_usd": 0.0069726,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 18,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Focus on search issue. Try log-out/in or refresh page before escalating to website team."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1851.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 380,
+    "output_tokens": 62,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0034463,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 20,
+   "kind": "action",
+   "gold_action": "log-out-in",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "try-again",
+    "slot_values": [],
+    "suggestion": "Ask customer to search for a different product to see if search function works now."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [
+    "section_id 'troubleshoot_site/search_results' is not the section for intent 'slow_speed' (troubleshoot_site/slow_speed)"
+   ],
+   "citation_valid": true,
+   "retries": 1,
+   "latency_ms": 2822.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 938,
+    "output_tokens": 127,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 55126
+   },
+   "cost_usd": 0.0070856,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 23,
+   "kind": "action",
+   "gold_action": "instructions",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "try-again",
+    "slot_values": [],
+    "suggestion": "Ask customer to try searching for a different product to test if search works generally."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [
+    "section_id 'troubleshoot_site/search_results' is not the section for intent 'slow_speed' (troubleshoot_site/slow_speed)"
+   ],
+   "citation_valid": true,
+   "retries": 1,
+   "latency_ms": 2732.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1035,
+    "output_tokens": 128,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 55126
+   },
+   "cost_usd": 0.0071876,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 26,
+   "kind": "action",
+   "gold_action": "try-again",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "try-again",
+    "slot_values": [],
+    "suggestion": "Ask customer to search for different product to test if search works again."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [
+    "section_id 'troubleshoot_site/search_results' is not the section for intent 'slow_speed' (troubleshoot_site/slow_speed)"
+   ],
+   "citation_valid": true,
+   "retries": 1,
+   "latency_ms": 2689.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1157,
+    "output_tokens": 124,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 55126
+   },
+   "cost_usd": 0.0072896,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 29,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "notify-team",
+    "slot_values": [
+     "website team"
+    ],
+    "suggestion": "Notify website team about search issue, confirm resolution, offer further assistance."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2179.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 561,
+    "output_tokens": 66,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036473,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 31,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "slow_speed",
+    "section_id": "troubleshoot_site/slow_speed",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Wrap up conversation politely and ask if customer needs anything else before ending chat."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1616.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 610,
+    "output_tokens": 65,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036913,
+   "from_cache": false
+  },
+  {
+   "conv": "433",
+   "subflow": "search_results",
+   "i": 33,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "unclear",
+    "section_id": "none",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "End conversation politely and prepare to close chat."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1320.3,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 640,
+    "output_tokens": 48,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0036363,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 2,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Ask for their full name or account ID to pull up account."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1612.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 60,
+    "output_tokens": 63,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0031313,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 7,
+   "kind": "action",
+   "gold_action": "pull-up-account",
+   "gold_values": [
+    "albert sanders"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "record-reason",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Ask how customer discovered the unwanted subscription (email, spouse, or news)."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1636.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 124,
+    "output_tokens": 69,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032253,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 11,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "record-reason",
+    "slot_values": [],
+    "suggestion": "Ask how customer learned about the unwanted subscription (email, spouse, or news)."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1576.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 192,
+    "output_tokens": 67,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0032833,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 16,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "record-reason",
+    "slot_values": [
+     "email"
+    ],
+    "suggestion": "Ask how Albert heard about the unwanted subscription to proceed with the record-reason step."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1765.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 268,
+    "output_tokens": 70,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0033743,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 18,
+   "kind": "action",
+   "gold_action": "record-reason",
+   "gold_values": [
+    "email"
+   ],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "record-reason",
+    "slot_values": [
+     "email"
+    ],
+    "suggestion": "Record how customer learned about the subscription, then verify with system."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2073.1,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 332,
+    "output_tokens": 65,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0034133,
+   "from_cache": false
+  },
+  {
+   "conv": "739",
+   "subflow": "status_service_added",
+   "i": 20,
+   "kind": "action",
+   "gold_action": "ask-the-oracle",
+   "gold_values": [],
+   "arm": "A",
+   "model": "claude-haiku-4-5-20251001",
+   "pred": {
+    "intent": "status_service_added",
+    "section_id": "manage_account/status_service_added",
+    "next_action": "ask-the-oracle",
+    "slot_values": [],
+    "suggestion": "Check system to verify if subscription was actually added to account."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1589.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 367,
+    "output_tokens": 57,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 27563
+   },
+   "cost_usd": 0.0034083,
+   "from_cache": false
+  }
+ ]
+}
