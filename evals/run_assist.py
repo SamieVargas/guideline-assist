@@ -157,7 +157,8 @@ def main(argv=None, client=None) -> int:
     groups = {k: score(v) for k, v in groups.items()}
     md = render(groups, sample, len(convs), partial)
     print(md)
-    write(args.out, f"assist-{today()}" + ("-partial" if partial else ""), md, recs)
+    # A --limit run is a smoke run: its own file name, never read as the headline by evals/readout_table.py.
+    write(args.out, f"assist-{today()}" + (f"-limit{args.limit}" if args.limit else "") + ("-partial" if partial else ""), md, recs)
     return 130 if partial else 0
 
 

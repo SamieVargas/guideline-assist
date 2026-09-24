@@ -1,6 +1,6 @@
 """Part 10: the table of measured numbers for docs/deployment-readout.md.
 
-Reads the newest complete (not -partial) keyed result file of each kind in
+Reads the newest complete (not -partial, not a --limit smoke run) keyed result file of each kind in
 evals/results/, recomputes the headline numbers from the raw records, and
 writes docs/readout-numbers.md. A part with no keyed run yet says so; the
 offline baselines are shown beside the model rows so each number has its
@@ -24,7 +24,7 @@ OUT = ROOT / "docs" / "readout-numbers.md"
 
 def newest(prefix: str, baseline=False):
     pat = f"{prefix}-baseline-*.json" if baseline else f"{prefix}-2*.json"
-    files = sorted(p for p in RESULTS.glob(pat) if "partial" not in p.name)
+    files = sorted(p for p in RESULTS.glob(pat) if "partial" not in p.name and "-limit" not in p.name)
     return files[-1] if files else None
 
 
