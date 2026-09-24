@@ -29,7 +29,9 @@ def test_run_assist_keyed_path_writes_both_tables(tmp_path):
     client = FakeClient(responder=responder)
     rc = run_assist.main(["--limit", "2", "--yes", "--out", str(tmp_path)], client=client)
     assert rc == 0
-    md = next(tmp_path.glob("assist-*.md")).read_text()
+    md_path = next(tmp_path.glob("assist-*.md"))
+    assert md_path.name.endswith("-limit2.md")  # a smoke run never takes the headline file name
+    md = md_path.read_text()
     assert "Part 3 · context ablation" in md and "Part 4 · assist evals" in md
     for arm in ("A", "B"):
         for model in ("claude-haiku-4-5-20251001", "claude-sonnet-5"):
