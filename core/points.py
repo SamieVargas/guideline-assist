@@ -52,6 +52,11 @@ def points_for(conv, seed: int) -> list[dict]:
     return sorted(pts, key=lambda p: p["i"])
 
 
+def next_gold_action(conv, i) -> str | None:
+    """The first ACTION the human agent took at or after turn i, or None."""
+    return next((t["action"] for t in conv["turns"][i:] if t["speaker"] == "action"), None)
+
+
 def guideline_next(conv, i) -> str | None:
     """The first required step (kb.json order) not yet done before turn i,
     or None when every required step is done."""

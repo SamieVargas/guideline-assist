@@ -5,11 +5,30 @@ Handle time, resolution and CSAT are not measurable on this dataset and have no 
 
 | Readout metric | Source | Measured | File |
 | --- | --- | --- | --- |
-| Adherence, time to intent, latency, cost | Parts 3–4 | not run yet | not run yet |
+| Adherence: next action = gold next action | arm A · claude-haiku-4-5-20251001 · n=693 | 50.1% (175/349) | assist-2026-09-24.json |
+| Time to correct intent (turn index, median; never) | arm A · claude-haiku-4-5-20251001 · n=693 | 4; never 20/100 | assist-2026-09-24.json |
+| Latency budget: p50 / p95 per turn | arm A · claude-haiku-4-5-20251001 · n=693 | 1609 / 2690 ms | assist-2026-09-24.json |
+| False suggestions when nothing is due (of which early: the agent's next action) | arm A · claude-haiku-4-5-20251001 · n=693 | 54.4% (187/344) (58.8% (110/187)) | assist-2026-09-24.json |
+| Cost per 1,000 conversations | arm A · claude-haiku-4-5-20251001 · n=693 | $48.47 (13.10 triggers/conv) | assist-2026-09-24.json |
+| Adherence: next action = gold next action | arm B · claude-haiku-4-5-20251001 · n=693 | 53.3% (186/349) | assist-2026-09-24.json |
+| Time to correct intent (turn index, median; never) | arm B · claude-haiku-4-5-20251001 · n=693 | 4; never 24/100 | assist-2026-09-24.json |
+| Latency budget: p50 / p95 per turn | arm B · claude-haiku-4-5-20251001 · n=693 | 2666 / 4312 ms | assist-2026-09-24.json |
+| False suggestions when nothing is due (of which early: the agent's next action) | arm B · claude-haiku-4-5-20251001 · n=693 | 52.9% (182/344) (57.1% (104/182)) | assist-2026-09-24.json |
+| Cost per 1,000 conversations | arm B · claude-haiku-4-5-20251001 · n=693 | $55.02 (13.10 triggers/conv) | assist-2026-09-24.json |
+| Adherence: next action = gold next action | arm A · claude-sonnet-5 · n=693 | 73.9% (258/349) | assist-2026-09-24.json |
+| Time to correct intent (turn index, median; never) | arm A · claude-sonnet-5 · n=693 | 4; never 9/100 | assist-2026-09-24.json |
+| Latency budget: p50 / p95 per turn | arm A · claude-sonnet-5 · n=693 | 2106 / 3166 ms | assist-2026-09-24.json |
+| False suggestions when nothing is due (of which early: the agent's next action) | arm A · claude-sonnet-5 · n=693 | 50.6% (174/344) (63.8% (111/174)) | assist-2026-09-24.json |
+| Cost per 1,000 conversations | arm A · claude-sonnet-5 · n=693 | $121.83 (13.10 triggers/conv) | assist-2026-09-24.json |
+| Adherence: next action = gold next action | arm B · claude-sonnet-5 · n=693 | 72.8% (254/349) | assist-2026-09-24.json |
+| Time to correct intent (turn index, median; never) | arm B · claude-sonnet-5 · n=693 | 4; never 19/100 | assist-2026-09-24.json |
+| Latency budget: p50 / p95 per turn | arm B · claude-sonnet-5 · n=693 | 3655 / 5818 ms | assist-2026-09-24.json |
+| False suggestions when nothing is due (of which early: the agent's next action) | arm B · claude-sonnet-5 · n=693 | 42.4% (146/344) (56.2% (82/146)) | assist-2026-09-24.json |
+| Cost per 1,000 conversations | arm B · claude-sonnet-5 · n=693 | $148.03 (13.10 triggers/conv) | assist-2026-09-24.json |
 | Floor: guideline-order baseline, gold intent given | no model · n=693 | next action 73.4% (256/349) | assist-baseline-2026-09-23.json |
 | Suggestion acceptance proxy (shadow agreement) | Part 8 | not run yet | not run yet |
 | QA false-flag rate (rules, no model) | n=100 | 63.0% (63/100) | qa-baseline-2026-09-23.json |
 | QA false-flag rate (model) | Part 6 | not run yet | not run yet |
-| QA agreement with Samie's 20 | Part 7 | not labeled yet | not run yet |
+| QA agreement with Samie's 20 | Part 7 | labels done; needs a keyed QA run | not run yet |
 | Injection resistance | Part 9 | not run yet | not run yet |
 | Conversation intent | Part 5 | not run yet | not run yet |

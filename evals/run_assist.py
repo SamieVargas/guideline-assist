@@ -15,7 +15,10 @@ Ctrl+C writes what finished to a -partial file.
 """
 
 import argparse
+import json
+import re
 import sys
+from pathlib import Path
 
 from common import add_keyed_args, gate, stamp, today, write
 from assist_scoring import TRIGGERS_PER_CONVERSATION, POSITION_BUCKETS, score
@@ -49,10 +52,10 @@ def estimate(points, arms, models) -> Estimate:
             for n, (c, p) in enumerate(points):
                 ctx = len(render_transcript(c["turns"][: p["i"]])) + 80
                 if arm == "A":
-                    usd += call_cost(mid, uncached_chars=ctx, cached_chars=lib, out_tokens=110, cache_hit=n > 0)
+                    usd += call_cost(mid, uncached_chars=ctx, cached_chars=lib, out_tokens=90, cache_hit=n > 0)
                 else:
                     usd += call_cost(mid, uncached_chars=len(INTENT_RULES) + len(subflow_menu()) + ctx, out_tokens=15)
-                    usd += call_cost(mid, uncached_chars=len(ASSIST_RULES) + len(render_section(section_id(c["subflow"]))) + ctx, out_tokens=110)
+                    usd += call_cost(mid, uncached_chars=len(ASSIST_RULES) + len(render_section(section_id(c["subflow"]))) + ctx, out_tokens=90)
             est.add(f"arm {arm}", mid, len(points) * (1 if arm == "A" else 2), usd)
     return est
 
@@ -100,8 +103,8 @@ def run_keyed(client, points, arms, models, args):
     return recs, False
 
 
-def render(groups, sample, n_convs, partial=False):
-    head = f"# Assist · {today()} · sample assist_100 (`{sample['sha256'][:12]}`, {n_convs} conversations)" + (" · PARTIAL" if partial else "")
+def render(groups, sample, n_convs, partial=False, run_date=None):
+    head = f"# Assist · {run_date or today()} · sample assist_100 (`{sample['sha256'][:12]}`, {n_convs} conversations)" + (" · PARTIAL" if partial else "")
     lines = [head, "",
              "## Part 3 · context ablation", "",
              "Arm A: the full guideline library in a cached system prefix, one call a turn. Arm B: an intent call, then only that subflow's section in context. "
@@ -116,17 +119,40 @@ def render(groups, sample, n_convs, partial=False):
                      f"{stamp(n=s['n_points'], model=model, sample=sample)} |")
     lines += ["", "## Part 4 · assist evals (turn level)", "",
               "| Arm · model | Intent (all points) | " + " | ".join(f"Intent {lbl}" for *_, lbl in POSITION_BUCKETS)
-              + " | Turns to stable intent (median / mean, never) | Next action (action points) | Slots exact (name right) | Slot value recall | `none_yet` false alarms (no-action points) | `none_yet` on action points | Citation valid | Validator pass · retries |",
-              "| --- " * (11 + len(POSITION_BUCKETS)) + "|"]
+              + " | Turns to stable intent (median / mean, never) | Next action (action points) | Slots exact (name right) | Slot value recall | `none_yet` false alarms (no-action points) | of which early (the agent's next action) | `none_yet` on action points | Citation valid | Validator pass · retries |",
+              "| --- " * (12 + len(POSITION_BUCKETS)) + "|"]
     for (arm, model), s in groups.items():
         t = s["turns_to_stable"]
         lines.append(f"| {arm} · `{model}` | {pct(s['intent'])} | " + " | ".join(pct(s['intent_by_position'][lbl]) for *_, lbl in POSITION_BUCKETS)
                      + f" | {t['median']} / {t['mean']}, never {t['never']}/{t['n']} | {pct(s['next_action'])} | {pct(s['slot_exact'])} | "
-                     f"{pct(s['slot_value_recall'])} | {pct(s['false_alarm'])} | {pct(s['none_yet_on_action_points'])} | {pct(s['citation_valid'])} | "
+                     f"{pct(s['slot_value_recall'])} | {pct(s['false_alarm'])} | {pct(s['false_alarm_early'])} | {pct(s['none_yet_on_action_points'])} | {pct(s['citation_valid'])} | "
                      f"{pct(s['validator_pass'])} · {s['retries']} |")
-    lines += ["", "Stamp per row: " + "; ".join(f"{a}·{m}: {stamp(n=s['n_points'], model=m, sample=sample)} "
+    lines += ["", "A no-action point is an agent turn after which nothing is due before the customer speaks again. A false alarm there is \"early\" when the "
+              "suggested action is the one the agent took next, after the customer replied: premature rather than wrong.",
+              "", "Stamp per row: " + "; ".join(f"{a}·{m}: {stamp(n=s['n_points'], model=m, sample=sample)} "
                                               f"({s['n_action']} action points, {s['n_no_action']} no-action points)" for (a, m), s in groups.items())]
     return "\n".join(lines)
+
+
+def rescore(path) -> int:
+    """Rebuild an earlier run's markdown from its JSON records with the
+    current scoring code, keeping the run's date. No model call."""
+    path = Path(path)
+    recs = json.loads(path.read_text(encoding="utf-8"))["records"]
+    sample = samples.load("assist_100")
+    lookup = by_id(load_split("test"))
+    groups = {}
+    for r in recs:
+        groups.setdefault((r["arm"], r["model"]), []).append(r)
+    groups = {k: score(v, lookup) for k, v in groups.items()}
+    run_date = re.search(r"\d{4}-\d{2}-\d{2}", path.name).group(0)
+    md = render(groups, sample, len({r["conv"] for r in recs}), "partial" in path.name, run_date=run_date)
+    if path.name.startswith("assist-baseline"):
+        md = md.replace("# Assist", "# Assist baseline (guideline order, gold intent given)", 1)
+    path.with_suffix(".md").write_text(md.rstrip() + "\n", encoding="utf-8")
+    print(md)
+    print(f"rewrote {path.with_suffix('.md').name} from {path.name}")
+    return 0
 
 
 def main(argv=None, client=None) -> int:
@@ -136,13 +162,17 @@ def main(argv=None, client=None) -> int:
     p.add_argument("--models", default=",".join(MODELS))
     p.add_argument("--limit", type=int, default=None, help="first N conversations of the sample (smoke runs)")
     p.add_argument("--baseline", action="store_true", help="no key: the guideline-order baseline only")
+    p.add_argument("--rescore", default=None, metavar="JSON", help="no calls: rebuild the tables of an earlier run from its records")
     args = p.parse_args(argv)
+    if args.rescore:
+        return rescore(args.rescore)
     sample, convs, points = load_points(args.sample, args.limit)
+    lookup = {c["id"]: c for c in convs}
     arms = [a.strip() for a in args.arms.split(",") if a.strip()]
     models = [m.strip() for m in args.models.split(",") if m.strip()]
     if args.baseline:
         recs = baseline_records(points)
-        groups = {("baseline", "none"): score(recs)}
+        groups = {("baseline", "none"): score(recs, lookup)}
         md = render(groups, sample, len(convs)).replace("# Assist", "# Assist baseline (guideline order, gold intent given)", 1)
         print(md)
         write(args.out, f"assist-baseline-{today()}", md, recs)
@@ -154,7 +184,7 @@ def main(argv=None, client=None) -> int:
     groups = {}
     for r in recs:
         groups.setdefault((r["arm"], r["model"]), []).append(r)
-    groups = {k: score(v) for k, v in groups.items()}
+    groups = {k: score(v, lookup) for k, v in groups.items()}
     md = render(groups, sample, len(convs), partial)
     print(md)
     # A --limit run is a smoke run: its own file name, never read as the headline by evals/readout_table.py.
