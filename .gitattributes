@@ -1,0 +1,4 @@
+# The ABCD files are checked against sha256 hashes (scripts/fetch_data.py)
+# and core/enums.py records the ontology's hash, so git must never rewrite
+# their line endings (core.autocrlf on Windows turns LF into CRLF).
+data/abcd/** -text
