@@ -70,7 +70,7 @@ Every response is cached on disk under `.cache/llm/` (not committed), keyed by t
 
 ## Not built
 
-Optional Parts 12 (streaming), 13 (concurrency sweep) and 14 (fine-tuning) are not built. Part 11's page belongs in the samievargas.com repo on its own PR after the eval tables exist; `evals/export_viewer.py` writes the JSON it will read.
+Optional Parts 12 (streaming), 13 (concurrency sweep) and 14 (fine-tuning) are not built. Part 11's page lives in the samievargas.com repo (`/assist/`); `evals/export_viewer.py` writes the JSON it reads, picking the first chat per flow with three or more agent actions and the first QA copy per defect kind, so nothing on the page is chosen for how the model did.
 
 ## Hand-label spelling
 

@@ -8,7 +8,7 @@ Plain Anthropic Python SDK, no framework. The assist proposes; nothing in this r
 
 ## Status
 
-Every Core part with a model has run (2026-09-24), and Part 7 is scored against the hand labels (2026-09-25). The measured numbers are collected in [docs/readout-numbers.md](docs/readout-numbers.md); every raw record is in `evals/results/`. What remains is the readout prose (Part 10) and the viewer page (Part 11).
+Every Core part with a model has run (2026-09-24), and Part 7 is scored against the hand labels (2026-09-25). The measured numbers are collected in [docs/readout-numbers.md](docs/readout-numbers.md); every raw record is in `evals/results/`. The readout prose (Part 10) is written, and the viewer page (Part 11) is on samievargas.com.
 
 | Part | What | Script | State |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ Every Core part with a model has run (2026-09-24), and Part 7 is scored against 
 | 8 | Shadow agreement on 50 conversations | `evals/run_shadow.py` | done, Sonnet arm A: [79.5% action agreement](evals/results/shadow-2026-09-24.md) |
 | 9 | Injection: 10 frozen fixtures × 5 runs | `evals/run_injection.py` | done, Sonnet arm A: [47/50 held, 2 fixtures moved](evals/results/injection-2026-09-24.md) |
 | 10 | Deployment readout | `docs/deployment-readout.md`, `evals/readout_table.py` | [number table](docs/readout-numbers.md) complete; prose is Samie's |
-| 11 | Replay viewer | `evals/export_viewer.py` | data export ready to run; the page goes in samievargas.com on its own PR |
+| 11 | Replay viewer | `evals/export_viewer.py` | done: the export feeds [samievargas.com/assist](https://samievargas.com/assist/), six chats, three QA copies and the ablation |
 | 12–14 | Streaming, concurrency sweep, fine-tuning | | not built (optional) |
 
 ## What the Parts 3–4 run says (100 test conversations, 2026-09-24)
