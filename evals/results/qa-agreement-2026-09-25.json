@@ -1,0 +1,549 @@
+{
+ "generated": "2026-09-25T00:31:25+00:00",
+ "records": [
+  {
+   "item": "L01",
+   "action": "pull-up-account",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L01",
+   "action": "verify-identity",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L01",
+   "action": "ask-the-oracle",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L01",
+   "action": "shipping-status",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L01",
+   "action": "offer-refund",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "wrong_value",
+   "construction": "followed"
+  },
+  {
+   "item": "L02",
+   "action": "pull-up-account",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L02",
+   "action": "record-reason",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L02",
+   "action": "verify-identity",
+   "kind": "value",
+   "samie": "followed",
+   "model": "wrong_value",
+   "construction": "wrong_value"
+  },
+  {
+   "item": "L02",
+   "action": "promo-code",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L03",
+   "action": "search-faq",
+   "kind": "remove",
+   "samie": "missed",
+   "model": "missed",
+   "construction": "missed"
+  },
+  {
+   "item": "L03",
+   "action": "search-policy",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "out_of_order",
+   "construction": "followed"
+  },
+  {
+   "item": "L03",
+   "action": "select-faq",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L04",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L04",
+   "action": "search-jeans",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L04",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L05",
+   "action": "pull-up-account",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L05",
+   "action": "enter-details",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L05",
+   "action": "make-password",
+   "kind": "remove",
+   "samie": "missed",
+   "model": "missed",
+   "construction": "missed"
+  },
+  {
+   "item": "L06",
+   "action": "pull-up-account",
+   "kind": "swap",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L06",
+   "action": "enter-details",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "out_of_order",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L06",
+   "action": "make-password",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "out_of_order",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L07",
+   "action": "pull-up-account",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L07",
+   "action": "verify-identity",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L07",
+   "action": "shipping-status",
+   "kind": "value",
+   "samie": "followed",
+   "model": "wrong_value",
+   "construction": "wrong_value"
+  },
+  {
+   "item": "L07",
+   "action": "membership",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L07",
+   "action": "make-purchase",
+   "kind": "value",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L08",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L08",
+   "action": "search-jacket",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L08",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L09",
+   "action": "pull-up-account",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "out_of_order",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L09",
+   "action": "enter-details",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "followed",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L09",
+   "action": "make-password",
+   "kind": "swap",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L10",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L10",
+   "action": "search-policy",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L10",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L11",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L11",
+   "action": "search-jeans",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L11",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L12",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L12",
+   "action": "search-timing",
+   "kind": "untouched",
+   "samie": "out_of_order",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L12",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "out_of_order",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L13",
+   "action": "pull-up-account",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L13",
+   "action": "enter-details",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L13",
+   "action": "make-password",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L14",
+   "action": "pull-up-account",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L14",
+   "action": "enter-details",
+   "kind": "remove",
+   "samie": "missed",
+   "model": "missed",
+   "construction": "missed"
+  },
+  {
+   "item": "L14",
+   "action": "send-link",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L15",
+   "action": "search-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L15",
+   "action": "search-boots",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L15",
+   "action": "select-faq",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L16",
+   "action": "pull-up-account",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L16",
+   "action": "validate-purchase",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L16",
+   "action": "record-reason",
+   "kind": "remove",
+   "samie": "missed",
+   "model": "missed",
+   "construction": "missed"
+  },
+  {
+   "item": "L16",
+   "action": "enter-details",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "out_of_order",
+   "construction": "followed"
+  },
+  {
+   "item": "L16",
+   "action": "offer-refund",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L17",
+   "action": "search-faq",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "out_of_order",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L17",
+   "action": "search-membership",
+   "kind": "swap",
+   "samie": "out_of_order",
+   "model": "followed",
+   "construction": "out_of_order"
+  },
+  {
+   "item": "L17",
+   "action": "select-faq",
+   "kind": "swap",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L18",
+   "action": "pull-up-account",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L18",
+   "action": "verify-identity",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "wrong_value",
+   "construction": "followed"
+  },
+  {
+   "item": "L19",
+   "action": "pull-up-account",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L19",
+   "action": "validate-purchase",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L19",
+   "action": "membership",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L19",
+   "action": "enter-details",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L19",
+   "action": "update-order",
+   "kind": "untouched",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L20",
+   "action": "search-faq",
+   "kind": "remove",
+   "samie": "missed",
+   "model": "missed",
+   "construction": "missed"
+  },
+  {
+   "item": "L20",
+   "action": "search-shirt",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  },
+  {
+   "item": "L20",
+   "action": "select-faq",
+   "kind": "remove",
+   "samie": "followed",
+   "model": "followed",
+   "construction": "followed"
+  }
+ ]
+}

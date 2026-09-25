@@ -90,7 +90,10 @@ def main() -> int:
 
     ag = newest("qa-agreement")
     if ag:
-        add("QA agreement with Samie's 20", "Part 7", "see file", ag)
+        steps = records(ag)
+        for a, b in (("model", "samie"), ("samie", "construction")):
+            k = sum(r[a] == r[b] for r in steps)
+            add(f"QA per-step agreement, {a} vs {b}", f"Part 7 · n={len(steps)} steps", f"{k}/{len(steps)} ({k / len(steps) * 100:.1f}%)", ag)
     else:
         import csv
         from labeling.make_kit import LABELS

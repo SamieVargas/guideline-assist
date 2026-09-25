@@ -71,3 +71,8 @@ Every response is cached on disk under `.cache/llm/` (not committed), keyed by t
 ## Not built
 
 Optional Parts 12 (streaming), 13 (concurrency sweep) and 14 (fine-tuning) are not built. Part 11's page belongs in the samievargas.com repo on its own PR after the eval tables exist; `evals/export_viewer.py` writes the JSON it will read.
+
+## Hand-label spelling
+
+The 20 hand-labelled items use the same five statuses as the model. Typed variants such as `out-of-order` are read as `out_of_order` by `evals/qa_agreement.py`; `labels.csv` itself is left as it was written. For a swap, the labels by construction mark both swapped steps `out_of_order`, which is stricter than the Part 6 recall, where flagging either step counts.
+
