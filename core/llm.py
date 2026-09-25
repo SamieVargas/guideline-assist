@@ -52,6 +52,7 @@ def _cached_create(client, kwargs, *, tag, use_cache):
     t0 = time.perf_counter()
     msg = client.messages.create(**kwargs)
     rec = {"text": _text_of(msg), "stop_reason": getattr(msg, "stop_reason", None), "usage": _usage(msg),
+           "served_model": getattr(msg, "model", None),
            "latency_ms": round((time.perf_counter() - t0) * 1000, 1), "from_cache": False}
     if use_cache:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -87,7 +88,7 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
     messages = [{"role": "user", "content": user}]
     meta = {"model": model, "contract": contract, "retries": 0, "parse_path": None, "latency_ms": 0.0,
             "attempt_latency_ms": [], "usage": {k: 0 for k in USAGE_KEYS}, "violations": [], "first_violations": [],
-            "valid": False, "from_cache": False, "first_value": None}
+            "valid": False, "from_cache": False, "first_value": None, "served_model": None}
     value = None
     for attempt in range(max_retries + 1):
         kwargs = {"model": model, "max_tokens": max_tokens, "system": system, "messages": messages, **REQUEST_EXTRAS.get(model, {})}
@@ -95,6 +96,7 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
             kwargs["output_config"] = {"format": {"type": "json_schema", "schema": schema}}
         rec = _cached_create(client, kwargs, tag=tag, use_cache=use_cache)
         meta["from_cache"] = meta["from_cache"] or rec["from_cache"]
+        meta["served_model"] = rec.get("served_model")
         meta["latency_ms"] = round(meta["latency_ms"] + rec["latency_ms"], 1)
         meta["attempt_latency_ms"].append(rec["latency_ms"])
         for k in USAGE_KEYS:

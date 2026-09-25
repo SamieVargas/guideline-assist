@@ -1,9 +1,10 @@
-"""Draw the frozen test samples once, seeded, and write them with their hash.
+"""Draw the frozen samples once, seeded, and write them with their hash.
 
     python evals/freeze_samples.py           # draws any sample not yet on disk
     python evals/freeze_samples.py --force   # redraws all (shows up in git)
 
-Nothing is drawn from train or dev here; nothing is tuned on these.
+The test samples are never tuned on. tune_60 is the one sample from the
+dev split: the prompt-tuning rounds read its transcripts (docs/prompt-tuning.md).
 """
 
 import argparse
@@ -20,6 +21,7 @@ PLAN = [
     ("intent_300", 300, 20260924, "test", "Part 5: conversation-level intent"),
     ("qa_100", 100, 20260925, "test:compliant", "Part 6: untouched conversations whose gold actions show every required step in guideline order"),
     ("shadow_50", 50, 20260926, "assist_100", "Part 8: a subset of assist_100, so the Part 4 responses serve it without a second bill"),
+    ("tune_60", 60, 20260925, "dev", "Prompt tuning: the selection set whose transcripts are read between rounds; assist_100 stays held out"),
 ]
 
 
@@ -28,12 +30,14 @@ def main(argv=None) -> int:
     p.add_argument("--force", action="store_true")
     args = p.parse_args(argv)
     test = load_split("test")
-    pools = {"test": [c["id"] for c in test], "test:compliant": [c["id"] for c in test if compliant(c)]}
+    pools = {"test": [c["id"] for c in test], "test:compliant": [c["id"] for c in test if compliant(c)],
+             "dev": [c["id"] for c in load_split("dev")]}
     for name, n, seed, pool, note in PLAN:
         if pool not in pools:
             pools[pool] = samples.load(pool)["ids"]
         try:
-            rec = samples.draw(name, pools[pool], n=n, seed=seed, split="test", note=f"{note} (pool: {pool})", force=args.force)
+            rec = samples.draw(name, pools[pool], n=n, seed=seed, split="dev" if pool == "dev" else "test",
+                               note=f"{note} (pool: {pool})", force=args.force)
             print(f"drew   {name}: n={rec['n']} from {rec['pool_size']} · seed {seed} · sha256 {rec['sha256'][:12]}")
         except FileExistsError:
             rec = samples.load(name)

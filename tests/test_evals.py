@@ -123,3 +123,24 @@ def test_false_alarms_split_out_the_agents_next_action():
     fa = s["false_alarm"]["k"]
     assert fa and s["false_alarm_early"] == {"k": fa, "n": fa, "rate": 1.0}
     assert score(recs)["false_alarm_early"] is None
+
+
+def test_run_tuning_scores_every_style_against_full_on_the_same_points(tmp_path):
+    import run_tuning
+    client = FakeClient(responder=responder)
+    rc = run_tuning.main(["--limit", "2", "--yes", "--styles", "full,nosub,bare", "--out", str(tmp_path)], client=client)
+    assert rc == 0
+    md = next(tmp_path.glob("tuning-r1-tune_60-*-limit2.md")).read_text()
+    for style in ("full", "nosub", "bare"):
+        assert f"| {style} |" in md
+    assert "+0.0 [+0.0, +0.0]" in md  # the stub answers identically under every style
+    recs = json.loads(next(tmp_path.glob("tuning-*.json")).read_text())["records"]
+    _, _, points = run_tuning.load_points("tune_60", 2)
+    assert len(recs) == 3 * len(points)
+    assert {r["style"] for r in recs} == {"full", "nosub", "bare"}
+    assert len({r["system"][0]["text"] for r in client.requests}) == 3  # one cached prefix per style
+
+
+def test_run_tuning_refuses_a_run_without_the_full_style(tmp_path, capsys):
+    import run_tuning
+    assert run_tuning.main(["--styles", "nosub", "--estimate-only", "--out", str(tmp_path)]) == 2
