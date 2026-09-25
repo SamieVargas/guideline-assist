@@ -1,62 +1,162 @@
-"""Part 11 data: the JSON the replay viewer on samievargas.com plays.
+"""Part 11 data: the JSON the replay page on samievargas.com reads
+(`/assist/`, data/assist-replay.json in that repo).
 
-The page itself belongs in the samievargas.com repo on its own PR, after
-the eval tables exist; this writes only the data it reads, from the newest
-complete keyed assist and QA result files.
+Everything in the file is copied or scored from the newest complete keyed
+result files in evals/results/; nothing is typed by hand, and the page does
+no arithmetic beyond formatting.
 
-    python evals/export_viewer.py --arm A --model claude-haiku-4-5-20251001 --conversations 5
+    python evals/export_viewer.py                       # Sonnet 5, arm A, six conversations
+    python evals/export_viewer.py --out ../samievargas.github.io/data/assist-replay.json
+
+Which conversations: walking assist_100 in sample order, the first
+conversation of each flow that has at least three action points, until
+there are --conversations of them. Which QA copies: the first perturbed copy
+of each defect kind in qa_100 order, caught or not. Neither is picked for
+how well the model did.
 """
 
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
+from pathlib import Path
 
 from common import ROOT
+from assist_scoring import TRIGGERS_PER_CONVERSATION, score as score_assist
+from core import samples
 from core.data import by_id, load_split
-from core.guidelines import library
+from core.guidelines import library, section_id
+from core.models import PRICES_READ_ON
+from core.perturb import KINDS
+from core.qa import qa_rules, required_steps
 from readout_table import newest, records
-from run_qa import build_set
+from run_qa import build_set, score as score_qa
 
 OUT = ROOT / "evals" / "viewer" / "replay.json"
 BADGE = "ABCD, ASAPP Research, role-played conversations with trained crowdworkers, no real customers"
-LICENSE = "ABCD is MIT licensed (Copyright (c) 2021 ASAPP Research)"
+LICENSE = "ABCD is MIT licensed, Copyright (c) 2021 ASAPP Research"
+REPO = "https://github.com/SamieVargas/guideline-assist"
+
+
+def turn_row(t):
+    return {"i": t["i"], "speaker": t["speaker"], "text": t["text"], "action": t["action"], "values": t["values"]}
+
+
+def replay(recs, test, *, arm, model, n):
+    mine = [r for r in recs if r["arm"] == arm and r["model"] == model]
+    by_conv = {}
+    for r in mine:
+        by_conv.setdefault(r["conv"], []).append(r)
+    order = samples.load("assist_100")["ids"]
+    out, flows = [], set()
+    for cid in order:
+        pts = sorted(by_conv.get(cid, []), key=lambda r: r["i"])
+        c = test[cid]
+        if not pts or c["flow"] in flows or sum(p["kind"] == "action" for p in pts) < 3:
+            continue
+        flows.add(c["flow"])
+        out.append({
+            "id": cid, "subflow": c["subflow"], "flow": c["flow"],
+            "section": library()[section_id(c["subflow"])]["title"],
+            "turns": [turn_row(t) for t in c["turns"]],
+            "points": [{"i": p["i"], "kind": p["kind"], "gold_action": p["gold_action"], "gold_values": p["gold_values"],
+                        "intent": p["pred"]["intent"], "intent_ok": p["pred"]["intent"] == c["subflow"],
+                        "section_id": p["pred"]["section_id"],
+                        "section": library().get(p["pred"]["section_id"], {}).get("title"),
+                        "next_action": p["pred"]["next_action"], "slot_values": p["pred"]["slot_values"],
+                        "suggestion": p["pred"]["suggestion"], "latency_ms": p["latency_ms"],
+                        "action_ok": p["pred"]["next_action"] == p["gold_action"]} for p in pts],
+        })
+        if len(out) == n:
+            break
+    return out
+
+
+def qa_examples(qa_recs, model):
+    _, untouched, perturbed = build_set()
+    convs = {c["id"]: c for c in untouched + perturbed}
+    model_by = {r["conv"]: r for r in qa_recs if r.get("model") == model}
+    out = []
+    for kind in KINDS:
+        c = next((x for x in perturbed if x["perturbation"]["kind"] == kind and x["id"] in model_by), None)
+        if c is None:
+            continue
+        m = model_by[c["id"]]["statuses"]
+        rules = qa_rules(c)
+        p = c["perturbation"]
+        out.append({
+            "kind": kind, "id": c["id"], "twin": c["twin"], "subflow": c["subflow"], "detail": p["detail"],
+            "expected": p["expected"], "target": p["actions"],
+            "caught": any(m[a]["status"] == p["expected"] for a in p["actions"]),
+            "steps": [{"action": a, "model": m[a], "rules": rules[a], "planted": a in p["actions"]} for a in required_steps(c["subflow"])],
+            "turns": [turn_row(t) for t in convs[c["id"]]["turns"]],
+        })
+    return out
 
 
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--arm", default="A")
-    p.add_argument("--model", default="claude-haiku-4-5-20251001")
-    p.add_argument("--conversations", type=int, default=5)
+    p.add_argument("--model", default="claude-sonnet-5")
+    p.add_argument("--conversations", type=int, default=6)
+    p.add_argument("--out", default=str(OUT))
     args = p.parse_args(argv)
-    a, q = newest("assist"), newest("qa")
-    if not a or not q:
-        print("needs a complete keyed assist run and a keyed QA run in evals/results/ first", file=sys.stderr)
+    files = {k: newest(k) for k in ("assist", "qa", "shadow", "injection", "intent", "qa-agreement")}
+    missing = [k for k, v in files.items() if v is None]
+    if missing:
+        print(f"needs complete keyed result files for: {', '.join(missing)}", file=sys.stderr)
         return 2
     test = by_id(load_split("test"))
-    recs = [r for r in records(a) if r["arm"] == args.arm and r["model"] == args.model]
-    convs = list(dict.fromkeys(r["conv"] for r in recs))[: args.conversations]
-    replay = []
-    for cid in convs:
-        panel = {r["i"]: {"intent": r["pred"]["intent"], "next_action": r["pred"]["next_action"], "slot_values": r["pred"]["slot_values"],
-                          "section_id": r["pred"]["section_id"], "section_title": library().get(r["pred"]["section_id"], {}).get("title"),
-                          "suggestion": r["pred"]["suggestion"], "latency_ms": r["latency_ms"], "gold_action": r["gold_action"],
-                          "gold_values": r["gold_values"]} for r in recs if r["conv"] == cid}
-        c = test[cid]
-        replay.append({"id": cid, "subflow": c["subflow"], "turns": c["turns"], "assist": panel})
-    _, _, perturbed = build_set()
-    qa_recs = [r for r in records(q) if r.get("model")]
-    qa_by = {r["conv"]: r for r in qa_recs}
-    pick = next((c for c in perturbed if c["id"] in qa_by), None)
-    qa_tab = None
-    if pick:
-        r = qa_by[pick["id"]]
-        qa_tab = {"id": pick["id"], "twin": pick["twin"], "subflow": pick["subflow"], "turns": pick["turns"],
-                  "defect": pick["perturbation"], "model": r["model"], "steps": r["statuses"],
-                  "caught": any(r["statuses"][x]["status"] == pick["perturbation"]["expected"] for x in pick["perturbation"]["actions"])}
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps({"badge": BADGE, "license": LICENSE, "source_files": [a.name, q.name], "arm": args.arm,
-                               "model": args.model, "replay": replay, "qa": qa_tab}, indent=1), encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)}")
+    a_recs = records(files["assist"])
+    q_recs = records(files["qa"])
+
+    groups = {}
+    for r in a_recs:
+        groups.setdefault((r["arm"], r["model"]), []).append(r)
+    ablation = []
+    for (arm, model), rs in sorted(groups.items()):
+        s = score_assist(rs, test)
+        ablation.append({"arm": arm, "model": model, "n_points": s["n_points"], "n_action": s["n_action"],
+                         "next_action": s["next_action"], "intent": s["intent"], "p50_ms": s["latency_p50"],
+                         "p95_ms": s["latency_p95"], "cost_per_1000": s["cost_per_1000_conversations"],
+                         "false_alarm": s["false_alarm"], "false_alarm_early": s["false_alarm_early"]})
+
+    qa_groups = {}
+    for r in q_recs:
+        qa_groups.setdefault(r.get("model", "rules"), []).append(r)
+    qa_summary = {}
+    for name, rs in qa_groups.items():
+        s = score_qa(rs)
+        qa_summary[name] = {"false_flag_conversations": s["false_flag_conversations"], "recall": s["recall"],
+                            "precision": s["precision"], "n_untouched": s["n_untouched"], "n_perturbed": s["n_perturbed"]}
+
+    shadow = records(files["shadow"])
+    inj = records(files["injection"])
+    intent = [r for r in records(files["intent"]) if r["model"] == args.model]
+    agree = records(files["qa-agreement"])
+    fixtures = {}
+    for r in inj:
+        fixtures.setdefault(r["fixture"], []).append(r["passed"])
+    stats = {
+        "shadow": {"k": sum(r["category"] == "agree" for r in shadow), "n": len(shadow)},
+        "hand_labels": {"k": sum(r["model"] == r["samie"] for r in agree), "n": len(agree)},
+        "injection": {"k": sum(r["passed"] for r in inj), "n": len(inj),
+                      "fixtures": [{"id": k, "passed": v} for k, v in sorted(fixtures.items())]},
+        "conversation_intent": {"k": sum(r["gold"] == r["pred"] for r in intent), "n": len(intent)},
+    }
+    samp = {name: samples.load(name)["sha256"][:12] for name in ("assist_100", "qa_100", "shadow_50", "intent_300")}
+    data = {
+        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "repo": REPO, "badge": BADGE, "license": LICENSE, "prices_read_on": PRICES_READ_ON,
+        "source_files": {k: v.name for k, v in files.items()}, "samples": samp,
+        "arm": args.arm, "model": args.model, "triggers_per_conversation": TRIGGERS_PER_CONVERSATION,
+        "stats": stats, "ablation": ablation, "qa": {"summary": qa_summary, "examples": qa_examples(q_recs, "claude-sonnet-5")},
+        "replay": replay(a_recs, test, arm=args.arm, model=args.model, n=args.conversations),
+    }
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    print(f"wrote {out} ({len(data['replay'])} conversations, {len(data['qa']['examples'])} QA copies, {out.stat().st_size // 1024} KB)")
     return 0
 
 
