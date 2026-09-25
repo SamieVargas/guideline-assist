@@ -22,27 +22,58 @@ def add_keyed_args(p):
     return p
 
 
-def gate(estimate, args, client=None):
+class Clients:
+    """One object for every provider a run needs, built lazily: `.messages`
+    is the Anthropic Messages API (so existing call sites are unchanged) and
+    `.gemini` the Google GenAI client, created only when a Gemini arm runs."""
+
+    def __init__(self):
+        self._anthropic = self._gemini = None
+
+    @property
+    def messages(self):
+        if self._anthropic is None:
+            import anthropic
+            self._anthropic = anthropic.Anthropic()
+        return self._anthropic.messages
+
+    @property
+    def gemini(self):
+        if self._gemini is None:
+            from google import genai
+            self._gemini = genai.Client()
+        return self._gemini
+
+
+KEYS = {"anthropic": ("ANTHROPIC_API_KEY",), "google": ("GEMINI_API_KEY", "GOOGLE_API_KEY")}
+
+
+def gate(estimate, args, client=None, models=()):
     """Print the estimate; return a client, or None to stop. Order: the
-    estimate always prints first, before any key check or call."""
+    estimate always prints first, before any key check or call. `models`
+    are the model ids the run will call; each provider among them needs
+    its key (Anthropic when none are named, as before)."""
+    from core.models import provider
     print(estimate.render(), flush=True)
     if args.estimate_only:
         return None
     if client is not None:
         return client
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ANTHROPIC_API_KEY is not set; nothing was called. --estimate-only prints the estimate alone.", file=sys.stderr)
+    needed = sorted({provider(m) for m in models}) or ["anthropic"]
+    missing = [" or ".join(KEYS[p]) for p in needed if not any(os.environ.get(k) for k in KEYS[p])]
+    if missing:
+        print(f"{', '.join(missing)} is not set; nothing was called. --estimate-only prints the estimate alone.", file=sys.stderr)
         return None
     if not args.yes:
         try:
-            ok = input(f"Proceed at ~${estimate.total:,.2f}? [y/N] ").strip().lower() == "y"
+            worst = f" (up to ~${estimate.total + estimate.worst_extra:,.2f} if the cache misses)" if estimate.worst_extra else ""
+            ok = input(f"Proceed at ~${estimate.total:,.2f}{worst}? [y/N] ").strip().lower() == "y"
         except EOFError:
             ok = False
         if not ok:
             print("stopped before any call", file=sys.stderr)
             return None
-    import anthropic
-    return anthropic.Anthropic()
+    return Clients()
 
 
 def stamp(*, n, model, sample) -> str:

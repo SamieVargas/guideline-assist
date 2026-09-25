@@ -28,7 +28,7 @@ from core.data import by_id, load_split, render_transcript
 from core.estimate import Estimate, call_cost
 from core.guidelines import render_library, render_section, section_id, subflow_menu
 from core.metrics import pct
-from core.models import MODELS, model_id
+from core.models import MODELS, model_id, provider
 from core.points import guideline_next, points_for
 from core.validate import citation_valid, validate_assist
 
@@ -57,6 +57,12 @@ def estimate(points, arms, models) -> Estimate:
                     usd += call_cost(mid, uncached_chars=len(INTENT_RULES) + len(subflow_menu()) + ctx, out_tokens=15)
                     usd += call_cost(mid, uncached_chars=len(ASSIST_RULES) + len(render_section(section_id(c["subflow"]))) + ctx, out_tokens=90)
             est.add(f"arm {arm}", mid, len(points) * (1 if arm == "A" else 2), usd)
+            if arm == "A" and provider(mid) == "google":
+                miss = sum(call_cost(mid, uncached_chars=lib + len(render_transcript(c["turns"][: p["i"]])) + 80, out_tokens=90)
+                           for c, p in points)
+                est.worst_extra += miss - usd
+                est.notes.append(f"{mid} caches implicitly and without a guarantee; arm A at ~${miss:,.2f} if the cache never hits. "
+                                 "Its id and prices in core/models.py are unconfirmed; check them on ai.google.dev first.")
     return est
 
 
@@ -177,7 +183,7 @@ def main(argv=None, client=None) -> int:
         print(md)
         write(args.out, f"assist-baseline-{today()}", md, recs)
         return 0
-    client = gate(estimate(points, arms, models), args, client)
+    client = gate(estimate(points, arms, models), args, client, models=[model_id(m) for m in models])
     if client is None:
         return 0 if args.estimate_only else 2
     recs, partial = run_keyed(client, points, arms, models, args)
@@ -188,7 +194,10 @@ def main(argv=None, client=None) -> int:
     md = render(groups, sample, len(convs), partial)
     print(md)
     # A --limit run is a smoke run: its own file name, never read as the headline by evals/readout_table.py.
-    write(args.out, f"assist-{today()}" + (f"-limit{args.limit}" if args.limit else "") + ("-partial" if partial else ""), md, recs)
+    # A run with a non-Anthropic arm gets its own name too, so the readout keeps reading the Claude run.
+    other = sorted({m for m in models if provider(model_id(m)) != "anthropic"})
+    write(args.out, "assist-" + "".join(f"{m}-" for m in other) + today() + (f"-limit{args.limit}" if args.limit else "")
+          + ("-partial" if partial else ""), md, recs)
     return 130 if partial else 0
 
 

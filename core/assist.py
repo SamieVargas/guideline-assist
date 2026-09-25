@@ -52,7 +52,8 @@ def _merge(metas: list[dict]) -> dict:
             "parse_paths": [m["parse_path"] for m in metas], "valid": all(m["valid"] for m in metas),
             "violations": [x for m in metas for x in m["violations"]],
             "first_violations": [x for m in metas for x in m["first_violations"]],
-            "from_cache": any(m["from_cache"] for m in metas)}
+            "from_cache": any(m["from_cache"] for m in metas),
+            "served_models": sorted({m["served_model"] for m in metas if m.get("served_model")})}
 
 
 def fallback_output(intent=UNCLEAR) -> dict:
@@ -60,8 +61,8 @@ def fallback_output(intent=UNCLEAR) -> dict:
             "next_action": NONE_YET, "slot_values": [], "suggestion": "Keep talking with the customer."}
 
 
-def assist_arm_a(client, turns, *, model, contract="native", tag="run0", use_cache=True):
-    system = system_blocks(ASSIST_RULES, cached_tail="GUIDELINES:\n\n" + render_library())
+def assist_arm_a(client, turns, *, model, contract="native", tag="run0", use_cache=True, library="full"):
+    system = system_blocks(ASSIST_RULES, cached_tail="GUIDELINES:\n\n" + render_library(library))
     out, meta = call(client, model=model, system=system, user=_user(turns), schema=assist_schema(),
                      validator=validate_assist, contract=contract, hint=contract_hint(ASSIST_EXAMPLE),
                      tag=tag, use_cache=use_cache, coerce=_coerce_assist)
@@ -84,9 +85,11 @@ def assist_arm_b(client, turns, *, model, contract="native", tag="run0", use_cac
     return (out or fallback_output(intent)), _merge([m1, m2])
 
 
-def assist(client, turns, *, arm, model, contract="native", tag="run0", use_cache=True):
+def assist(client, turns, *, arm, model, contract="native", tag="run0", use_cache=True, library="full"):
+    """library: how much of the guideline library arm A carries
+    (core.guidelines.LIBRARY_STYLES); arm B always sends one full section."""
     if arm == "A":
-        return assist_arm_a(client, turns, model=model, contract=contract, tag=tag, use_cache=use_cache)
+        return assist_arm_a(client, turns, model=model, contract=contract, tag=tag, use_cache=use_cache, library=library)
     if arm == "B":
         return assist_arm_b(client, turns, model=model, contract=contract, tag=tag, use_cache=use_cache)
     raise ValueError(f"arm must be one of {ARMS}")

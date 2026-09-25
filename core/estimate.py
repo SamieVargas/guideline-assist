@@ -42,8 +42,11 @@ def call_cost(model: str, *, uncached_chars: int, cached_chars: int = 0, out_tok
         unc, cac = unc + cac, 0
     if not cac:
         unc += m.get("uncached_call_overhead", 0)
-    cached_rate = CACHE_READ_MULT if cache_hit else CACHE_WRITE_MULT
-    one = (unc * p["input"] + cac * p["input"] * cached_rate + out_tokens * p["output"]) / 1_000_000
+    if cache_hit:
+        cached_price = p.get("cache_read", p["input"] * CACHE_READ_MULT)
+    else:
+        cached_price = p["input"] * (1.0 if "cache_read" in p else CACHE_WRITE_MULT)  # implicit caches have no write charge
+    one = (unc * p["input"] + cac * cached_price + out_tokens * p["output"]) / 1_000_000
     return one * (1 + m.get("retry_rate", 0))
 
 
@@ -51,6 +54,8 @@ class Estimate:
     def __init__(self, title: str):
         self.title = title
         self.rows = []  # (label, model, calls, usd)
+        self.notes = []
+        self.worst_extra = 0.0  # added to the total when a best-effort cache (Gemini's) never hits
 
     def add(self, label: str, model: str, calls: int, usd: float):
         self.rows.append((label, model, calls, usd))
@@ -64,4 +69,5 @@ class Estimate:
         for label, model, calls, usd in self.rows:
             lines.append(f"  {label:<38} {model:<28} {calls:>6} calls  ~${usd:,.2f}")
         lines.append(f"  {'TOTAL':<38} {'':<28} {sum(r[2] for r in self.rows):>6} calls  ~${self.total:,.2f} (high ${self.total * HIGH_FACTOR:,.2f})")
+        lines += [f"  note: {n}" for n in self.notes]
         return "\n".join(lines)

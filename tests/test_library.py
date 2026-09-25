@@ -63,3 +63,24 @@ def test_sample_file_parses_and_actions_show_their_values():
         assert acts and all(t["action"] in ACTIONS for t in acts)
     t = next(t for t in convs[0]["turns"] if t["speaker"] == "action" and t["values"])
     assert t["values"][0] in render_turn(t)
+
+
+def test_full_library_style_is_byte_identical_to_the_parts_3_4_prompt():
+    import hashlib
+    assert hashlib.sha256(render_library().encode("utf-8")).hexdigest() == \
+        "011fbe9af04070530026ac9b7a55fff1405b6be5d46542817e3e9a944e098384"
+    assert render_library("full") == render_library()
+
+
+def test_every_library_style_keeps_headers_sequences_and_listed_actions():
+    from core.guidelines import LIBRARY_STYLES
+    sizes = [len(render_library(s)) for s in LIBRARY_STYLES]
+    assert sizes == sorted(sizes, reverse=True) and len(set(sizes)) == len(sizes)
+    for style in LIBRARY_STYLES:
+        text = render_library(style)
+        for sid, s in subflow_sections().items():
+            sec = render_section(sid, style)
+            assert f"SECTION {sid} ::" in sec and sec in text
+            assert "Required action sequence: " + " -> ".join(s["required_actions"]) in sec
+            for a in s["listed_actions"]:
+                assert a in sec, (style, sid, a)

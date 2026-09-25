@@ -111,10 +111,46 @@ def section_ids() -> tuple:
     return tuple(subflow_sections())
 
 
-def render_section(sid: str) -> str:
+# How much of each section the rendered library carries, from the original
+# rendering down. Every style keeps the section header (which the assist
+# cites as section_id), the required action sequence and every listed
+# action, so the validator's allowed set is visible in all of them; what
+# goes, in order, is repetition, the UI click-through detail under each
+# step, the step text, and the free-text instructions.
+#   full     the original rendering, byte-identical to the Parts 3-4 runs
+#   dedupe   drops the flow description repeated under every subflow (the
+#            flow header above the subflows carries it once), lists only the
+#            actions beyond the required sequence, and shortens step labels
+#   nosub    dedupe without the sub-bullets under each step
+#   outline  dedupe without the steps: header, sequence, instructions
+#   bare     outline without the instructions
+LIBRARY_STYLES = ("full", "dedupe", "nosub", "outline", "bare")
+
+
+def _render_compact(s: dict, style: str) -> str:
+    lines = [f"### SECTION {s['id']} :: {s['title']}",
+             "Required action sequence: " + " -> ".join(s["required_actions"])]
+    extra = [a for a in s["listed_actions"] if a not in s["required_actions"]]
+    if extra:
+        lines.append("Also listed: " + ", ".join(extra))
+    if style != "bare":
+        lines += [f"- {ins}" for ins in s["instructions"]]
+    if style in ("dedupe", "nosub"):
+        for n, st in enumerate(s["steps"], 1):
+            lines.append(f"{n}. {st['action'] or 'talk to the customer'}: {st['text']}")
+            if style == "dedupe":
+                lines += [f"   * {x}" for x in st["subtext"]]
+    return "\n".join(lines)
+
+
+def render_section(sid: str, style: str = "full") -> str:
+    if style not in LIBRARY_STYLES:
+        raise ValueError(f"style must be one of {LIBRARY_STYLES}")
     s = library()[sid]
     if s["kind"] == "flow":
         return f"## {s['id']} :: {s['title']}\n{s['description']}"
+    if style != "full":
+        return _render_compact(s, style)
     flow = library()[s["flow"]]
     lines = [f"### SECTION {s['id']} :: {s['title']}",
              f"Flow: {flow['title']} ({flow['description']})",
@@ -129,14 +165,14 @@ def render_section(sid: str) -> str:
     return "\n".join(lines)
 
 
-def render_library() -> str:
+def render_library(style: str = "full") -> str:
     """The whole library as one text block, flow by flow, deterministic, so
     it can sit in a cached system prefix byte-identical across calls."""
     out = []
     for sid, s in library().items():
         if s["kind"] == "flow":
-            out.append(render_section(sid))
-            out += [render_section(c) for c in s["children"]]
+            out.append(render_section(sid, style))
+            out += [render_section(c, style) for c in s["children"]]
     return "\n\n".join(out)
 
 

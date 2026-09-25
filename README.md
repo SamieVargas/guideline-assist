@@ -23,6 +23,7 @@ Every Core part with a model has run (2026-09-24), and Part 7 is scored against 
 | 9 | Injection: 10 frozen fixtures × 5 runs | `evals/run_injection.py` | done, Sonnet arm A: [47/50 held, 2 fixtures moved](evals/results/injection-2026-09-24.md) |
 | 10 | Deployment readout | `docs/deployment-readout.md`, `evals/readout_table.py` | [number table](docs/readout-numbers.md) complete; prose is Samie's |
 | 11 | Replay viewer | `evals/export_viewer.py` | done: the export feeds [samievargas.com/assist](https://samievargas.com/assist/), six chats, three QA copies and the ablation |
+| Tuning | Prompt tuning for cost: the guideline library rendered at five lengths, gated on accuracy | `evals/run_tuning.py`, [plan and gates](docs/prompt-tuning.md) | pre-registered, round 1 ready to run |
 | 12–14 | Streaming, concurrency sweep, fine-tuning | | not built (optional) |
 
 ## What the Parts 3–4 run says (100 test conversations, 2026-09-24)
@@ -70,6 +71,9 @@ python evals/run_qa.py                # Part 6
 python evals/run_shadow.py --arm A --model haiku   # Part 8, the winning arm
 python evals/run_injection.py --arm A --model haiku  # Part 9
 python evals/readout_table.py         # Part 10 numbers
+python evals/run_tuning.py --round r1 # prompt tuning, round 1 (docs/prompt-tuning.md)
+export GEMINI_API_KEY=...
+python evals/run_assist.py --arms A --models gemini   # third arm: Gemini Flash (prices unconfirmed, see core/models.py)
 ```
 
 Every keyed script prints its cost estimate before any call; `--estimate-only` stops there, and without `--yes` it asks. Samples (`data/samples/`) and injection fixtures (`evals/fixtures/injection.json`) are drawn once with a recorded seed and hash; the scripts refuse to redraw them.

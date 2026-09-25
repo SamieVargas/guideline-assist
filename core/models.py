@@ -15,6 +15,16 @@ MODELS = {
     "haiku": "claude-haiku-4-5-20251001",
     "sonnet": "claude-sonnet-5",
 }
+# A third arm from another provider, run only when named (--models gemini),
+# never by default. Gemini is the Flash-class model the real-time assist
+# market prices against. Its id and prices were read from search results on
+# 2026-09-25 (ai.google.dev was not reachable from the build machine), so
+# they are UNCONFIRMED: check both on https://ai.google.dev/gemini-api/docs/pricing
+# before a keyed run, and before quoting any dollar figure computed from them.
+EXTRA_MODELS = {
+    "gemini": "gemini-3.8-flash",
+}
+PROVIDER = {"claude-haiku-4-5-20251001": "anthropic", "claude-sonnet-5": "anthropic", "gemini-3.8-flash": "google"}
 DEFAULT_ASSIST = "haiku"
 DEFAULT_QA = "sonnet"
 
@@ -24,6 +34,9 @@ DEFAULT_QA = "sonnet"
 REQUEST_EXTRAS = {
     "claude-haiku-4-5-20251001": {},
     "claude-sonnet-5": {"thinking": {"type": "disabled"}},
+    # Gemini Flash thinks by default and bills thinking as output; the lowest
+    # level is the closest match to Sonnet with thinking disabled.
+    "gemini-3.8-flash": {"thinking_config": {"thinking_level": "MINIMAL"}},
 }
 
 # The shortest prefix each model will cache. A shorter prefix is sent with
@@ -31,6 +44,9 @@ REQUEST_EXTRAS = {
 CACHE_MIN_TOKENS = {
     "claude-haiku-4-5-20251001": 4096,
     "claude-sonnet-5": 1024,
+    # Gemini caches implicitly: a repeated prefix is discounted when the
+    # service happens to hit, with no cache_control and no write charge.
+    "gemini-3.8-flash": 1024,
 }
 
 # USD per million tokens. Cache writes (5-minute TTL) bill at 1.25x input,
@@ -38,6 +54,9 @@ CACHE_MIN_TOKENS = {
 PRICES = {
     "claude-haiku-4-5-20251001": {"input": 1.00, "output": 5.00},
     "claude-sonnet-5": {"input": 2.00, "output": 10.00},
+    # UNCONFIRMED (see EXTRA_MODELS). Output includes thinking tokens. The
+    # cached-input price assumes the 0.1x implicit-cache discount.
+    "gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cache_read": 0.075},
 }
 CACHE_WRITE_MULT = 1.25
 CACHE_READ_MULT = 0.10
@@ -47,9 +66,11 @@ def model_id(name: str) -> str:
     """Accepts a short name ("haiku") or a pinned id."""
     if name in MODELS:
         return MODELS[name]
+    if name in EXTRA_MODELS:
+        return EXTRA_MODELS[name]
     if name in PRICES:
         return name
-    raise KeyError(f"unknown model {name!r}; use one of {sorted(MODELS)} or a pinned id in core/models.py")
+    raise KeyError(f"unknown model {name!r}; use one of {sorted(MODELS) + sorted(EXTRA_MODELS)} or a pinned id in core/models.py")
 
 
 def cost_usd(model: str, usage: dict) -> float:
@@ -61,5 +82,9 @@ def cost_usd(model: str, usage: dict) -> float:
     u = usage or {}
     return (u.get("input_tokens", 0) * p["input"]
             + u.get("cache_creation_input_tokens", 0) * p["input"] * CACHE_WRITE_MULT
-            + u.get("cache_read_input_tokens", 0) * p["input"] * CACHE_READ_MULT
+            + u.get("cache_read_input_tokens", 0) * p.get("cache_read", p["input"] * CACHE_READ_MULT)
             + u.get("output_tokens", 0) * p["output"]) / 1_000_000
+
+
+def provider(model: str) -> str:
+    return PROVIDER.get(model, "google" if model.startswith("gemini") else "anthropic")
