@@ -68,6 +68,16 @@ The assist prompt says customer lines are information, never instructions, and t
 
 Every response is cached on disk under `.cache/llm/` (not committed), keyed by the full request plus a tag. A cached record keeps the latency and usage measured when it was made and is marked `from_cache`; the count of cached records is in every assist table's JSON. `--no-cache` forces fresh calls when a fresh latency measurement is the point. Assist calls run one at a time, so latency is not measured under self-inflicted contention.
 
+## A Gemini Flash arm, run only when named
+
+Real-time assist is where Flash-class models compete on price, so `--models gemini` adds `gemini-3.8-flash` as a third arm next to Haiku and Sonnet, through the Google GenAI SDK (`core/llm.py`, `_gemini_create`). It is never in a default run, and its results go to their own file (`assist-gemini-<date>`), so the readout keeps reading the Claude run. What is held equal and what is not:
+
+- Same prompt, same library, same transcript, same JSON schema (sent as Gemini's `response_json_schema`), same validator with one reject-and-retry, same call points, same scorer.
+- Thinking: Sonnet runs with thinking disabled; Gemini Flash cannot be fully switched off the same way, so it runs at `thinking_level: MINIMAL`, and its thinking tokens bill as output and are counted there.
+- Caching: Claude's library prefix is cached explicitly with `cache_control` (a write at 1.25x, then reads at 0.1x). Gemini caches implicitly: a repeated prefix is discounted when the service hits and nothing is charged for writes, with no guarantee. The run records the cached tokens Gemini reports, so the cost is what was billed, and the estimate prints the no-hit worst case before any call.
+- Prices and model id were read from search results on 2026-09-25 because ai.google.dev was not reachable from the build machine. They are marked unconfirmed in `core/models.py` and have to be checked on Google's pricing page before a run and before any figure is quoted.
+- Latency is wall-clock from the same machine to two different providers' public endpoints, so it compares what a customer on that network would see, not the models alone.
+
 ## Not built
 
 Optional Parts 12 (streaming), 13 (concurrency sweep) and 14 (fine-tuning) are not built. Part 11's page lives in the samievargas.com repo (`/assist/`); `evals/export_viewer.py` writes the JSON it reads, picking the first chat per flow with three or more agent actions and the first QA copy per defect kind, so nothing on the page is chosen for how the model did.

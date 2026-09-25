@@ -21,7 +21,7 @@ import json
 import time
 from pathlib import Path
 
-from core.models import REQUEST_EXTRAS, cost_usd
+from core.models import REQUEST_EXTRAS, cost_usd, provider
 from core.parse import parse_json
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,14 +50,53 @@ def _cached_create(client, kwargs, *, tag, use_cache):
         rec["from_cache"] = True
         return rec
     t0 = time.perf_counter()
-    msg = client.messages.create(**kwargs)
-    rec = {"text": _text_of(msg), "stop_reason": getattr(msg, "stop_reason", None), "usage": _usage(msg),
-           "served_model": getattr(msg, "model", None),
-           "latency_ms": round((time.perf_counter() - t0) * 1000, 1), "from_cache": False}
+    if provider(kwargs["model"]) == "google":
+        rec = _gemini_create(getattr(client, "gemini", client), kwargs)
+    else:
+        msg = client.messages.create(**kwargs)
+        rec = {"text": _text_of(msg), "stop_reason": getattr(msg, "stop_reason", None), "usage": _usage(msg),
+               "served_model": getattr(msg, "model", None)}
+    rec.update({"latency_ms": round((time.perf_counter() - t0) * 1000, 1), "from_cache": False})
     if use_cache:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rec), encoding="utf-8")
     return rec
+
+
+# Gemini's thinking tokens count against max_output_tokens, so its reply
+# budget is raised to this floor to keep the JSON from being cut short.
+GEMINI_MIN_OUTPUT = 1024
+_GEMINI_STOP = {"STOP": "end_turn", "MAX_TOKENS": "max_tokens"}
+
+
+def _gemini_create(gclient, kwargs) -> dict:
+    """The same request through the Google GenAI SDK (google-genai), mapped
+    back to the Anthropic-shaped record the rest of the pipeline reads.
+    Usage: prompt_token_count includes any implicitly cached tokens, which
+    are split out as cache reads; thinking tokens bill as output and are
+    added to output_tokens (and kept apart as thinking_tokens)."""
+    system = kwargs["system"]
+    sys_text = system if isinstance(system, str) else "\n\n".join(b["text"] for b in system)
+    contents = [{"role": "model" if m["role"] == "assistant" else "user", "parts": [{"text": m["content"]}]}
+                for m in kwargs["messages"]]
+    config = {"system_instruction": sys_text, "max_output_tokens": max(kwargs["max_tokens"], GEMINI_MIN_OUTPUT)}
+    if "thinking_config" in kwargs:
+        config["thinking_config"] = kwargs["thinking_config"]
+    schema = ((kwargs.get("output_config") or {}).get("format") or {}).get("schema")
+    if schema:
+        config["response_mime_type"] = "application/json"
+        config["response_json_schema"] = schema
+    resp = gclient.models.generate_content(model=kwargs["model"], contents=contents, config=config)
+    u = getattr(resp, "usage_metadata", None)
+    get = lambda k: int(getattr(u, k, 0) or 0)  # noqa: E731
+    cached, thoughts = get("cached_content_token_count"), get("thoughts_token_count")
+    cands = getattr(resp, "candidates", None) or []
+    reason = getattr(getattr(cands[0], "finish_reason", None), "name", None) if cands else None
+    return {"text": getattr(resp, "text", None) or "", "stop_reason": _GEMINI_STOP.get(reason, reason),
+            "usage": {"input_tokens": max(get("prompt_token_count") - cached, 0),
+                      "output_tokens": get("candidates_token_count") + thoughts,
+                      "cache_creation_input_tokens": 0, "cache_read_input_tokens": cached},
+            "thinking_tokens": thoughts, "served_model": getattr(resp, "model_version", None)}
 
 
 def system_blocks(static: str, cached_tail: str | None = None, dynamic: str | None = None) -> list:

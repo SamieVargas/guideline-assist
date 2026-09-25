@@ -30,7 +30,7 @@ from core.data import by_id, load_split, render_transcript
 from core.estimate import Estimate, call_cost
 from core.guidelines import LIBRARY_STYLES, render_library
 from core.metrics import mean, pct
-from core.models import model_id
+from core.models import model_id, provider
 from core.points import points_for
 from run_assist import POINT_SEED, _record
 
@@ -53,6 +53,13 @@ def estimate(points, styles, model) -> Estimate:
         usd = sum(call_cost(mid, uncached_chars=len(render_transcript(c["turns"][: p["i"]])) + 80, cached_chars=lib,
                             out_tokens=90, cache_hit=n > 0) for n, (c, p) in enumerate(points))
         est.add(f"library {style}", mid, len(points), usd)
+        if provider(mid) == "google":
+            miss = sum(call_cost(mid, uncached_chars=lib + len(render_transcript(c["turns"][: p["i"]])) + 80, out_tokens=90)
+                       for c, p in points)
+            est.worst_extra += miss - usd
+            est.notes.append(f"{style}: ~${miss:,.2f} if Gemini's implicit cache never hits")
+    if provider(mid) == "google":
+        est.notes.append(f"{mid} id and prices in core/models.py are unconfirmed; check them on ai.google.dev first.")
     return est
 
 
@@ -145,7 +152,7 @@ def main(argv=None, client=None) -> int:
     sample, convs, points = load_points(args.sample, args.limit)
     lookup = {c["id"]: c for c in convs}
     mid = model_id(args.model)
-    client = gate(estimate(points, styles, args.model), args, client)
+    client = gate(estimate(points, styles, args.model), args, client, models=[model_id(args.model)])
     if client is None:
         return 0 if args.estimate_only else 2
     recs, partial = [], False

@@ -36,3 +36,31 @@ def assist_out(intent, action, values=(), section=None, suggestion="Ask for the 
     from core.guidelines import section_id
     sid = section if section is not None else (NO_SECTION if intent == UNCLEAR else section_id(intent))
     return {"intent": intent, "section_id": sid, "next_action": action, "slot_values": list(values), "suggestion": suggestion}
+
+
+class FakeGemini:
+    """The Google GenAI surface the Gemini path uses: models.generate_content,
+    answering with the same responder shape as FakeClient."""
+
+    def __init__(self, responder, cached=0):
+        self.responder = responder
+        self.cached = cached
+        self.requests = []
+        self.models = self
+
+    def generate_content(self, *, model, contents, config):
+        self.requests.append({"model": model, "contents": contents, "config": config})
+        payload = self.responder({"output_config": {"format": {"schema": config.get("response_json_schema") or {}}},
+                                  "messages": [{"content": contents[0]["parts"][0]["text"]}]})
+        return SimpleNamespace(text=json.dumps(payload), model_version=model,
+                               candidates=[SimpleNamespace(finish_reason=SimpleNamespace(name="STOP"))],
+                               usage_metadata=SimpleNamespace(prompt_token_count=30000, cached_content_token_count=self.cached,
+                                                              candidates_token_count=70, thoughts_token_count=12))
+
+
+class MultiClient:
+    """Anthropic and Gemini stubs behind one object, as evals/common.Clients."""
+
+    def __init__(self, anthropic, gemini):
+        self.messages = anthropic
+        self.gemini = gemini

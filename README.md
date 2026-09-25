@@ -72,6 +72,8 @@ python evals/run_shadow.py --arm A --model haiku   # Part 8, the winning arm
 python evals/run_injection.py --arm A --model haiku  # Part 9
 python evals/readout_table.py         # Part 10 numbers
 python evals/run_tuning.py --round r1 # prompt tuning, round 1 (docs/prompt-tuning.md)
+export GEMINI_API_KEY=...
+python evals/run_assist.py --arms A --models gemini   # third arm: Gemini Flash (prices unconfirmed, see core/models.py)
 ```
 
 Every keyed script prints its cost estimate before any call; `--estimate-only` stops there, and without `--yes` it asks. Samples (`data/samples/`) and injection fixtures (`evals/fixtures/injection.json`) are drawn once with a recorded seed and hash; the scripts refuse to redraw them.

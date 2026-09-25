@@ -90,6 +90,17 @@ Note for the Haiku check: Haiku 4.5 caches only prefixes of 4,096 tokens or more
 
 Each run writes `evals/results/tuning-<round>-<sample>-<date>.md` and `.json`, with the response-cache tag `tune-<round>` so no round reuses an earlier round's answers.
 
+## Addendum, 2026-09-25, before any tuning call: a Gemini Flash arm
+
+Samie added a third arm from another provider, to measure where a Flash-class model lands on accuracy and cost for the real-time assist. It does not change the gates, the samples or round 1 above. Two runs are added (setup and caveats in `docs/decisions.md`):
+
+| Step | Command | Estimate |
+| --- | --- | --- |
+| Gemini on the Parts 3–4 comparison: arm A, full library, held-out set, next to the Haiku and Sonnet rows already measured | `python evals/run_assist.py --arms A --models gemini` | ~$1.70 if its implicit cache hits, ~$13.79 if it never does |
+| Gemini at the confirm: `full` and the winning style, held-out set | `python evals/run_tuning.py --round gemini --sample assist_100 --model gemini --styles full,<winner>` | ~$2.66 for `nosub`, up to ~$20 on no cache hits |
+
+Predictions for the first run, stated now (80% intervals), against Sonnet 5 arm A on 2026-09-24 (73.9% next action, 88.0% intent, $122 per 1,000 conversations): next action 62% [52, 72], intent 82% [74, 88], cost per 1,000 conversations $30 [$20, $60] if the implicit cache hits on most turns and around $200 if it never does. Falsifier: if Gemini comes within 3 points of Sonnet on next action at under half the cost, the model decision in the readout changes and the readout says so.
+
 ## Round log
 
 | Round | Change | Sample | Result | Decision |
