@@ -125,3 +125,10 @@ def test_the_real_sample_conversations_score_without_error():
         c = copy.deepcopy(c)
         points_for(c, 1)
         qa_rules(c)
+
+
+def test_typed_qa_statuses_are_normalised():
+    from qa_agreement import norm_status
+    assert norm_status(" Out-of-order ") == "out_of_order"
+    assert norm_status("out of order") == "out_of_order"
+    assert norm_status("wrong_value") == "wrong_value"

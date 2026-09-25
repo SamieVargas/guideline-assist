@@ -21,6 +21,11 @@ from core.metrics import cohen_kappa, pct, rate
 from labeling.make_kit import LABELS, kit_items
 
 
+def norm_status(s: str) -> str:
+    """Hand labels are typed: "Out-of-order" and "out of order" mean out_of_order."""
+    return "_".join(s.strip().lower().replace("-", " ").split())
+
+
 def construction_label(conv, action):
     pert = conv.get("perturbation")
     if pert and action in pert["actions"]:
@@ -36,7 +41,9 @@ def main(argv=None) -> int:
     args = p.parse_args(argv)
     with open(LABELS, encoding="utf-8") as f:
         labels = list(csv.DictReader(f))
-    blank = [r for r in labels if r["status"].strip() not in QA_STATUSES]
+    for r in labels:
+        r["status"] = norm_status(r["status"])
+    blank = [r for r in labels if r["status"] not in QA_STATUSES]
     if blank:
         print(f"{len(blank)} of {len(labels)} rows in {LABELS} have no valid status yet; nothing scored.", file=sys.stderr)
         return 2
@@ -52,7 +59,7 @@ def main(argv=None) -> int:
             print(f"no {model} QA record for {conv['id']} (item {lab['item']}); run evals/run_qa.py first", file=sys.stderr)
             return 2
         rows.append({"item": lab["item"], "action": lab["action"], "kind": (conv.get("perturbation") or {}).get("kind", "untouched"),
-                     "samie": lab["status"].strip(), "model": m["statuses"][lab["action"]]["status"],
+                     "samie": lab["status"], "model": m["statuses"][lab["action"]]["status"],
                      "construction": construction_label(conv, lab["action"])})
     n = len(rows)
     agree = lambda a, b: rate(sum(r[a] == r[b] for r in rows), n)  # noqa: E731
