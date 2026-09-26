@@ -53,7 +53,9 @@ def _merge(metas: list[dict]) -> dict:
             "violations": [x for m in metas for x in m["violations"]],
             "first_violations": [x for m in metas for x in m["first_violations"]],
             "from_cache": any(m["from_cache"] for m in metas),
-            "served_models": sorted({m["served_model"] for m in metas if m.get("served_model")})}
+            "served_models": sorted({m["served_model"] for m in metas if m.get("served_model")}),
+            "backends": sorted({m["backend"] for m in metas if m.get("backend")}),
+            "infra_retries": sum(m.get("infra_retries", 0) for m in metas)}
 
 
 def fallback_output(intent=UNCLEAR) -> dict:

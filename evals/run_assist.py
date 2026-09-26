@@ -87,7 +87,8 @@ def _record(c, p, pred, meta, *, arm, model):
             "violations": meta["violations"], "first_violations": meta.get("first_violations", []),
             "citation_valid": citation_valid(pred, validate_assist(pred)), "retries": meta["retries"],
             "latency_ms": meta["latency_ms"], "calls": meta["calls"], "usage": meta["usage"], "cost_usd": meta["cost_usd"],
-            "from_cache": meta["from_cache"]}
+            "from_cache": meta["from_cache"], "served_models": meta.get("served_models", []),
+            "backends": meta.get("backends", []), "infra_retries": meta.get("infra_retries", 0)}
 
 
 def run_keyed(client, points, arms, models, args):
@@ -192,6 +193,11 @@ def main(argv=None, client=None) -> int:
         groups.setdefault((r["arm"], r["model"]), []).append(r)
     groups = {k: score(v, lookup) for k, v in groups.items()}
     md = render(groups, sample, len(convs), partial)
+    gem = [r for r in recs if provider(r["model"]) == "google"]
+    if gem:
+        md += (f"\n\nGemini ran through {', '.join(sorted({b for r in gem for b in r.get('backends', [])})) or 'unknown backend'}; "
+               f"{sum(r.get('infra_retries', 0) for r in gem)} overload or rate-limit answers were waited out and retried, and that "
+               "waiting is not in the latency columns.")
     print(md)
     # A --limit run is a smoke run: its own file name, never read as the headline by evals/readout_table.py.
     # A run with a non-Anthropic arm gets its own name too, so the readout keeps reading the Claude run.

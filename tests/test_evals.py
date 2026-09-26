@@ -171,6 +171,52 @@ def test_gemini_arm_maps_usage_prices_implicit_cache_and_keeps_its_own_file(tmp_
 def test_gemini_key_is_checked_before_any_call(tmp_path, monkeypatch, capsys):
     monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    monkeypatch.delenv("GOOGLE_GENAI_USE_VERTEXAI", raising=False)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "x")
     rc = run_assist.main(["--limit", "1", "--arms", "A", "--models", "gemini", "--out", str(tmp_path)])
-    assert rc == 2 and "GEMINI_API_KEY or GOOGLE_API_KEY is not set" in capsys.readouterr().err
+    err = capsys.readouterr().err
+    assert rc == 2 and "GEMINI_API_KEY or GOOGLE_API_KEY" in err and "Vertex AI) is not set" in err
+
+
+def test_gemini_overload_is_waited_out_counted_and_kept_out_of_latency(monkeypatch):
+    import core.llm
+    from stubs import FakeGemini
+    waits = []
+    monkeypatch.setattr(core.llm.time, "sleep", waits.append)
+    gem = FakeGemini(responder, fail_first=2, vertexai=True)
+    rec = core.llm._cached_create(gem, {"model": "gemini-3.8-flash", "max_tokens": 400, "system": "s",
+                                        "messages": [{"role": "user", "content": "u"}]}, tag="t", use_cache=False)
+    assert rec["infra_retries"] == 2 and len(waits) == 2 and rec["backend"] == "vertex"
+    assert rec["latency_ms"] < 1000  # the waits are not in it
+
+
+def test_gemini_gives_up_on_a_non_retryable_error():
+    import pytest
+    import core.llm
+
+    class Bad:
+        models = None
+
+        def generate_content(self, **kw):
+            e = RuntimeError("400")
+            e.code = 400
+            raise e
+    b = Bad()
+    b.models = b
+    with pytest.raises(RuntimeError):
+        core.llm._gemini_with_backoff(b, "gemini-3.8-flash", [], {}, sleep=lambda s: None)
+
+
+def test_vertex_settings_satisfy_the_gemini_key_check(tmp_path, monkeypatch, capsys):
+    import common
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GOOGLE_API_KEY", raising=False)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "x")
+    monkeypatch.setenv("GOOGLE_GENAI_USE_VERTEXAI", "true")
+    monkeypatch.setenv("GOOGLE_CLOUD_PROJECT", "p")
+    from core.estimate import Estimate
+
+    class A:
+        estimate_only, yes = False, True
+    client = common.gate(Estimate("t"), A(), models=["gemini-3.8-flash"])
+    assert isinstance(client, common.Clients)

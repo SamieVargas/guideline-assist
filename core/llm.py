@@ -18,6 +18,7 @@ pass use_cache=False for a fresh measurement.
 
 import hashlib
 import json
+import random
 import time
 from pathlib import Path
 
@@ -44,19 +45,28 @@ def _key(kwargs: dict, tag: str) -> str:
 
 
 def _cached_create(client, kwargs, *, tag, use_cache):
+    google = provider(kwargs["model"]) == "google"
+    if google:
+        gclient = getattr(client, "gemini", client)
+        backend = "vertex" if getattr(gclient, "vertexai", False) else "gemini-api"
+        tag = f"{tag}:{backend}"  # the same request through Vertex AI is cached apart
     path = CACHE_DIR / f"{_key(kwargs, tag)}.json"
     if use_cache and path.exists():
         rec = json.loads(path.read_text(encoding="utf-8"))
         rec["from_cache"] = True
         return rec
     t0 = time.perf_counter()
-    if provider(kwargs["model"]) == "google":
-        rec = _gemini_create(getattr(client, "gemini", client), kwargs)
+    if google:
+        rec = _gemini_create(gclient, kwargs)
+        rec["backend"] = backend
     else:
         msg = client.messages.create(**kwargs)
         rec = {"text": _text_of(msg), "stop_reason": getattr(msg, "stop_reason", None), "usage": _usage(msg),
                "served_model": getattr(msg, "model", None)}
-    rec.update({"latency_ms": round((time.perf_counter() - t0) * 1000, 1), "from_cache": False})
+    # A Gemini record carries the latency of its successful attempt only, so
+    # waiting out an overloaded service is not counted as the model's speed.
+    rec.setdefault("latency_ms", round((time.perf_counter() - t0) * 1000, 1))
+    rec["from_cache"] = False
     if use_cache:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rec), encoding="utf-8")
@@ -89,7 +99,7 @@ def _gemini_create(gclient, kwargs) -> dict:
     if schema:
         config["response_mime_type"] = "application/json"
         config["response_json_schema"] = schema
-    resp = gclient.models.generate_content(model=kwargs["model"], contents=contents, config=config)
+    resp, latency_ms, infra_retries = _gemini_with_backoff(gclient, kwargs["model"], contents, config)
     u = getattr(resp, "usage_metadata", None)
     get = lambda k: int(getattr(u, k, 0) or 0)  # noqa: E731
     cached, thoughts = get("cached_content_token_count"), get("thoughts_token_count")
@@ -99,7 +109,33 @@ def _gemini_create(gclient, kwargs) -> dict:
             "usage": {"input_tokens": max(get("prompt_token_count") - cached, 0),
                       "output_tokens": get("candidates_token_count") + thoughts,
                       "cache_creation_input_tokens": 0, "cache_read_input_tokens": cached},
-            "thinking_tokens": thoughts, "served_model": getattr(resp, "model_version", None)}
+            "thinking_tokens": thoughts, "served_model": getattr(resp, "model_version", None),
+            "latency_ms": latency_ms, "infra_retries": infra_retries}
+
+
+# Overload and rate-limit answers from Gemini are waited out here, with the
+# SDK's own retries switched off (evals/common.py builds the client that
+# way), so each wait is counted and kept out of the measured latency.
+GEMINI_RETRY_CODES = (429, 500, 502, 503, 504)
+GEMINI_BACKOFF_S = (5, 10, 20, 40, 60, 60)
+
+
+def _gemini_with_backoff(gclient, model, contents, config, sleep=None):
+    sleep = sleep or time.sleep
+    retries = 0
+    while True:
+        t0 = time.perf_counter()
+        try:
+            resp = gclient.models.generate_content(model=model, contents=contents, config=config)
+            return resp, round((time.perf_counter() - t0) * 1000, 1), retries
+        except Exception as e:  # google.genai.errors.APIError, imported lazily with the SDK
+            code = getattr(e, "code", None)
+            if code not in GEMINI_RETRY_CODES or retries >= len(GEMINI_BACKOFF_S):
+                raise
+            wait = GEMINI_BACKOFF_S[retries] * (1 + random.random() / 4)
+            print(f"    gemini {code}: waiting {wait:.0f}s before retry {retries + 1}/{len(GEMINI_BACKOFF_S)}", flush=True)
+            sleep(wait)
+            retries += 1
 
 
 def system_blocks(static: str, cached_tail: str | None = None, dynamic: str | None = None) -> list:
@@ -130,7 +166,8 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
     messages = [{"role": "user", "content": user}]
     meta = {"model": model, "contract": contract, "retries": 0, "parse_path": None, "latency_ms": 0.0,
             "attempt_latency_ms": [], "usage": {k: 0 for k in USAGE_KEYS}, "violations": [], "first_violations": [],
-            "valid": False, "from_cache": False, "first_value": None, "served_model": None}
+            "valid": False, "from_cache": False, "first_value": None, "served_model": None,
+            "backend": None, "infra_retries": 0}
     value = None
     for attempt in range(max_retries + 1):
         kwargs = {"model": model, "max_tokens": max_tokens, "system": system, "messages": messages, **REQUEST_EXTRAS.get(model, {})}
@@ -139,6 +176,8 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
         rec = _cached_create(client, kwargs, tag=tag, use_cache=use_cache)
         meta["from_cache"] = meta["from_cache"] or rec["from_cache"]
         meta["served_model"] = rec.get("served_model")
+        meta["backend"] = rec.get("backend")
+        meta["infra_retries"] += rec.get("infra_retries", 0)
         meta["latency_ms"] = round(meta["latency_ms"] + rec["latency_ms"], 1)
         meta["attempt_latency_ms"].append(rec["latency_ms"])
         for k in USAGE_KEYS:
