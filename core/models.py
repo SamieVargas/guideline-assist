@@ -58,7 +58,7 @@ PRICES = {
     "claude-sonnet-5": {"input": 2.00, "output": 10.00},
     # UNCONFIRMED (see EXTRA_MODELS). Output includes thinking tokens. The
     # cached-input price assumes the 0.1x implicit-cache discount.
-    "gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cache_read": 0.075},
+    "gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cache_read": 0.075, "cache_storage_per_hour": 1.00},
 }
 CACHE_WRITE_MULT = 1.25
 CACHE_READ_MULT = 0.10

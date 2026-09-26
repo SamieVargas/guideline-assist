@@ -203,3 +203,27 @@ Latency is the time of the successful attempt only; the 90 overload answers that
 What would change the cost is explicit context caching: a cache created once for the library and named on every call, in place of the implicit cache. At the assumed cache-read price, the library would cost about a tenth as much per turn, which puts arm A near $37 per 1,000 conversations before the cache's storage charge. That is under a third of Sonnet's cost, at a higher next-action accuracy. The Gemini prices are still the unconfirmed third-party figures noted above, so every Gemini dollar figure here moves with them.
 
 Spend so far: round 1 $13.01, round 2 $7.33 (Anthropic, $20.34 of the $25), the Gemini runs $13.89 (Google credits).
+
+### Gemini with an explicit cache, registered 2026-09-26 before the run
+
+Samie chose to measure the caching fix rather than describe it. The change is how Gemini is given the library, nothing else: `--gemini-cache explicit` creates a Vertex context cache holding the same system prompt and names it on every call, in place of the implicit cache (`core/llm.py`). The run also carries the registered Gemini confirm, `full` and the round winner `dedupe`:
+
+`python evals/run_tuning.py --round gemini --sample assist_100 --model gemini --styles full,dedupe --gemini-cache explicit` (~$3.20 by the estimate, which assumes 90 output tokens; about $3.70 at the 156 Gemini used, plus a few cents of storage)
+
+Predictions (80% intervals):
+
+| | Point estimate | 80% interval |
+| --- | --- | --- |
+| Share of input read from cache, both styles | 97% | [95, 99] |
+| `full` next action | 82% | [78, 86] |
+| `full` intent | 88% | [85, 90] |
+| `full` cost / 1,000 conversations, before storage | $37 | [$32, $45] |
+| `dedupe` Δ next action vs `full` | −1 point | [−4.5, +2.5] |
+| `dedupe` cost cut vs `full` | 11% | [8, 14] |
+
+The `full` accuracy predictions are the implicit run's numbers widened by the run-to-run noise measured in round 2, since the prompt the model sees is identical. The cost comes from the implicit run's measured tokens (25,880 library and rules tokens a turn read at $0.075 per million, about 360 uncached at $0.75, 156 output at $3.75). `dedupe` is expected to fail the 20% cost gate on Gemini too, because once the library is cached it is about 70% of the bill, and `dedupe` shortens it by 15%.
+
+Falsifiers:
+- If under 90% of input is read from cache on either style, the explicit cache was not used, and the run's cost figures are void until it is fixed.
+- The model falsifier registered with the Gemini addendum still stands, and on these predictions it would fire: if `full` comes within 3 points of Sonnet 5's 73.9% next action (or above it) at under half of Sonnet's $121.83, the model decision in the readout changes and the readout says so.
+- Latency is reported with the time of day and is not a gate. A median above 5 s means the service was loaded again, and the run will be read that way.

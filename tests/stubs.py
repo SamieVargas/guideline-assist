@@ -49,9 +49,25 @@ class FakeGemini:
         self.vertexai = vertexai
         self.requests = []
         self.models = self
+        self.caches = self
+        self.created, self.deleted = [], []
+        self.expire_next = 0  # the next N calls naming a cache answer 404, as an expired cache would
+
+    def create(self, *, model, config):
+        name = f"cachedContents/{len(self.created) + 1}"
+        self.created.append({"model": model, "config": config, "name": name})
+        return SimpleNamespace(name=name, usage_metadata=SimpleNamespace(total_token_count=28000))
+
+    def delete(self, *, name):
+        self.deleted.append(name)
 
     def generate_content(self, *, model, contents, config):
         self.requests.append({"model": model, "contents": contents, "config": config})
+        if config.get("cached_content") and self.expire_next:
+            self.expire_next -= 1
+            err = RuntimeError("404 NOT_FOUND cached content")
+            err.code = 404
+            raise err
         if self.fail_first:
             self.fail_first -= 1
             err = RuntimeError("503 UNAVAILABLE")

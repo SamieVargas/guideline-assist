@@ -220,3 +220,52 @@ def test_vertex_settings_satisfy_the_gemini_key_check(tmp_path, monkeypatch, cap
         estimate_only, yes = False, True
     client = common.gate(Estimate("t"), A(), models=["gemini-3.8-flash"])
     assert isinstance(client, common.Clients)
+
+
+def test_gemini_explicit_cache_is_named_on_every_call_and_deleted_after_the_run(tmp_path):
+    from stubs import FakeGemini, MultiClient
+    import core.llm
+    gem = FakeGemini(responder, cached=28000)
+    client = MultiClient(FakeClient(responder=responder), gem)
+    rc = run_assist.main(["--limit", "1", "--yes", "--arms", "A", "--models", "gemini", "--gemini-cache", "explicit",
+                          "--out", str(tmp_path)], client=client)
+    assert rc == 0
+    assert len(gem.created) == 1 and len(gem.requests) > 1  # one cache for the whole run
+    assert "GUIDELINES:" in gem.created[0]["config"]["system_instruction"]
+    assert all(r["config"]["cached_content"] == gem.created[0]["name"] and "system_instruction" not in r["config"]
+               for r in gem.requests)
+    assert gem.deleted == [gem.created[0]["name"]]
+    out = json.loads(next(tmp_path.glob("assist-gemini-*-explicit-cache.json")).read_text())
+    assert out["gemini_caches"][0]["tokens"] == 28000 and out["gemini_caches"][0]["deleted"]
+    assert "explicit context cache" in next(tmp_path.glob("assist-gemini-*-explicit-cache.md")).read_text()
+    assert core.llm._GEMINI_CACHE["mode"] == "implicit"  # the next run starts from the default
+
+
+def test_gemini_explicit_cache_is_recreated_once_when_it_expires():
+    from stubs import FakeGemini
+    import core.llm
+    gem = FakeGemini(responder, cached=28000)
+    gem.expire_next = 1
+    core.llm.set_gemini_cache("explicit")
+    try:
+        system = core.llm.system_blocks("rules", cached_tail="GUIDELINES:\n\nlib")
+        rec = core.llm._cached_create(gem, {"model": "gemini-3.8-flash", "max_tokens": 400, "system": system,
+                                            "messages": [{"role": "user", "content": "hi"}]}, tag="t", use_cache=False)
+    finally:
+        log = core.llm.close_gemini_caches(gem)
+        core.llm.set_gemini_cache("implicit")
+    assert rec["usage"]["cache_read_input_tokens"] == 28000
+    assert len(gem.created) == 2 and gem.requests[-1]["config"]["cached_content"] == gem.created[1]["name"]
+    assert len(log) == 2
+
+
+def test_run_tuning_gemini_explicit_cache_gets_one_cache_per_style(tmp_path):
+    import run_tuning
+    from stubs import FakeGemini, MultiClient
+    gem = FakeGemini(responder, cached=20000)
+    client = MultiClient(FakeClient(responder=responder), gem)
+    rc = run_tuning.main(["--limit", "1", "--yes", "--model", "gemini", "--styles", "full,dedupe", "--gemini-cache", "explicit",
+                          "--out", str(tmp_path)], client=client)
+    assert rc == 0
+    assert len(gem.created) == 2 and sorted(gem.deleted) == sorted(c["name"] for c in gem.created)
+    assert json.loads(next(tmp_path.glob("tuning-*.json")).read_text())["gemini_caches"]

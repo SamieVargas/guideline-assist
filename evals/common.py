@@ -19,7 +19,25 @@ def add_keyed_args(p):
     p.add_argument("--contract", choices=("native", "prompt"), default="native")
     p.add_argument("--no-cache", action="store_true", help="ignore the on-disk response cache (fresh latency)")
     p.add_argument("--out", default=str(RESULTS))
+    p.add_argument("--gemini-cache", choices=("implicit", "explicit"), default="implicit",
+                   help="Gemini only: the best-effort implicit cache, or an explicit cache created for the run and deleted after it")
     return p
+
+
+def gemini_cache_note(log) -> str:
+    """One paragraph on the explicit caches a run created: their storage is
+    billed by the hour, apart from the per-call cost columns."""
+    if not log:
+        return ""
+    from core.models import PRICES
+    tokens = sum(e["tokens"] for e in log)
+    storage = sum(e["tokens"] * e["hours"] * PRICES[e["model"]].get("cache_storage_per_hour", 0) for e in log) / 1e6
+    write_usd = sum(e["tokens"] * PRICES[e["model"]]["input"] for e in log) / 1e6
+    per_hour = max(e["tokens"] for e in log) * PRICES[log[0]["model"]].get("cache_storage_per_hour", 0) / 1e6
+    return (f"Gemini read the library from an explicit context cache ({len(log)} cache(s), {tokens:,} tokens, "
+            f"{sum(e['hours'] for e in log):.2f} hours alive), deleted at the end of the run. Its storage, at the unconfirmed "
+            f"price in core/models.py, came to ${storage:.2f} for this run and is not in the cost columns; creating it billed about "
+            f"${write_usd:.2f} of input. In production one cache serves every conversation, at about ${per_hour:.3f} an hour.")
 
 
 class Clients:
@@ -92,13 +110,13 @@ def stamp(*, n, model, sample, on=None) -> str:
     return f"n={n} · {model} · {on or date.today().isoformat()} · sample {h}"
 
 
-def write(out_dir, stem: str, markdown: str, records) -> Path:
+def write(out_dir, stem: str, markdown: str, records, extra=None) -> Path:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
     md = out / f"{stem}.md"
     md.write_text(markdown.rstrip() + "\n", encoding="utf-8")
     (out / f"{stem}.json").write_text(json.dumps({"generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-                                                  "records": records}, indent=1, default=str), encoding="utf-8")
+                                                  "records": records, **(extra or {})}, indent=1, default=str), encoding="utf-8")
     print(f"wrote {md.relative_to(ROOT) if md.is_relative_to(ROOT) else md} and .json")
     return md
 
