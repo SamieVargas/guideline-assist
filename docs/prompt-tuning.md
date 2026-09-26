@@ -106,6 +106,7 @@ Predictions for the first run, stated now (80% intervals), against Sonnet 5 arm 
 | Round | Change | Sample | Result | Decision |
 | --- | --- | --- | --- | --- |
 | r1 | library styles full, dedupe, nosub, outline, bare | tune_60 | No style passed all three gates (table below) | The fourth falsifier fired for these five styles; one bounded round 2 (below) |
+| r2 | `keysub`, with `full` as a same-day control | tune_60 | not run yet | |
 
 ### Round 1, 2026-09-25, `evals/results/tuning-r1-tune_60-2026-09-25.md`
 
@@ -125,5 +126,32 @@ Against the predictions:
 - Intent held until the instructions went (bare), which says the instructions are what the model reads to tell subflows apart, and the steps are what it reads to pick the action.
 
 Decision. The fourth falsifier fired for the five registered styles: dedupe holds quality but saves 14%, and every style that saves 20% or more loses more than 3 points of next action. The plan budgeted one round 2. It is spent on one style between dedupe and nosub that keeps the sub-bullets the round-1 losses point to and drops the rest, under a new falsifier: if that style does not pass all three gates, the library lever is closed and the finding is that dedupe's 14% is the safe cut.
+
+### Round 2, registered 2026-09-26 before the run
+
+The analyzer read the round-1 selection transcripts only (tune_60; write-up in the PR that added `keysub`). Of the 22 action points that `full` got right and `nosub` got wrong:
+- Nine trace to a removed sub-bullet that was the only place the decision lived. These are a skip or routing condition, the instruction behind a bare "Option N" step, a value list, or which fields go with which action.
+- Four more plausibly trace to a removed bullet.
+- The rest look like noise, or like the eagerness that also made `nosub` fire more on no-action points.
+- The `dedupe` versus `full` differences (8 lost, 5 won) show no single cause (sign test p≈0.58).
+
+The change is one new style, `keysub`: `dedupe`, keeping only the sub-bullets a keyword rule classifies as a condition, a field to enter, a value, or something to ask or tell the customer, and dropping UI mechanics and tone advice. Runs of field names fold into one "fields:" line. The rule is in `core/guidelines.py` (`bullet_kind`) and names kinds of content, never particular bullets or chats. The library is 71,738 characters, against 86,213 for `dedupe` and 44,937 for `nosub`.
+
+Run: `python evals/run_tuning.py --round r2 --styles full,keysub` (~$7.13). `full` runs again as a same-day control, so the run also measures how much `full` moves between two runs with no change.
+
+Predictions (80% intervals), against this run's `full`:
+
+| | Point estimate | 80% interval |
+| --- | --- | --- |
+| Next action | −2.5 points | [−5.5, +0.5] |
+| Intent | −0.5 points | [−2.5, +1.5] |
+| Cost cut | 24% | [21, 27] |
+| False alarms on no-action points | about 90 of 214 | [80, 105] |
+
+The same three gates apply.
+
+Falsifiers:
+- **Mechanism check:** if `keysub` gets fewer than 6 of the 9 points traced to a removed bullet right (1210@30, 1469@9, 3101@31, 4089@4, 3230@10, 7540@8, 6278@15, 1794@17, 5569@13), the round-1 losses came from length, eagerness or noise rather than bullet content, and filtering bullets by kind is not a lever.
+- **Stopping rule:** if `keysub` fails any gate, the library lever is closed. The finding is then that `dedupe`'s 14% is the safe cut, and the confirm on the held-out set runs `dedupe`.
 
 A scoring fix found while checking this round: `core.metrics.mean` rounds to four places, and the per-turn cost (about a cent) was averaged through it before being multiplied up. That moved cost per 1,000 conversations by up to about 1% (`full` here $125.76 → $126.35; in the Parts 3–4 run Haiku arm A $48.47 → $47.89, Sonnet arm B $148.03 → $147.49, Sonnet arm A unchanged at $121.83). Cost is now averaged unrounded, and the tables were rebuilt from their records.
