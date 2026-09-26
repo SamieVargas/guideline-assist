@@ -41,11 +41,18 @@ class Clients:
     def gemini(self):
         if self._gemini is None:
             from google import genai
-            self._gemini = genai.Client()
+            # core/llm.py waits out overloads itself so the wait stays out of the latency;
+            # with GOOGLE_GENAI_USE_VERTEXAI=true the SDK routes through Vertex AI (Cloud billing).
+            self._gemini = genai.Client(http_options={"retry_options": {"attempts": 1}})
         return self._gemini
 
 
 KEYS = {"anthropic": ("ANTHROPIC_API_KEY",), "google": ("GEMINI_API_KEY", "GOOGLE_API_KEY")}
+
+
+def _vertex_ready() -> bool:
+    """Vertex AI through google-genai: Application Default Credentials plus a project."""
+    return os.environ.get("GOOGLE_GENAI_USE_VERTEXAI", "").lower() in ("1", "true") and bool(os.environ.get("GOOGLE_CLOUD_PROJECT"))
 
 
 def gate(estimate, args, client=None, models=()):
@@ -60,7 +67,9 @@ def gate(estimate, args, client=None, models=()):
     if client is not None:
         return client
     needed = sorted({provider(m) for m in models}) or ["anthropic"]
-    missing = [" or ".join(KEYS[p]) for p in needed if not any(os.environ.get(k) for k in KEYS[p])]
+    missing = [" or ".join(KEYS[p]) + (" (or GOOGLE_GENAI_USE_VERTEXAI=true with GOOGLE_CLOUD_PROJECT for Vertex AI)" if p == "google" else "")
+               for p in needed
+               if not any(os.environ.get(k) for k in KEYS[p]) and not (p == "google" and _vertex_ready())]
     if missing:
         print(f"{', '.join(missing)} is not set; nothing was called. --estimate-only prints the estimate alone.", file=sys.stderr)
         return None

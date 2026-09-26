@@ -121,10 +121,75 @@ def section_ids() -> tuple:
 #   dedupe   drops the flow description repeated under every subflow (the
 #            flow header above the subflows carries it once), lists only the
 #            actions beyond the required sequence, and shortens step labels
+#   keysub   dedupe keeping only the sub-bullets that carry a decision:
+#            conditions, the fields and values to enter, and what to ask or
+#            tell the customer; UI mechanics and tone advice go (tuning
+#            round 2, from the round-1 losses; rules below)
 #   nosub    dedupe without the sub-bullets under each step
 #   outline  dedupe without the steps: header, sequence, instructions
 #   bare     outline without the instructions
-LIBRARY_STYLES = ("full", "dedupe", "nosub", "outline", "bare")
+LIBRARY_STYLES = ("full", "dedupe", "keysub", "nosub", "outline", "bare")
+
+# keysub: a step sub-bullet is classified by its own text, first match wins.
+# The rules describe kinds of content, never particular bullets or chats.
+_UI_ONLY = re.compile(r"toggle|\bhide\b|swap out|flow diagram|loads information|record an action|"
+                      r"remember the (question|category)|survey", re.I)
+_COND = re.compile(r"^(if|when|unless|only|otherwise|however|especially|alternatively|either|perhaps|"
+                   r"gold|silver|bronze|guest|for all other)\b|\b(if|unless|skip|otherwise|only|oracle (says|returns)|"
+                   r"next step|go to|move on|instead)\b", re.I)
+_VALUES = re.compile(r"'[^']+'|“[^”]+”|\[\s*'|\boptions?\b.*(:|>|include|are)|\$\d", re.I)
+_ASK = re.compile(r"^(please\s+)?(instruct|tell|ask|have)\s+(the customer|them|customer)\s+"
+                  r"(to|what|for|how|whether|if|check|search)\b|^((start by|then)\s+)?ask(ing)? (for|how|if|whether)\b|"
+                  r"^(tell|let) (the customer|them)( know)?( that)? you (will|can)\b", re.I)
+_VERB = re.compile(r"^(click|choose|select|enter|then|type|put|fill|find|get|record|confirm|check|"
+                   r"send|explain|make|remember|tell|ask|let|assure|feel|finally|wrap|you|this|do|no|"
+                   r"for|again|lastly|once|to|both|pick|add)\b", re.I)
+
+
+def _field_head(x: str) -> str | None:
+    """A short noun phrase naming something to enter ("Order ID"), or None."""
+    head = re.split(r"\s+-\s+|\s*<or>\s*", x, maxsplit=1)[0].strip()
+    if len(head.split()) <= 5 and not _VERB.match(head) and not re.search(r"[.:>\[]", head):
+        return head
+    return None
+
+
+def bullet_kind(x: str) -> str:
+    """ui, condition, field, value, ask or other; keysub keeps the middle four."""
+    if _UI_ONLY.search(x):
+        return "ui"
+    if _COND.search(x):
+        return "condition"
+    if _field_head(x):
+        return "field"
+    if _VALUES.search(x):
+        return "value"
+    if _ASK.search(x):
+        return "ask"
+    return "other"
+
+
+def _key_bullets(subtext) -> list[str]:
+    """The kept bullets of one step, with a run of field names folded into
+    one "fields: A; B" line (a field's explanation is kept only when it is
+    itself a condition or a value)."""
+    out, fields = [], []
+    for x in subtext:
+        kind = bullet_kind(x)
+        if kind not in ("condition", "field", "value", "ask"):
+            continue
+        if kind == "field":
+            head = _field_head(x)
+            tail = x[len(head):]
+            fields.append(x if (_COND.search(tail) or _VALUES.search(tail)) else head)
+            continue
+        if fields:
+            out.append("fields: " + "; ".join(fields))
+            fields = []
+        out.append(x)
+    if fields:
+        out.append("fields: " + "; ".join(fields))
+    return out
 
 
 def _render_compact(s: dict, style: str) -> str:
@@ -135,11 +200,13 @@ def _render_compact(s: dict, style: str) -> str:
         lines.append("Also listed: " + ", ".join(extra))
     if style != "bare":
         lines += [f"- {ins}" for ins in s["instructions"]]
-    if style in ("dedupe", "nosub"):
+    if style in ("dedupe", "keysub", "nosub"):
         for n, st in enumerate(s["steps"], 1):
             lines.append(f"{n}. {st['action'] or 'talk to the customer'}: {st['text']}")
             if style == "dedupe":
                 lines += [f"   * {x}" for x in st["subtext"]]
+            elif style == "keysub":
+                lines += [f"   * {x}" for x in _key_bullets(st["subtext"])]
     return "\n".join(lines)
 
 

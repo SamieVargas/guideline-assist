@@ -84,3 +84,16 @@ def test_every_library_style_keeps_headers_sequences_and_listed_actions():
             assert "Required action sequence: " + " -> ".join(s["required_actions"]) in sec
             for a in s["listed_actions"]:
                 assert a in sec, (style, sid, a)
+
+
+def test_keysub_keeps_decision_bullets_and_drops_ui_and_tone():
+    from core.guidelines import _key_bullets, bullet_kind
+    assert bullet_kind("If this was a company mistake (Oracle says Yes), skip the next step") == "condition"
+    assert bullet_kind("Order ID") == "field"
+    assert bullet_kind("Options include ['subscription refund', 'previous purchase']") == "value"
+    assert bullet_kind("Instruct the customer to refresh the page") == "ask"
+    assert bullet_kind("Click the membership toggle switch") == "ui"
+    assert bullet_kind("You should not copy/paste") == "other"
+    kept = _key_bullets(["Full name - may have gotten this earlier", "Account ID - may have gotten this earlier",
+                         "Order ID", "This will swap out for a different view that has FAQ content"])
+    assert kept == ["fields: Full name; Account ID; Order ID"]
