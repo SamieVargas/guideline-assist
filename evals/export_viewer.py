@@ -21,7 +21,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from common import ROOT
+from common import RESULTS, ROOT
 from assist_scoring import TRIGGERS_PER_CONVERSATION, score as score_assist
 from core import samples
 from core.data import by_id, load_split
@@ -94,6 +94,70 @@ def qa_examples(qa_recs, model):
     return out
 
 
+def _row(recs, test, **extra) -> dict:
+    s = score_assist(recs, test)
+    u = [r["usage"] for r in recs]
+    read = sum(x["cache_read_input_tokens"] for x in u)
+    total = read + sum(x["input_tokens"] + x["cache_creation_input_tokens"] for x in u)
+    return {**extra, "n_points": s["n_points"], "n_action": s["n_action"], "next_action": s["next_action"],
+            "intent": s["intent"], "p50_ms": s["latency_p50"], "p95_ms": s["latency_p95"],
+            "cost_per_1000": s["cost_per_1000_conversations"], "false_alarm": s["false_alarm"],
+            "cache_share": round(read / total, 4) if total else 0.0}
+
+
+def _results(pattern):
+    files = sorted(p for p in RESULTS.glob(pattern) if "partial" not in p.name and "-limit" not in p.name)
+    return files[-1] if files else None
+
+
+def tuning(test, assist_file) -> dict | None:
+    """Section 04: the selection rounds on tune_60 (paired against their own
+    same-day full) and the held-out runs on assist_100, every model and
+    library measured there, recomputed from the records."""
+    from run_tuning import GATE_COST, GATE_POINTS, action_ok, gates, intent_ok, paired_delta, summarize
+    dev = by_id(load_split("dev"))
+    rounds, sources = [], {}
+    for rnd in ("r1", "r2"):
+        f = _results(f"tuning-{rnd}-tune_60-2*.json")
+        if not f:
+            continue
+        sources[rnd] = f.name
+        by = {}
+        for r in records(f):
+            by.setdefault(r["style"], []).append(r)
+        full = summarize(by["full"], dev)
+        for style, rs in by.items():
+            if style == "full":
+                continue
+            s = summarize(rs, dev)
+            d_act, d_int = paired_delta(rs, by["full"], action_ok), paired_delta(rs, by["full"], intent_ok)
+            g = gates(s, full, d_act, d_int)
+            rounds.append({"round": rnd, "style": style, "d_next_action": d_act, "d_intent": d_int,
+                           "cost_cut": round(g["cost_cut"], 4), "gates": {k: g[k] for k in ("quality", "cost", "mechanism")}})
+    held = []
+    if assist_file:
+        for r in [x for x in records(assist_file) if x["arm"] == "A" and "haiku" in x["model"]][:1]:
+            held.append(_row([x for x in records(assist_file) if x["arm"] == "A" and x["model"] == r["model"]], test,
+                             model=r["model"], library="full", cache="explicit", run="parts 3-4", file=assist_file.name))
+    for rnd in ("confirm", "gemini"):
+        f = _results(f"tuning-{rnd}-assist_100-2*.json")
+        if not f:
+            continue
+        by = {}
+        for r in records(f):
+            by.setdefault((r["model"], r["style"]), []).append(r)
+        for (model, style), rs in by.items():
+            held.append(_row(rs, test, model=model, library=style, cache="explicit", run=rnd, file=f.name))
+    g_imp = _results("assist-gemini-2*.json")
+    if g_imp:
+        held.append(_row(records(g_imp), test, model=records(g_imp)[0]["model"], library="full", cache="implicit",
+                         run="gemini implicit", file=g_imp.name))
+    if not held:
+        return None
+    return {"gate_points": GATE_POINTS, "gate_cost": GATE_COST, "selection": rounds, "selection_files": sources,
+            "held_out": held}
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     p.add_argument("--arm", default="A")
@@ -150,7 +214,7 @@ def main(argv=None) -> int:
         "repo": REPO, "badge": BADGE, "license": LICENSE, "prices_read_on": PRICES_READ_ON,
         "source_files": {k: v.name for k, v in files.items()}, "samples": samp,
         "arm": args.arm, "model": args.model, "triggers_per_conversation": TRIGGERS_PER_CONVERSATION,
-        "stats": stats, "ablation": ablation, "qa": {"summary": qa_summary, "examples": qa_examples(q_recs, "claude-sonnet-5")},
+        "stats": stats, "ablation": ablation, "tuning": tuning(test, files["assist"]), "qa": {"summary": qa_summary, "examples": qa_examples(q_recs, "claude-sonnet-5")},
         "replay": replay(a_recs, test, arm=args.arm, model=args.model, n=args.conversations),
     }
     out = Path(args.out)
