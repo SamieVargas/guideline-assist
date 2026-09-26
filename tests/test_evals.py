@@ -162,8 +162,9 @@ def test_gemini_arm_maps_usage_prices_implicit_cache_and_keeps_its_own_file(tmp_
     assert abs(cost_usd("gemini-3.8-flash", u) - (2000 * 0.75 + 28000 * 0.075 + 82 * 3.75) / 1e6) < 1e-12
     cfg = gem.requests[0]["config"]
     assert cfg["response_mime_type"] == "application/json" and cfg["response_json_schema"]["type"] == "object"
-    assert cfg["thinking_config"] == {"thinking_level": "MINIMAL"} and cfg["max_output_tokens"] >= 1024
+    assert cfg["thinking_config"] == {"thinking_level": "LOW"} and cfg["max_output_tokens"] >= 1024
     assert "GUIDELINES:" in cfg["system_instruction"]
+    assert cfg["automatic_function_calling"] == {"disable": True}
     assert not client.messages.requests  # nothing went to the Anthropic stub
 
 

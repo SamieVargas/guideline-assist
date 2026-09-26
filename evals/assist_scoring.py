@@ -49,7 +49,10 @@ def score(records, convs=None) -> dict:
     named = [r for r in act if r["pred"]["next_action"] == r["gold_action"] and r["gold_values"]]
     lat = [r["latency_ms"] for r in records]
     usage = [r["usage"] for r in records]
-    per_call_cost = mean([r["cost_usd"] for r in records])
+    # Unrounded: core.metrics.mean rounds to 4 places, which on a per-turn
+    # cost of about a cent moved cost per 1,000 conversations by up to 1%.
+    costs = [r["cost_usd"] for r in records if r.get("cost_usd") is not None]
+    per_call_cost = sum(costs) / len(costs) if costs else None
     out = {
         "n_points": len(records), "n_action": len(act), "n_no_action": len(noact), "n_conversations": len(by_conv),
         "intent": rate(sum(r["pred"]["intent"] == r["subflow"] for r in records), len(records)),

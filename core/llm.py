@@ -79,7 +79,10 @@ def _gemini_create(gclient, kwargs) -> dict:
     sys_text = system if isinstance(system, str) else "\n\n".join(b["text"] for b in system)
     contents = [{"role": "model" if m["role"] == "assistant" else "user", "parts": [{"text": m["content"]}]}
                 for m in kwargs["messages"]]
-    config = {"system_instruction": sys_text, "max_output_tokens": max(kwargs["max_tokens"], GEMINI_MIN_OUTPUT)}
+    # No tools are declared, so automatic function calling is switched off,
+    # which also silences the SDK's warning about using it here.
+    config = {"system_instruction": sys_text, "max_output_tokens": max(kwargs["max_tokens"], GEMINI_MIN_OUTPUT),
+              "automatic_function_calling": {"disable": True}}
     if "thinking_config" in kwargs:
         config["thinking_config"] = kwargs["thinking_config"]
     schema = ((kwargs.get("output_config") or {}).get("format") or {}).get("schema")

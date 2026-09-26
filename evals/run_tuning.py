@@ -19,8 +19,11 @@ a time, style by style, so each style's cached prefix stays warm.
 """
 
 import argparse
+import json
 import math
+import re
 import sys
+from pathlib import Path
 
 from common import add_keyed_args, gate, today, write
 from assist_scoring import TRIGGERS_PER_CONVERSATION, score
@@ -92,7 +95,7 @@ def summarize(recs, lookup) -> dict:
               "cache_write_mean": round(mean([x["cache_creation_input_tokens"] for x in u]), 1),
               "uncached_in_mean": round(mean([x["input_tokens"] for x in u]), 1),
               "output_mean": round(mean([x["output_tokens"] for x in u]), 1),
-              "cost_per_turn": mean([r["cost_usd"] for r in recs]),
+              "cost_per_turn": sum(r["cost_usd"] for r in recs) / len(recs),
               "served_models": sorted({m for r in recs for m in r.get("served_models", [])})})
     return s
 
@@ -109,8 +112,8 @@ def _d(x) -> str:
     return "n/a" if x["delta"] is None else f"{x['delta']:+.1f} [{x['lo']:+.1f}, {x['hi']:+.1f}]"
 
 
-def render(rows, sample, model, rnd, n_convs, partial=False) -> str:
-    head = (f"# Prompt tuning · round {rnd} · {today()} · {model} arm A · sample {sample['name']} "
+def render(rows, sample, model, rnd, n_convs, partial=False, run_date=None) -> str:
+    head = (f"# Prompt tuning · round {rnd} · {run_date or today()} · {model} arm A · sample {sample['name']} "
             f"(`{sample['sha256'][:12]}`, {sample['split']} split, {n_convs} conversations)" + (" · PARTIAL" if partial else ""))
     lines = [head, "",
              "Each row is the same call points with the guideline library rendered at a different length. Deltas are paired against "
@@ -130,9 +133,43 @@ def render(rows, sample, model, rnd, n_convs, partial=False) -> str:
               f"{GATE_POINTS:.0f} points below full; cost, at least {100 * GATE_COST:.0f}% cheaper per turn; mechanism, fewer cached tokens "
               "read per turn and output no more than 10% longer.",
               f"Served model(s) read from the responses: {', '.join(served) or 'none recorded (cached or stubbed responses)'}. "
-              f"Stamp: n={rows[0][1]['n_points']} call points per style ({rows[0][1]['n_action']} action points) · {model} · {today()} · "
+              f"Stamp: n={rows[0][1]['n_points']} call points per style ({rows[0][1]['n_action']} action points) · {model} · {run_date or today()} · "
               f"sample {sample['sha256'][:12]}."]
     return "\n".join(lines)
+
+
+def table(recs, styles, sample, lookup, mid, rnd, n_convs, partial=False, run_date=None):
+    by_style = {s: [r for r in recs if r["style"] == s] for s in styles}
+    by_style = {s: v for s, v in by_style.items() if v}
+    if "full" not in by_style:
+        return None
+    full = summarize(by_style["full"], lookup)
+    rows = []
+    for style, v in by_style.items():
+        s = full if style == "full" else summarize(v, lookup)
+        d_act, d_int = paired_delta(v, by_style["full"], action_ok), paired_delta(v, by_style["full"], intent_ok)
+        rows.append((style, s, d_act, d_int, gates(s, full, d_act, d_int)))
+    return render(rows, sample, mid, rnd, n_convs, partial, run_date)
+
+
+def rescore(path) -> int:
+    """Rebuild a round's markdown from its JSON records with the current
+    scoring code, keeping the run's date. No model call."""
+    path = Path(path)
+    m = re.match(r"tuning-(.+?)-(tune_60|assist_100)-(\d{4}-\d{2}-\d{2})", path.name)
+    if not m:
+        print(f"cannot read round, sample and date from {path.name}", file=sys.stderr)
+        return 2
+    rnd, sample_name, run_date = m.groups()
+    recs = json.loads(path.read_text(encoding="utf-8"))["records"]
+    sample, convs, _ = load_points(sample_name)
+    styles = ["full"] + [s for s in dict.fromkeys(r["style"] for r in recs) if s != "full"]
+    md = table(recs, styles, sample, {c["id"]: c for c in convs}, recs[0]["model"], rnd, len({r["conv"] for r in recs}),
+               "partial" in path.name, run_date)
+    path.with_suffix(".md").write_text(md.rstrip() + "\n", encoding="utf-8")
+    print(md)
+    print(f"rewrote {path.with_suffix('.md').name} from {path.name}")
+    return 0
 
 
 def main(argv=None, client=None) -> int:
@@ -142,7 +179,10 @@ def main(argv=None, client=None) -> int:
     p.add_argument("--model", default="sonnet")
     p.add_argument("--styles", default=",".join(LIBRARY_STYLES))
     p.add_argument("--limit", type=int, default=None, help="first N conversations of the sample (smoke runs)")
+    p.add_argument("--rescore", default=None, metavar="JSON", help="no calls: rebuild a round's table from its records")
     args = p.parse_args(argv)
+    if args.rescore:
+        return rescore(args.rescore)
     styles = [s.strip() for s in args.styles.split(",") if s.strip()]
     bad = [s for s in styles if s not in LIBRARY_STYLES]
     if bad or "full" not in styles:
@@ -169,17 +209,9 @@ def main(argv=None, client=None) -> int:
     except KeyboardInterrupt:
         print("\ninterrupted; writing the partial table", file=sys.stderr)
         partial = True
-    by_style = {s: [r for r in recs if r["style"] == s] for s in styles}
-    by_style = {s: v for s, v in by_style.items() if v}
-    if "full" not in by_style:
+    md = table(recs, styles, sample, lookup, mid, args.round, len(convs), partial)
+    if md is None:
         return 130
-    full = summarize(by_style["full"], lookup)
-    rows = []
-    for style, v in by_style.items():
-        s = full if style == "full" else summarize(v, lookup)
-        d_act, d_int = paired_delta(v, by_style["full"], action_ok), paired_delta(v, by_style["full"], intent_ok)
-        rows.append((style, s, d_act, d_int, gates(s, full, d_act, d_int)))
-    md = render(rows, sample, mid, args.round, len(convs), partial)
     print(md)
     stem = f"tuning-{args.round}-{args.sample}-{today()}" + (f"-limit{args.limit}" if args.limit else "") + ("-partial" if partial else "")
     write(args.out, stem, md, recs)

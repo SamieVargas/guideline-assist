@@ -122,7 +122,7 @@ def render(groups, sample, n_convs, partial=False, run_date=None):
         lat = "n/a (no model)" if arm == "baseline" else f"{s['latency_p50']:.0f} / {s['latency_p95']:.0f} ms"
         lines.append(f"| {arm} · `{model}` | {pct(s['next_action'])} | {pct(s['intent'])} | {s['cache_read_total']:,} ({pct(s['cache_read_share'])}) | "
                      f"{s['input_tokens_mean']} ({s['uncached_input_mean']}) | {lat} | ${s['cost_per_1000_conversations']:,.2f} | "
-                     f"{stamp(n=s['n_points'], model=model, sample=sample)} |")
+                     f"{stamp(n=s['n_points'], model=model, sample=sample, on=run_date)} |")
     lines += ["", "## Part 4 · assist evals (turn level)", "",
               "| Arm · model | Intent (all points) | " + " | ".join(f"Intent {lbl}" for *_, lbl in POSITION_BUCKETS)
               + " | Turns to stable intent (median / mean, never) | Next action (action points) | Slots exact (name right) | Slot value recall | `none_yet` false alarms (no-action points) | of which early (the agent's next action) | `none_yet` on action points | Citation valid | Validator pass · retries |",
@@ -135,7 +135,7 @@ def render(groups, sample, n_convs, partial=False, run_date=None):
                      f"{pct(s['validator_pass'])} · {s['retries']} |")
     lines += ["", "A no-action point is an agent turn after which nothing is due before the customer speaks again. A false alarm there is \"early\" when the "
               "suggested action is the one the agent took next, after the customer replied: premature rather than wrong.",
-              "", "Stamp per row: " + "; ".join(f"{a}·{m}: {stamp(n=s['n_points'], model=m, sample=sample)} "
+              "", "Stamp per row: " + "; ".join(f"{a}·{m}: {stamp(n=s['n_points'], model=m, sample=sample, on=run_date)} "
                                               f"({s['n_action']} action points, {s['n_no_action']} no-action points)" for (a, m), s in groups.items())]
     return "\n".join(lines)
 
