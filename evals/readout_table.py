@@ -56,6 +56,20 @@ def main() -> int:
             add("Cost per 1,000 conversations", tag, f"${s['cost_per_1000_conversations']:,.2f} ({TRIGGERS_PER_CONVERSATION:.2f} triggers/conv)", a)
     else:
         add("Adherence, time to intent, latency, cost", "Parts 3–4", "not run yet", None)
+    # The held-out tuning runs: the library styles and models side by side on assist_100.
+    for rnd in ("confirm", "gemini"):
+        files = sorted(p for p in RESULTS.glob(f"tuning-{rnd}-assist_100-2*.json") if "partial" not in p.name and "-limit" not in p.name)
+        if not files:
+            continue
+        groups = {}
+        for r in records(files[-1]):
+            groups.setdefault((r["model"], r["style"]), []).append(r)
+        for (model, style), recs in groups.items():
+            s = score_assist(recs, test)
+            add("Tuning (held-out): next action · intent · p50 / p95 · cost per 1,000 conversations",
+                f"arm A · {model} · library {style} · n={s['n_points']}",
+                f"{pct(s['next_action'])} · {pct(s['intent'])} · {s['latency_p50']:.0f} / {s['latency_p95']:.0f} ms · "
+                f"${s['cost_per_1000_conversations']:,.2f}", files[-1])
     b = newest("assist", baseline=True)
     if b:
         s = score_assist(records(b), test)

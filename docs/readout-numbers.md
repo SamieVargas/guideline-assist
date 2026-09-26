@@ -25,6 +25,10 @@ Handle time, resolution and CSAT are not measurable on this dataset and have no 
 | Latency budget: p50 / p95 per turn | arm B · claude-sonnet-5 · n=693 | 3655 / 5818 ms | assist-2026-09-24.json |
 | False suggestions when nothing is due (of which early: the agent's next action) | arm B · claude-sonnet-5 · n=693 | 42.4% (146/344) (56.2% (82/146)) | assist-2026-09-24.json |
 | Cost per 1,000 conversations | arm B · claude-sonnet-5 · n=693 | $147.49 (13.10 triggers/conv) | assist-2026-09-24.json |
+| Tuning (held-out): next action · intent · p50 / p95 · cost per 1,000 conversations | arm A · claude-sonnet-5 · library full · n=693 | 73.4% (256/349) · 87.5% (606/693) · 2006 / 2385 ms · $121.98 | tuning-confirm-assist_100-2026-09-26.json |
+| Tuning (held-out): next action · intent · p50 / p95 · cost per 1,000 conversations | arm A · claude-sonnet-5 · library dedupe · n=693 | 76.2% (266/349) · 87.3% (605/693) · 2084 / 2580 ms · $104.55 | tuning-confirm-assist_100-2026-09-26.json |
+| Tuning (held-out): next action · intent · p50 / p95 · cost per 1,000 conversations | arm A · gemini-3.8-flash · library full · n=693 | 82.2% (287/349) · 87.7% (608/693) · 3010 / 22368 ms · $47.23 | tuning-gemini-assist_100-2026-09-26.json |
+| Tuning (held-out): next action · intent · p50 / p95 · cost per 1,000 conversations | arm A · gemini-3.8-flash · library dedupe · n=693 | 82.0% (286/349) · 87.7% (608/693) · 2332 / 5848 ms · $39.11 | tuning-gemini-assist_100-2026-09-26.json |
 | Floor: guideline-order baseline, gold intent given | no model · n=693 | next action 73.4% (256/349) | assist-baseline-2026-09-23.json |
 | Suggestion acceptance proxy: shadow action agreement | n=176 | 140/176 (79.5%) | shadow-2026-09-24.json |
 | Human deviated / assist wrong / both off | n=176 | 13 / 11 / 12 | shadow-2026-09-24.json |

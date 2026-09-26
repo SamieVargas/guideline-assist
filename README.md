@@ -23,7 +23,7 @@ Every Core part with a model has run (2026-09-24), and Part 7 is scored against 
 | 9 | Injection: 10 frozen fixtures × 5 runs | `evals/run_injection.py` | done, Sonnet arm A: [47/50 held, 2 fixtures moved](evals/results/injection-2026-09-24.md) |
 | 10 | Deployment readout | `docs/deployment-readout.md`, `evals/readout_table.py` | [number table](docs/readout-numbers.md) complete; prose is Samie's |
 | 11 | Replay viewer | `evals/export_viewer.py` | done: the export feeds [samievargas.com/assist](https://samievargas.com/assist/), six chats, three QA copies and the ablation |
-| Tuning | Prompt tuning for cost: the guideline library rendered at five lengths, gated on accuracy | `evals/run_tuning.py`, [plan and gates](docs/prompt-tuning.md) | pre-registered, round 1 ready to run |
+| Tuning | Prompt tuning for cost: the guideline library rendered at six lengths, gated on accuracy, plus a Gemini Flash arm | `evals/run_tuning.py`, [plan, gates and log](docs/prompt-tuning.md) | done (3 rounds and a held-out confirm) |
 | 12–14 | Streaming, concurrency sweep, fine-tuning | | not built (optional) |
 
 ## What the Parts 3–4 run says (100 test conversations, 2026-09-24)
@@ -38,6 +38,18 @@ Every Core part with a model has run (2026-09-24), and Part 7 is scored against 
 - Caching the whole 27,563-token library (arm A) is cheaper and faster than retrieving one section (arm B) on both models, because a cache read costs a tenth of fresh input and arm B spends a second call on intent. Arm B's intent is also worse. Arm A wins the ablation.
 - Sonnet 5 on arm A gets the next action right 73.9% of the time without being told the intent, level with the guideline-order baseline that is told it (73.4%). Haiku is 24 points behind for 40% of the cost.
 - Half of the "false alarms" (suggesting an action when nothing is due until the customer replies) are the action the agent took next: 64% of Sonnet A's. They are early rather than wrong; the table reports both.
+
+## What the tuning says (held-out, 2026-09-26)
+
+| Arm A · model · library | Next action | Intent | p50 / p95 per turn | Cost / 1,000 conversations |
+| --- | --- | --- | --- | --- |
+| Sonnet 5 · full | 73.4% | 87.5% | 2.0 / 2.4 s | $122 |
+| Sonnet 5 · dedupe | 76.2% | 87.3% | 2.1 / 2.6 s | $105 |
+| Gemini 3.8 Flash · full, explicit cache | 82.2% | 87.7% | 3.0 / 22.4 s | $47 |
+| Gemini 3.8 Flash · dedupe, explicit cache | 82.0% | 87.7% | 2.3 / 5.8 s | $39 |
+
+- No shorter library cleared the registered gates (20% cheaper within 3 points). `dedupe` saves 14% with no measurable loss; every larger cut lost 6 to 10 points of next action.
+- Gemini beat Sonnet by 8.9 points of next action (paired) at 39% of the cost, with half the false alarms, once its library sat in an explicit context cache; with the implicit cache it cost $262. Its p95 on Vertex's `global` endpoint missed the 4 s kill criterion, so the readout keeps Sonnet for the pilot and gates a switch on Gemini's shadow latency. Gemini prices are unconfirmed.
 
 ## What Parts 5–9 say (Sonnet 5, arm A unless noted)
 
@@ -72,8 +84,9 @@ python evals/run_shadow.py --arm A --model haiku   # Part 8, the winning arm
 python evals/run_injection.py --arm A --model haiku  # Part 9
 python evals/readout_table.py         # Part 10 numbers
 python evals/run_tuning.py --round r1 # prompt tuning, round 1 (docs/prompt-tuning.md)
-export GEMINI_API_KEY=...
+export GEMINI_API_KEY=...             # or GOOGLE_GENAI_USE_VERTEXAI=true plus GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION
 python evals/run_assist.py --arms A --models gemini   # third arm: Gemini Flash (prices unconfirmed, see core/models.py)
+python evals/run_tuning.py --round gemini --sample assist_100 --model gemini --styles full,dedupe --gemini-cache explicit
 ```
 
 Every keyed script prints its cost estimate before any call; `--estimate-only` stops there, and without `--yes` it asks. Samples (`data/samples/`) and injection fixtures (`evals/fixtures/injection.json`) are drawn once with a recorded seed and hash; the scripts refuse to redraw them.

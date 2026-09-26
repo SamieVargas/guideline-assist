@@ -107,6 +107,8 @@ Predictions for the first run, stated now (80% intervals), against Sonnet 5 arm 
 | --- | --- | --- | --- | --- |
 | r1 | library styles full, dedupe, nosub, outline, bare | tune_60 | No style passed all three gates (table below) | The fourth falsifier fired for these five styles; one bounded round 2 (below) |
 | r2 | `keysub`, with `full` as a same-day control | tune_60 | Cost and mechanism passed, quality failed (next action −7.0) | The stopping rule fired: the library lever is closed and `dedupe` goes to the confirm |
+| confirm | `dedupe` against a same-day `full`, Sonnet 5 | assist_100 | Quality and mechanism passed, cost cut 14% (the gate is 20%) | No library change clears the registered gates; `dedupe` is a 14% cut with no measured quality loss |
+| gemini | `full` and `dedupe` on Gemini 3.8 Flash with an explicit cache | assist_100 | `full` 82.2% next action at $47.23 per 1,000 conversations, p95 22.4 s | The model falsifier fired; the readout's model decision changes, gated on latency |
 
 ### Round 1, 2026-09-25, `evals/results/tuning-r1-tune_60-2026-09-25.md`
 
@@ -227,3 +229,42 @@ Falsifiers:
 - If under 90% of input is read from cache on either style, the explicit cache was not used, and the run's cost figures are void until it is fixed.
 - The model falsifier registered with the Gemini addendum still stands, and on these predictions it would fire: if `full` comes within 3 points of Sonnet 5's 73.9% next action (or above it) at under half of Sonnet's $121.83, the model decision in the readout changes and the readout says so.
 - Latency is reported with the time of day and is not a gate. A median above 5 s means the service was loaded again, and the run will be read that way.
+
+### Confirm, 2026-09-26, `evals/results/tuning-confirm-assist_100-2026-09-26.md`
+
+Sonnet 5 arm A on the held-out set, `dedupe` against a `full` control run the same day. Recomputed from the raw records.
+
+| Style | Next action | Δ next action vs full | Intent | Δ intent vs full | Cost / 1,000 conversations | Cut | Quality · cost · mechanism |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| full | 73.4% (256/349) | | 87.5% | | $121.98 | | |
+| dedupe | 76.2% (266/349) | +2.9 [0.0, +5.7] | 87.3% | −0.1 [−1.6, +1.3] | $104.55 | 14% | pass · fail · pass |
+
+- `full` reproduced the 2026-09-24 run (73.4% against 73.9%, $121.98 against $121.83, with 20 of 349 action points changing outcome between the two runs).
+- `dedupe` held quality on the held-out set: +2.9 points of next action where round 1 on the selection set measured −1.4. Both are inside the noise, so the reading is that the repeated flow text does no measurable work.
+- The 14% cut repeats round 1's, and it is below the 20% gate, so by the registered rules no library change is adopted. What the confirm adds is that the 14% costs nothing measurable, which makes `dedupe` a safe default for anyone who wants it, stated here as a judgement outside the gates.
+
+### Gemini with an explicit cache, 2026-09-26, `evals/results/tuning-gemini-assist_100-2026-09-26.md`
+
+| | Gemini `full` | Gemini `dedupe` | Sonnet 5 `full` (confirm) |
+| --- | --- | --- | --- |
+| Next action | 82.2% (287/349) | 82.0% (286/349) | 73.4% (256/349) |
+| Δ next action vs Sonnet `full`, paired | +8.9 [+5.2, +12.5] | | |
+| Intent | 87.7% | 87.7% | 87.5% |
+| False alarms on no-action points | 25.0% (86/344) | 23.8% (82/344) | 50.6% (174/344) |
+| Share of input read from cache | 94.2% | 93.3% | 98.9% |
+| Output tokens / turn (thinking included) | 151 | 77 | 87 |
+| Cost / 1,000 conversations | $47.23 | $39.11 | $121.98 |
+| p50 / p90 / p95 latency | 3.0 s / 11.6 s / 22.4 s | 2.3 s / 4.1 s / 5.8 s | 2.0 s / 2.3 s / 2.4 s |
+| Overload answers waited out (not in latency) | 20 | 6 | 0 |
+
+The two explicit caches held 24,507 and 20,844 tokens for 2.06 hours in all, about $0.05 of storage and $0.03 to create at the unconfirmed prices, outside the cost columns. Gemini's answers were nearly deterministic across the two runs: on the same 693 points the explicit-cache `full` run gave the same next action as the implicit run on 673, and the next-action score came out identical (287 of 349).
+
+Against the predictions:
+- Next action (82.2%) and intent (87.7%) landed inside their intervals [78, 86] and [85, 90].
+- The cached share (94.2% and 93.3%) landed just under its interval [95, 99] but above the 90% falsifier line, so the cache was used. What rides uncached is about 1,500 tokens a turn rather than the 360 predicted, because Gemini counts the response schema as input and the explicit cache holds only the system prompt.
+- That uncached schema is why cost ($47.23) landed above its interval [$32, $45].
+- `dedupe`'s Δ next action (−0.3) landed inside [−4.5, +2.5], and its cut (17%) landed above [8, 14], because its output was half as long (77 tokens a turn against 151). The records do not keep thinking tokens apart, so whether the shorter library meant less thinking is not something this run can show.
+
+Decision. The model falsifier registered with the Gemini addendum fired: Gemini `full` scored 8.9 points above Sonnet on next action (paired, on the same points) at 39% of Sonnet's cost, with half the false alarms. The readout's model decision changes and says so there. The change is gated on latency: at 22.4 s p95 for `full` and 5.8 s for `dedupe`, Gemini through Vertex's `global` endpoint on this day misses the 4 s p95 kill criterion that Sonnet meets at 2.4 s, so the readout recommends Gemini only once a shadow week shows its p95 under 4 s on a provisioned or regional endpoint, and keeps Sonnet arm A as the configuration that meets every criterion today. Gemini's prices are still unconfirmed and every Gemini dollar figure moves with them.
+
+Spend, all rounds: Anthropic $32.32 (round 1 $13.01, round 2 $7.33, confirm $11.98), against the $25 first approved and the ~$32 Samie approved when the confirm was added; Google credits about $18.70 (the implicit run and its smoke tests $14.15, the explicit-cache run and its smoke test $4.56).
