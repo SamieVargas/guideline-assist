@@ -33,7 +33,7 @@ Every Core part with a model has run (2026-09-24), and Part 7 is scored against 
 | A · Haiku 4.5 | 50.1% | 79.9% | 1.6 / 2.7 s | $48 |
 | B · Haiku 4.5 | 53.3% | 74.2% | 2.7 / 4.3 s | $55 |
 | A · Sonnet 5 | 73.9% | 88.0% | 2.1 / 3.2 s | $122 |
-| B · Sonnet 5 | 72.8% | 75.9% | 3.7 / 5.8 s | $148 |
+| B · Sonnet 5 | 72.8% | 75.9% | 3.7 / 5.8 s | $147 |
 
 - Caching the whole 27,563-token library (arm A) is cheaper and faster than retrieving one section (arm B) on both models, because a cache read costs a tenth of fresh input and arm B spends a second call on intent. Arm B's intent is also worse. Arm A wins the ablation.
 - Sonnet 5 on arm A gets the next action right 73.9% of the time without being told the intent, level with the guideline-order baseline that is told it (73.4%). Haiku is 24 points behind for 40% of the cost.

@@ -76,10 +76,11 @@ def gate(estimate, args, client=None, models=()):
     return Clients()
 
 
-def stamp(*, n, model, sample) -> str:
-    """The cell stamp every results table carries: n, model, date, sample hash."""
+def stamp(*, n, model, sample, on=None) -> str:
+    """The cell stamp every results table carries: n, model, date, sample
+    hash. `on` is the run's date when a table is rebuilt later."""
     h = sample["sha256"][:12] if isinstance(sample, dict) else str(sample)
-    return f"n={n} · {model} · {date.today().isoformat()} · sample {h}"
+    return f"n={n} · {model} · {on or date.today().isoformat()} · sample {h}"
 
 
 def write(out_dir, stem: str, markdown: str, records) -> Path:

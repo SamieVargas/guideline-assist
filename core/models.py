@@ -35,8 +35,10 @@ REQUEST_EXTRAS = {
     "claude-haiku-4-5-20251001": {},
     "claude-sonnet-5": {"thinking": {"type": "disabled"}},
     # Gemini Flash thinks by default and bills thinking as output; the lowest
-    # level is the closest match to Sonnet with thinking disabled.
-    "gemini-3.8-flash": {"thinking_config": {"thinking_level": "MINIMAL"}},
+    # level it accepts is the closest match to Sonnet with thinking disabled.
+    # MINIMAL is rejected for this model with a 400 (smoke run, 2026-09-26),
+    # so it runs at LOW.
+    "gemini-3.8-flash": {"thinking_config": {"thinking_level": "LOW"}},
 }
 
 # The shortest prefix each model will cache. A shorter prefix is sent with

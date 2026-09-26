@@ -105,4 +105,25 @@ Predictions for the first run, stated now (80% intervals), against Sonnet 5 arm 
 
 | Round | Change | Sample | Result | Decision |
 | --- | --- | --- | --- | --- |
-| r1 | library styles full, dedupe, nosub, outline, bare | tune_60 | not run yet | |
+| r1 | library styles full, dedupe, nosub, outline, bare | tune_60 | No style passed all three gates (table below) | The fourth falsifier fired for these five styles; one bounded round 2 (below) |
+
+### Round 1, 2026-09-25, `evals/results/tuning-r1-tune_60-2026-09-25.md`
+
+| Style | Δ next action vs full | Δ intent vs full | Cut vs full | Quality · cost · mechanism |
+| --- | --- | --- | --- | --- |
+| dedupe | −1.4 [−4.7, +1.9] | −0.5 [−2.3, +1.4] | 14% | pass · fail · pass |
+| nosub | −6.0 [−11.1, −1.0] | −0.5 [−2.6, +1.7] | 44% | fail · pass · pass |
+| outline | −10.2 [−15.0, −5.4] | +0.9 [−1.1, +3.0] | 60% | fail · pass · pass |
+| bare | −10.2 [−16.1, −4.3] | −10.0 [−13.3, −6.7] | 67% | fail · pass · pass |
+
+`full` scored 81.4% next action (175/215) and 85.1% intent at $126.35 per 1,000 conversations. The headline numbers were recomputed from the raw records before being read.
+
+Against the predictions:
+- Every cost cut landed inside its interval, so the token arithmetic holds.
+- The dedupe deltas and all intent deltas except bare's landed inside theirs. Bare's intent drop of −10.0 sat exactly on its interval's edge.
+- nosub (−6.0 against [−4, +2]) and outline (−10.2 against [−8, +1]) lost more next-action accuracy than predicted. So the step sub-bullets carry more of the decision than the rendering suggested: removing them costs the model the order and the conditions, while it still knows the intent.
+- Intent held until the instructions went (bare), which says the instructions are what the model reads to tell subflows apart, and the steps are what it reads to pick the action.
+
+Decision. The fourth falsifier fired for the five registered styles: dedupe holds quality but saves 14%, and every style that saves 20% or more loses more than 3 points of next action. The plan budgeted one round 2. It is spent on one style between dedupe and nosub that keeps the sub-bullets the round-1 losses point to and drops the rest, under a new falsifier: if that style does not pass all three gates, the library lever is closed and the finding is that dedupe's 14% is the safe cut.
+
+A scoring fix found while checking this round: `core.metrics.mean` rounds to four places, and the per-turn cost (about a cent) was averaged through it before being multiplied up. That moved cost per 1,000 conversations by up to about 1% (`full` here $125.76 → $126.35; in the Parts 3–4 run Haiku arm A $48.47 → $47.89, Sonnet arm B $148.03 → $147.49, Sonnet arm A unchanged at $121.83). Cost is now averaged unrounded, and the tables were rebuilt from their records.

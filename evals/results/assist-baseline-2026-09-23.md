@@ -6,7 +6,7 @@ Arm A: the full guideline library in a cached system prefix, one call a turn. Ar
 
 | Arm · model | Next action | Intent | Cache reads (tokens, share of input) | Mean input tokens / turn (uncached part) | p50 / p95 latency | Cost / 1,000 conversations | Stamp |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| baseline · `none` | 73.4% (256/349) | 100.0% (693/693) | 0 (n/a) | 0.0 (0.0) | n/a (no model) | $0.00 | n=693 · none · 2026-09-24 · sample ab72e89ace15 |
+| baseline · `none` | 73.4% (256/349) | 100.0% (693/693) | 0 (n/a) | 0.0 (0.0) | n/a (no model) | $0.00 | n=693 · none · 2026-09-23 · sample ab72e89ace15 |
 
 ## Part 4 · assist evals (turn level)
 
@@ -16,4 +16,4 @@ Arm A: the full guideline library in a cached system prefix, one call a turn. Ar
 
 A no-action point is an agent turn after which nothing is due before the customer speaks again. A false alarm there is "early" when the suggested action is the one the agent took next, after the customer replied: premature rather than wrong.
 
-Stamp per row: baseline·none: n=693 · none · 2026-09-24 · sample ab72e89ace15 (349 action points, 344 no-action points)
+Stamp per row: baseline·none: n=693 · none · 2026-09-23 · sample ab72e89ace15 (349 action points, 344 no-action points)

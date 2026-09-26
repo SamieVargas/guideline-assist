@@ -132,3 +132,13 @@ def test_typed_qa_statuses_are_normalised():
     assert norm_status(" Out-of-order ") == "out_of_order"
     assert norm_status("out of order") == "out_of_order"
     assert norm_status("wrong_value") == "wrong_value"
+
+
+def test_cost_per_1000_is_not_computed_from_a_rounded_per_turn_cost():
+    from assist_scoring import TRIGGERS_PER_CONVERSATION, score
+    recs = [{"conv": "c", "subflow": "boots", "i": i, "kind": "no_action", "gold_action": "none_yet", "gold_values": [],
+             "pred": {"intent": "boots", "section_id": "x", "next_action": "none_yet", "slot_values": [], "suggestion": ""},
+             "valid": True, "citation_valid": True, "retries": 0, "latency_ms": 1.0, "calls": 1,
+             "usage": {"input_tokens": 1, "output_tokens": 1, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0},
+             "cost_usd": c} for i, c in enumerate([0.00312, 0.00314])]
+    assert score(recs)["cost_per_1000_conversations"] == round(0.00313 * TRIGGERS_PER_CONVERSATION * 1000, 2)
