@@ -1,0 +1,725 @@
+{
+ "generated": "2026-09-26T17:09:32+00:00",
+ "records": [
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 24,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account using Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 3830.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1664,
+    "output_tokens": 76,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00337102,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 31,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2014.6,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1778,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00347152,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 33,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account for Albert Sanders using the pull-up-account action."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 3770.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1821,
+    "output_tokens": 84,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00351877,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 37,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 3284.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1883,
+    "output_tokens": 231,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00411652,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 39,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "albert sanders",
+    "n/a",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account for Albert Sanders using the Pull up Account tool."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2657.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1907,
+    "output_tokens": 82,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00357577,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 40,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "livingston"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2023.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1937,
+    "output_tokens": 82,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00359827,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 41,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "ahmed"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [],
+    "suggestion": "Click the Send Link button to send the security best practices link."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1865.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1963,
+    "output_tokens": 70,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00357277,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 42,
+   "kind": "action",
+   "gold_action": "send-link",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [],
+    "suggestion": "Inform the customer you are sending a link about security best practices, then click Send Link."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2288.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1993,
+    "output_tokens": 75,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 24507
+   },
+   "cost_usd": 0.00361402,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "full",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 24,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1889.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1664,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.0031113,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 31,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2755.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1778,
+    "output_tokens": 79,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00319305,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 33,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account for Albert Sanders using Pull up Account."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2281.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1821,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00322905,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 37,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1828.1,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1883,
+    "output_tokens": 76,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00326055,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 39,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "albert sanders",
+    "n/a",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account for Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2475.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1907,
+    "output_tokens": 76,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00327855,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 1,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 40,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "livingston"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2108.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1937,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00331605,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 1,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 41,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "ahmed"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1923.1,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1963,
+    "output_tokens": 79,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.0033318,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 42,
+   "kind": "action",
+   "gold_action": "send-link",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [],
+    "suggestion": "Click Send Link to send the link about security best practices to the customer."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1883.5,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 1993,
+    "output_tokens": 72,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 20844
+   },
+   "cost_usd": 0.00332805,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0,
+   "style": "dedupe",
+   "round": "gemini"
+  }
+ ],
+ "gemini_caches": [
+  {
+   "name": "projects/1099017768455/locations/global/cachedContents/718904893158457344",
+   "model": "gemini-3.8-flash",
+   "tokens": 24507,
+   "create_ms": 7493.5,
+   "infra_retries": 0,
+   "created": 1790442439.0576208,
+   "deleted": 1790442461.158816,
+   "hours": 0.006
+  },
+  {
+   "name": "projects/1099017768455/locations/global/cachedContents/4680946665337651200",
+   "model": "gemini-3.8-flash",
+   "tokens": 20844,
+   "create_ms": 2403.0,
+   "infra_retries": 0,
+   "created": 1790442463.5792956,
+   "deleted": 1790442572.7075894,
+   "hours": 0.03
+  }
+ ]
+}
