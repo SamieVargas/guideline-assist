@@ -25,13 +25,14 @@ import re
 import sys
 from pathlib import Path
 
-from common import add_keyed_args, gate, today, write
+from common import add_keyed_args, gate, gemini_cache_note, today, write
 from assist_scoring import TRIGGERS_PER_CONVERSATION, score
 from core import samples
 from core.assist import ASSIST_RULES, assist
 from core.data import by_id, load_split, render_transcript
 from core.estimate import Estimate, call_cost
 from core.guidelines import LIBRARY_STYLES, render_library
+from core.llm import close_gemini_caches, set_gemini_cache
 from core.metrics import mean, pct
 from core.models import model_id, provider
 from core.points import points_for
@@ -60,7 +61,7 @@ def estimate(points, styles, model) -> Estimate:
             miss = sum(call_cost(mid, uncached_chars=lib + len(render_transcript(c["turns"][: p["i"]])) + 80, out_tokens=90)
                        for c, p in points)
             est.worst_extra += miss - usd
-            est.notes.append(f"{style}: ~${miss:,.2f} if Gemini's implicit cache never hits")
+            est.notes.append(f"{style}: ~${miss:,.2f} if Gemini's cache never hits")
     if provider(mid) == "google":
         est.notes.append(f"{mid} id and prices in core/models.py are unconfirmed; check them on ai.google.dev first.")
     return est
@@ -195,7 +196,9 @@ def main(argv=None, client=None) -> int:
     client = gate(estimate(points, styles, args.model), args, client, models=[model_id(args.model)])
     if client is None:
         return 0 if args.estimate_only else 2
-    recs, partial = [], False
+    recs, partial, caches = [], False, []
+    set_gemini_cache(args.gemini_cache)
+    explicit = args.gemini_cache == "explicit" and provider(mid) == "google"
     try:
         for style in styles:
             for c, pt in points:
@@ -206,15 +209,23 @@ def main(argv=None, client=None) -> int:
                 recs.append(r)
                 print(f"  {style:<8} {c['id']}@{pt['i']:<3} gold={pt['gold_action']:<18} pred={pred['next_action']:<18} "
                       f"{meta['latency_ms']:>7.0f} ms  read {meta['usage']['cache_read_input_tokens']:>6}", flush=True)
+            if explicit:  # one style's cache is not needed while the next style runs
+                caches += close_gemini_caches(client.gemini)
     except KeyboardInterrupt:
         print("\ninterrupted; writing the partial table", file=sys.stderr)
         partial = True
+    finally:
+        if explicit:
+            caches += close_gemini_caches(client.gemini)
+        set_gemini_cache("implicit")
     md = table(recs, styles, sample, lookup, mid, args.round, len(convs), partial)
     if md is None:
         return 130
+    if caches:
+        md += "\n\n" + gemini_cache_note(caches)
     print(md)
     stem = f"tuning-{args.round}-{args.sample}-{today()}" + (f"-limit{args.limit}" if args.limit else "") + ("-partial" if partial else "")
-    write(args.out, stem, md, recs)
+    write(args.out, stem, md, recs, extra={"gemini_caches": caches} if caches else None)
     return 130 if partial else 0
 
 

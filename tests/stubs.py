@@ -42,14 +42,37 @@ class FakeGemini:
     """The Google GenAI surface the Gemini path uses: models.generate_content,
     answering with the same responder shape as FakeClient."""
 
-    def __init__(self, responder, cached=0):
+    def __init__(self, responder, cached=0, fail_first=0, vertexai=False):
         self.responder = responder
         self.cached = cached
+        self.fail_first = fail_first
+        self.vertexai = vertexai
         self.requests = []
         self.models = self
+        self.caches = self
+        self.created, self.deleted = [], []
+        self.expire_next = 0  # the next N calls naming a cache answer 404, as an expired cache would
+
+    def create(self, *, model, config):
+        name = f"cachedContents/{len(self.created) + 1}"
+        self.created.append({"model": model, "config": config, "name": name})
+        return SimpleNamespace(name=name, usage_metadata=SimpleNamespace(total_token_count=28000))
+
+    def delete(self, *, name):
+        self.deleted.append(name)
 
     def generate_content(self, *, model, contents, config):
         self.requests.append({"model": model, "contents": contents, "config": config})
+        if config.get("cached_content") and self.expire_next:
+            self.expire_next -= 1
+            err = RuntimeError("404 NOT_FOUND cached content")
+            err.code = 404
+            raise err
+        if self.fail_first:
+            self.fail_first -= 1
+            err = RuntimeError("503 UNAVAILABLE")
+            err.code = 503
+            raise err
         payload = self.responder({"output_config": {"format": {"schema": config.get("response_json_schema") or {}}},
                                   "messages": [{"content": contents[0]["parts"][0]["text"]}]})
         return SimpleNamespace(text=json.dumps(payload), model_version=model,

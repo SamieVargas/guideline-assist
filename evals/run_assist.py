@@ -20,10 +20,11 @@ import re
 import sys
 from pathlib import Path
 
-from common import add_keyed_args, gate, stamp, today, write
+from common import add_keyed_args, gate, gemini_cache_note, stamp, today, write
 from assist_scoring import TRIGGERS_PER_CONVERSATION, POSITION_BUCKETS, score
 from core import samples
 from core.assist import ASSIST_RULES, INTENT_RULES, assist
+from core.llm import close_gemini_caches, set_gemini_cache
 from core.data import by_id, load_split, render_transcript
 from core.estimate import Estimate, call_cost
 from core.guidelines import render_library, render_section, section_id, subflow_menu
@@ -87,7 +88,8 @@ def _record(c, p, pred, meta, *, arm, model):
             "violations": meta["violations"], "first_violations": meta.get("first_violations", []),
             "citation_valid": citation_valid(pred, validate_assist(pred)), "retries": meta["retries"],
             "latency_ms": meta["latency_ms"], "calls": meta["calls"], "usage": meta["usage"], "cost_usd": meta["cost_usd"],
-            "from_cache": meta["from_cache"]}
+            "from_cache": meta["from_cache"], "served_models": meta.get("served_models", []),
+            "backends": meta.get("backends", []), "infra_retries": meta.get("infra_retries", 0)}
 
 
 def run_keyed(client, points, arms, models, args):
@@ -186,18 +188,31 @@ def main(argv=None, client=None) -> int:
     client = gate(estimate(points, arms, models), args, client, models=[model_id(m) for m in models])
     if client is None:
         return 0 if args.estimate_only else 2
-    recs, partial = run_keyed(client, points, arms, models, args)
+    set_gemini_cache(args.gemini_cache)
+    try:
+        recs, partial = run_keyed(client, points, arms, models, args)
+    finally:
+        caches = close_gemini_caches(client.gemini) if args.gemini_cache == "explicit" else []
+        set_gemini_cache("implicit")
     groups = {}
     for r in recs:
         groups.setdefault((r["arm"], r["model"]), []).append(r)
     groups = {k: score(v, lookup) for k, v in groups.items()}
     md = render(groups, sample, len(convs), partial)
+    gem = [r for r in recs if provider(r["model"]) == "google"]
+    if gem:
+        md += (f"\n\nGemini ran through {', '.join(sorted({b for r in gem for b in r.get('backends', [])})) or 'unknown backend'}; "
+               f"{sum(r.get('infra_retries', 0) for r in gem)} overload or rate-limit answers were waited out and retried, and that "
+               "waiting is not in the latency columns.")
+        if caches:
+            md += "\n\n" + gemini_cache_note(caches)
     print(md)
     # A --limit run is a smoke run: its own file name, never read as the headline by evals/readout_table.py.
     # A run with a non-Anthropic arm gets its own name too, so the readout keeps reading the Claude run.
     other = sorted({m for m in models if provider(model_id(m)) != "anthropic"})
     write(args.out, "assist-" + "".join(f"{m}-" for m in other) + today() + (f"-limit{args.limit}" if args.limit else "")
-          + ("-partial" if partial else ""), md, recs)
+          + ("-explicit-cache" if caches else "") + ("-partial" if partial else ""), md, recs,
+          extra={"gemini_caches": caches} if caches else None)
     return 130 if partial else 0
 
 

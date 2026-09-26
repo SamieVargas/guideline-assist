@@ -1,0 +1,532 @@
+{
+ "generated": "2026-09-26T02:05:18+00:00",
+ "records": [
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 24,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 10064.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26171,
+    "output_tokens": 74,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.01990575,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 31,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up Albert Sanders's account to proceed with the required flow steps."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2085.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26285,
+    "output_tokens": 77,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.0200025,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 33,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 1833.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26328,
+    "output_tokens": 82,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.0200535,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 37,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using Albert Sanders."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 89744.7,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26390,
+    "output_tokens": 278,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.020835,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 39,
+   "kind": "action",
+   "gold_action": "verify-identity",
+   "gold_values": [
+    "albert sanders",
+    "n/a",
+    "n/a"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the customer's account using their full name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 26034.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26414,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.0201105,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 40,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "livingston"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "pull-up-account",
+    "slot_values": [
+     "Albert Sanders"
+    ],
+    "suggestion": "Pull up the account using the customer's name."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2578.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26444,
+    "output_tokens": 73,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.02010675,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 41,
+   "kind": "action",
+   "gold_action": "enter-details",
+   "gold_values": [
+    "ahmed"
+   ],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [],
+    "suggestion": "Click Send Link to send the security best practices link."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 47366.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26470,
+    "output_tokens": 68,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.0201075,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "183",
+   "subflow": "reset_2fa",
+   "i": 42,
+   "kind": "action",
+   "gold_action": "send-link",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "reset_2fa",
+    "section_id": "account_access/reset_2fa",
+    "next_action": "send-link",
+    "slot_values": [],
+    "suggestion": "Click Send Link to provide security best practices information."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 191308.8,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26500,
+    "output_tokens": 67,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.02012625,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 5
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 3,
+   "kind": "action",
+   "gold_action": "search-faq",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "log-out-in",
+    "slot_values": [],
+    "suggestion": "Click the [Log Out/In] button to record the instruction given to the customer."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 2242.0,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 25866,
+    "output_tokens": 77,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.01968825,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 5,
+   "kind": "action",
+   "gold_action": "log-out-in",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "instructions",
+    "slot_values": [],
+    "suggestion": "Ask the customer to try clearing their cookies to see if that resolves the search issue."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 36082.9,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 25909,
+    "output_tokens": 72,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.01970175,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 1
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 7,
+   "kind": "action",
+   "gold_action": "instructions",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "instructions",
+    "slot_values": [],
+    "suggestion": "Click Instructions to log that you gave instructions for clearing cookies."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 112180.2,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 25955,
+    "output_tokens": 268,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.02047125,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 9,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "You're welcome! Is there anything else I can assist you with today?"
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 141960.3,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 25987,
+    "output_tokens": 73,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.019764,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  },
+  {
+   "conv": "399",
+   "subflow": "search_results",
+   "i": 11,
+   "kind": "no_action",
+   "gold_action": "none_yet",
+   "gold_values": [],
+   "arm": "A",
+   "model": "gemini-3.8-flash",
+   "pred": {
+    "intent": "search_results",
+    "section_id": "troubleshoot_site/search_results",
+    "next_action": "none_yet",
+    "slot_values": [],
+    "suggestion": "Thank the customer for reaching out and wish them a great day to close the conversation."
+   },
+   "valid": true,
+   "violations": [],
+   "first_violations": [],
+   "citation_valid": true,
+   "retries": 0,
+   "latency_ms": 238961.4,
+   "calls": 1,
+   "usage": {
+    "input_tokens": 26036,
+    "output_tokens": 74,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   "cost_usd": 0.0198045,
+   "from_cache": false,
+   "served_models": [
+    "gemini-3.8-flash"
+   ],
+   "backends": [
+    "vertex"
+   ],
+   "infra_retries": 0
+  }
+ ]
+}

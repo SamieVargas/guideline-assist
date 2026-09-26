@@ -18,6 +18,7 @@ pass use_cache=False for a fresh measurement.
 
 import hashlib
 import json
+import random
 import time
 from pathlib import Path
 
@@ -44,19 +45,30 @@ def _key(kwargs: dict, tag: str) -> str:
 
 
 def _cached_create(client, kwargs, *, tag, use_cache):
+    google = provider(kwargs["model"]) == "google"
+    if google:
+        gclient = getattr(client, "gemini", client)
+        backend = "vertex" if getattr(gclient, "vertexai", False) else "gemini-api"
+        tag = f"{tag}:{backend}"  # the same request through Vertex AI is cached apart
+        if _GEMINI_CACHE["mode"] == "explicit":
+            tag += ":explicit-cache"
     path = CACHE_DIR / f"{_key(kwargs, tag)}.json"
     if use_cache and path.exists():
         rec = json.loads(path.read_text(encoding="utf-8"))
         rec["from_cache"] = True
         return rec
     t0 = time.perf_counter()
-    if provider(kwargs["model"]) == "google":
-        rec = _gemini_create(getattr(client, "gemini", client), kwargs)
+    if google:
+        rec = _gemini_create(gclient, kwargs)
+        rec["backend"] = backend
     else:
         msg = client.messages.create(**kwargs)
         rec = {"text": _text_of(msg), "stop_reason": getattr(msg, "stop_reason", None), "usage": _usage(msg),
                "served_model": getattr(msg, "model", None)}
-    rec.update({"latency_ms": round((time.perf_counter() - t0) * 1000, 1), "from_cache": False})
+    # A Gemini record carries the latency of its successful attempt only, so
+    # waiting out an overloaded service is not counted as the model's speed.
+    rec.setdefault("latency_ms", round((time.perf_counter() - t0) * 1000, 1))
+    rec["from_cache"] = False
     if use_cache:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rec), encoding="utf-8")
@@ -83,13 +95,28 @@ def _gemini_create(gclient, kwargs) -> dict:
     # which also silences the SDK's warning about using it here.
     config = {"system_instruction": sys_text, "max_output_tokens": max(kwargs["max_tokens"], GEMINI_MIN_OUTPUT),
               "automatic_function_calling": {"disable": True}}
+    # Explicit caching: a system prompt marked for caching (the library in
+    # arm A) goes into a cache created once and named on every call, in
+    # place of the implicit cache, which is best-effort.
+    explicit = _GEMINI_CACHE["mode"] == "explicit" and _marked_for_cache(system)
+    if explicit:
+        del config["system_instruction"]
+        config["cached_content"] = _explicit_cache(gclient, kwargs["model"], sys_text)
     if "thinking_config" in kwargs:
         config["thinking_config"] = kwargs["thinking_config"]
     schema = ((kwargs.get("output_config") or {}).get("format") or {}).get("schema")
     if schema:
         config["response_mime_type"] = "application/json"
         config["response_json_schema"] = schema
-    resp = gclient.models.generate_content(model=kwargs["model"], contents=contents, config=config)
+    try:
+        resp, latency_ms, infra_retries = _gemini_with_backoff(gclient, kwargs["model"], contents, config)
+    except Exception as e:
+        if not (explicit and getattr(e, "code", None) == 404):
+            raise
+        # The cache expired or was removed: create it again, once.
+        _GEMINI_CACHE["names"].pop((kwargs["model"], _sha(sys_text)), None)
+        config["cached_content"] = _explicit_cache(gclient, kwargs["model"], sys_text)
+        resp, latency_ms, infra_retries = _gemini_with_backoff(gclient, kwargs["model"], contents, config)
     u = getattr(resp, "usage_metadata", None)
     get = lambda k: int(getattr(u, k, 0) or 0)  # noqa: E731
     cached, thoughts = get("cached_content_token_count"), get("thoughts_token_count")
@@ -99,7 +126,89 @@ def _gemini_create(gclient, kwargs) -> dict:
             "usage": {"input_tokens": max(get("prompt_token_count") - cached, 0),
                       "output_tokens": get("candidates_token_count") + thoughts,
                       "cache_creation_input_tokens": 0, "cache_read_input_tokens": cached},
-            "thinking_tokens": thoughts, "served_model": getattr(resp, "model_version", None)}
+            "thinking_tokens": thoughts, "served_model": getattr(resp, "model_version", None),
+            "latency_ms": latency_ms, "infra_retries": infra_retries}
+
+
+# Overload and rate-limit answers from Gemini are waited out here, with the
+# SDK's own retries switched off (evals/common.py builds the client that
+# way), so each wait is counted and kept out of the measured latency.
+GEMINI_RETRY_CODES = (429, 500, 502, 503, 504)
+GEMINI_BACKOFF_S = (5, 10, 20, 40, 60, 60)
+
+
+def _gemini_with_backoff(gclient, model, contents, config, sleep=None):
+    return _with_backoff(lambda: gclient.models.generate_content(model=model, contents=contents, config=config), sleep)
+
+
+def _with_backoff(fn, sleep=None):
+    sleep = sleep or time.sleep
+    retries = 0
+    while True:
+        t0 = time.perf_counter()
+        try:
+            resp = fn()
+            return resp, round((time.perf_counter() - t0) * 1000, 1), retries
+        except Exception as e:  # google.genai.errors.APIError, imported lazily with the SDK
+            code = getattr(e, "code", None)
+            if code not in GEMINI_RETRY_CODES or retries >= len(GEMINI_BACKOFF_S):
+                raise
+            wait = GEMINI_BACKOFF_S[retries] * (1 + random.random() / 4)
+            print(f"    gemini {code}: waiting {wait:.0f}s before retry {retries + 1}/{len(GEMINI_BACKOFF_S)}", flush=True)
+            sleep(wait)
+            retries += 1
+
+
+# Gemini's cache mode for a run: "implicit" (the default, best-effort,
+# nothing to manage) or "explicit" (evals: --gemini-cache explicit). An
+# explicit cache bills its tokens once at the input price when created and
+# then by the hour while it exists, so the runners delete what they created
+# and report its lifetime (close_gemini_caches).
+GEMINI_CACHE_MODES = ("implicit", "explicit")
+GEMINI_CACHE_TTL = "10800s"
+_GEMINI_CACHE = {"mode": "implicit", "names": {}, "log": []}
+
+
+def set_gemini_cache(mode: str) -> None:
+    if mode not in GEMINI_CACHE_MODES:
+        raise ValueError(f"gemini cache mode must be one of {GEMINI_CACHE_MODES}")
+    _GEMINI_CACHE["mode"] = mode
+
+
+def _sha(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _marked_for_cache(system) -> bool:
+    return not isinstance(system, str) and any("cache_control" in b for b in system)
+
+
+def _explicit_cache(gclient, model, sys_text) -> str:
+    key = (model, _sha(sys_text))
+    if key not in _GEMINI_CACHE["names"]:
+        cache, ms, retries = _with_backoff(lambda: gclient.caches.create(model=model, config={
+            "system_instruction": sys_text, "ttl": GEMINI_CACHE_TTL, "display_name": f"guideline-assist-{key[1][:10]}"}))
+        tokens = int(getattr(getattr(cache, "usage_metadata", None), "total_token_count", 0) or 0)
+        _GEMINI_CACHE["names"][key] = cache.name
+        _GEMINI_CACHE["log"].append({"name": cache.name, "model": model, "tokens": tokens, "create_ms": ms,
+                                     "infra_retries": retries, "created": time.time(), "deleted": None})
+    return _GEMINI_CACHE["names"][key]
+
+
+def close_gemini_caches(gclient) -> list[dict]:
+    """Delete every explicit cache this process created and return one entry
+    per cache: its tokens and how many hours it was billed for storage."""
+    for entry in _GEMINI_CACHE["log"]:
+        if entry["deleted"] is None:
+            try:
+                gclient.caches.delete(name=entry["name"])
+            except Exception as e:  # already expired: storage stopped at its TTL
+                print(f"    could not delete {entry['name']}: {e}", flush=True)
+            entry["deleted"] = time.time()
+        entry["hours"] = round((entry["deleted"] - entry["created"]) / 3600, 3)
+    _GEMINI_CACHE["names"].clear()
+    log, _GEMINI_CACHE["log"] = _GEMINI_CACHE["log"], []
+    return log
 
 
 def system_blocks(static: str, cached_tail: str | None = None, dynamic: str | None = None) -> list:
@@ -130,7 +239,8 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
     messages = [{"role": "user", "content": user}]
     meta = {"model": model, "contract": contract, "retries": 0, "parse_path": None, "latency_ms": 0.0,
             "attempt_latency_ms": [], "usage": {k: 0 for k in USAGE_KEYS}, "violations": [], "first_violations": [],
-            "valid": False, "from_cache": False, "first_value": None, "served_model": None}
+            "valid": False, "from_cache": False, "first_value": None, "served_model": None,
+            "backend": None, "infra_retries": 0}
     value = None
     for attempt in range(max_retries + 1):
         kwargs = {"model": model, "max_tokens": max_tokens, "system": system, "messages": messages, **REQUEST_EXTRAS.get(model, {})}
@@ -139,6 +249,8 @@ def call(client, *, model: str, system, user: str, schema: dict, validator, cont
         rec = _cached_create(client, kwargs, tag=tag, use_cache=use_cache)
         meta["from_cache"] = meta["from_cache"] or rec["from_cache"]
         meta["served_model"] = rec.get("served_model")
+        meta["backend"] = rec.get("backend")
+        meta["infra_retries"] += rec.get("infra_retries", 0)
         meta["latency_ms"] = round(meta["latency_ms"] + rec["latency_ms"], 1)
         meta["attempt_latency_ms"].append(rec["latency_ms"])
         for k in USAGE_KEYS:
